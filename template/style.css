@@ -1,0 +1,90 @@
+/*
+GENERAL
+*/
+a {
+    color: black;
+}
+
+.wrap {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/*
+HEADER
+*/
+header {
+    overflow: auto;
+}
+
+.logo {
+    padding-bottom: 2vh;
+}
+
+.logo img {
+    width: auto;
+    height: 15vh;
+    margin: 0 auto;
+    display: block;
+}
+
+nav {
+    background-color: #ccecf3;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu .item:active, .menu .item:visited {
+    color: #000;
+}
+
+.menu .item {
+    flex-grow: 1;
+    text-align: center;
+    padding: 1rem 0;
+    text-decoration: none;
+}
+
+.menu .item:hover {
+    background-color: #a9e1c2;
+}
+
+
+nav .active {
+    border-bottom: 1px solid;
+}
+
+/*
+FOOTER
+*/
+
+footer {
+    text-align: center;
+}
+
+.affiliation-logos img {
+    width: auto;
+    height: 5vh;
+    margin: 0 auto;
+    display: block;
+}
+
+
+/*
+CONTENT
+*/
+
+.content {
+    min-height: 60vh;
+}
+
+.demo {
+    height: auto;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
