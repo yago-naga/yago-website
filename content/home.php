@@ -6,28 +6,6 @@
     facts about these entities.
 </p>
 
-<p>
-    YAGO is special in several ways:
-</p>
-<ol>
-    <li>
-        YAGO combines the clean taxonomy of WordNet with the richness of the Wikipedia category system, assigning the
-        entities to more than 350,000 classes.
-    </li>
-    <li>
-        YAGO is an ontology that is anchored in time and space. YAGO attaches a temporal dimension and a spacial
-        dimension to many of its facts and entities.
-    </li>
-    <li>
-        In addition to a taxonomy, YAGO has thematic domains such as "music" or "science" from WordNet Domains.
-    </li>
-    <li>
-        YAGO extracts and combines entities and facts from 10 Wikipedias in different languages.
-    </li>
-</ol>
-
-<p>YAGO is developed jointly with the DIG group at Télécom ParisTech University.</p>
-
 <h2>Demo</h2>
 <img src="<?php site_url(); ?>/assets/images/demo.png" alt="Demo" class="demo"/>
 
