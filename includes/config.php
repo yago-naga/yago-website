@@ -3,8 +3,8 @@
 /**
  * Used to store website configuration information.
  *
- * @var string or null
  * @return object
+ * @var string or null
  */
 function config($key = '')
 {
@@ -13,16 +13,24 @@ function config($key = '')
         'site_url' => '',
         'pretty_uri' => true,
         'nav_menu' => [
-            '' => 'Home',
-            'getting-started' => 'Getting Started',
-            'downloads' => 'Downloads',
-            'sparql' => 'SPARQL',
-            'publications' => 'Publications',
-            'contributors' => 'Contributors',
+            '' => ['title' => 'Home'],
+            'getting-started' => ['title' => 'Getting Started'],
+            'downloads' => [
+                'title' => 'Downloads',
+                'children' => [
+                    "yago-1" => "Yago 1",
+                    "yago-2" => "Yago 2",
+                    "yago-3" => "Yago 3",
+                    "yago-4" => "Yago 4",
+                ],
+            ],
+            'sparql' => ['title' => 'SPARQL'],
+            'publications' => ['title' => 'Publications'],
+            'contributors' => ['title' => 'Contributors'],
         ],
         'template_path' => 'template',
         'content_path' => 'content',
-        'version' => 'v3.0',
+        'version' => 'v0.1',
     ];
 
     return isset($config[$key]) ? $config[$key] : null;

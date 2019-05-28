@@ -1,6 +1,11 @@
 /*
 GENERAL
 */
+
+h2 {
+    font-size: 1.7em;
+}
+
 a {
     color: black;
 }
@@ -10,12 +15,13 @@ a {
     margin: 0 auto;
 }
 
+:focus {
+    outline: none;
+}
+
 /*
 HEADER
 */
-header {
-    overflow: auto;
-}
 
 .logo {
     padding-bottom: 2vh;
@@ -32,30 +38,8 @@ nav {
     background-color: #ccecf3;
 }
 
-.menu {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.menu .item:active, .menu .item:visited {
-    color: #000;
-}
-
-.menu .item {
-    flex-grow: 1;
-    text-align: center;
-    padding: 1rem 0;
-    text-decoration: none;
-}
-
-.menu .item:hover {
-    background-color: #a9e1c2;
-}
-
-
-nav .active {
-    border-bottom: 1px solid;
+nav ul a {
+    color: black;
 }
 
 /*
@@ -87,4 +71,35 @@ CONTENT
     width: 80%;
     margin: 0 auto;
     display: block;
+}
+
+/*
+ DOWNLAODS
+ */
+
+.downloads .row {
+    display: flex;
+    flex-direction: row;
+}
+
+.downloads .row .item {
+    width: 50%;
+    text-align: center;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.downloads .row .item.left{
+    margin-right: 1rem;
+}
+
+.downloads .row .item.right{
+    margin-left: 1rem;
+}
+
+.code-container {
+    background-color: #f0efef;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
