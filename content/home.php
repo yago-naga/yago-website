@@ -5,7 +5,9 @@
 </p>
 
 <h2>Demo</h2>
-<img src="<?php site_url(); ?>/assets/images/demo.png" alt="Demo" class="demo"/ onclick=window.location="https://gate.d5.mpi-inf.mpg.de/webyago3spotlxComp/SvgBrowser/" style="cursor: pointer"> 
+<a href="https://gate.d5.mpi-inf.mpg.de/webyago3spotlxComp/SvgBrowser/" target="_blank" rel="noopener">
+    <img src="<?php site_url(); ?>/assets/images/demo.png" alt="Demo" class="demo" />
+</a>
 
 <h2>News</h2>
 <div class="news_item">
