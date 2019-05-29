@@ -1,6 +1,6 @@
 <header>
-    <div class="logo">
-        <img src="<?php site_url(); ?>/assets/images/logo.png" alt="Yago Project - Select Knowledge"/>
+    <div class="logo" window.location="<?php site_url(); ?>/content/home.php" style="cursor: pointer">
+        <img src="<?php site_url(); ?>/assets/images/logo.png" alt="Yago Project - Select Knowledge"/ >
     </div>
 <!--    <div id="header">-->
 <!--        <div class="wrap menu">-->
