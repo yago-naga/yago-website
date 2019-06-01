@@ -22,6 +22,8 @@ function config($key = '')
                     "yago-3" => "Yago 3",
                     "yago-2" => "Yago 2",
                     "yago-1" => "Yago 1",
+                    "logo" => "Yago logo",
+
                 ],
             ],
             'sparql' => ['title' => 'SPARQL'],
