@@ -36,10 +36,27 @@ HEADER
 
 nav {
     background-color: #ccecf3;
+    height: 40px;
+    line-height: 40px;
+}
+
+nav .nav-wrapper i, nav a.sidenav-trigger i {
+    height: 40px;
+    line-height: 40px;
+}
+
+.nav-wrapper .nav-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 nav ul a {
     color: black;
+}
+
+.sidenav-trigger {
+    color: #000000;
 }
 
 /*
@@ -90,11 +107,11 @@ CONTENT
     border-radius: 5px;
 }
 
-.downloads .row .item.left{
+.downloads .row .item.left {
     margin-right: 1rem;
 }
 
-.downloads .row .item.right{
+.downloads .row .item.right {
     margin-left: 1rem;
 }
 
