@@ -2,12 +2,24 @@
 GENERAL
 */
 
+h1 {
+    margin: 2.8rem 0 1.68rem 0;
+}
+
 h2 {
     font-size: 1.7em;
 }
 
+h3 {
+    font-size: 1.4em;
+}
+
+h1,h2,h3,h4,p {
+    color: #000000;
+}
+
 a {
-    color: black;
+    color: #02aed7;
 }
 
 .wrap {
@@ -68,11 +80,16 @@ footer {
     text-align: center;
 }
 
+.affiliation-logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .affiliation-logos img {
     width: auto;
-    height: 5vh;
-    margin: 0 auto;
-    display: block;
+    height: 10vh;
+    padding: 0 1rem;
 }
 
 
@@ -84,9 +101,18 @@ CONTENT
     min-height: 60vh;
 }
 
+/*.content ul {*/
+/*    padding: revert;*/
+/*    list-style-type: revert;*/
+/*}*/
+
+/*.content ul:not(.browser-default) > li {*/
+/*    list-style-type: disc;*/
+/*}*/
+
 .demo {
     height: auto;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     display: block;
 }
