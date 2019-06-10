@@ -124,6 +124,7 @@ CONTENT
 .downloads .row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .downloads .row .item {

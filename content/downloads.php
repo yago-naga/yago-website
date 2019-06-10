@@ -33,7 +33,7 @@
         </a>
     </div>
     <div class="row">
-        <a href="<?php site_url(); ?>/downloads/logo" class="item left" >
+        <a href="<?php site_url(); ?>/downloads/logo" class="item" >
             <div>
                 <h2>Logo</h2>
                 <p>Download Yago logo in .png, .svg etc.</p>
