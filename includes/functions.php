@@ -99,6 +99,12 @@ function get_header()
     include($path);
 }
 
+function get_footer()
+{
+    $path = getcwd() . '/' . config('template_path') . '/footer.php';
+    include($path);
+}
+
 function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 {
     $pieces = [];

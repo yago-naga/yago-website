@@ -5,7 +5,6 @@
     together with a taxonomy from WordNet.
 </p>
 
-<h2>Demo</h2>
 <a href="https://gate.d5.mpi-inf.mpg.de/webyago3spotlxComp/SvgBrowser/" target="_blank" rel="noopener">
     <img src="<?php site_url(); ?>/assets/images/demo.png" alt="Demo" class="demo"/>
 </a>
