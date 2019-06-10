@@ -1,6 +1,5 @@
 <h1>Getting Started</h1>
 
-<h2>Table of Contents</h2>
 <ul class="browser-default">
     <li><a href="#what-is-yago">What is Yago?</a></li>
     <li><a href="#yago-special">What is so special about Yago?</a></li>
