@@ -9,7 +9,7 @@
     <li><a href="#access">How can I access Yago?</a></li>
 </ul>
 
-<hr/>
+<!--<hr/>-->
 
 <h2 id="what-is-yago">What is Yago?</h2>
 <p>AGO is an ontology, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
