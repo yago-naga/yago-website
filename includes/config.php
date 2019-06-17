@@ -20,6 +20,7 @@ function config($key = '')
                 'children' => [
                     "yago-4" => "Yago 4",
                     "yago-3" => "Yago 3",
+                    "yago-2s" => "Yago 2s",
                     "yago-2" => "Yago 2",
                     "yago-1" => "Yago 1",
                     "logo" => "Yago logo",
