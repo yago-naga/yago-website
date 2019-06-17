@@ -14,7 +14,7 @@ h3 {
     font-size: 1.4em;
 }
 
-h1,h2,h3,h4,p {
+h1, h2, h3, h4, p {
     color: #000000;
 }
 
@@ -172,7 +172,29 @@ news on the front page
 /*
 SPARQL
 */
-.query-wikidata{
+.query-wikidata {
     width: 80%;
     margin: 0 auto;
 }
+
+/*
+Contributors
+*/
+.contributors-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.contributor {
+    text-align: center;
+    flex-basis: 100%;
+}
+
+.head-shot {
+    width: auto;
+    height: 150px;
+    border-radius: 50% 50%;
+}
+
