@@ -169,3 +169,10 @@ news on the front page
 
 }
 
+/*
+SPARQL
+*/
+.query-wikidata{
+    width: 80%;
+    margin: 0 auto;
+}

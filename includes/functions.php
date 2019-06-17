@@ -37,34 +37,33 @@ function nav_menu($sep = '')
 
         if (array_key_exists('children', $name)) {
             $id = random_str(10);
-            $nav_menu .= '<li class="'. $class .'"><a class="dropdown-trigger" href="' . $url . '" data-target="' . $id . '">' . $name['title'] . '<i class="material-icons right">arrow_drop_down</i></a></li>';
+            $nav_menu .= '<li class="' . $class . '"><a class="dropdown-trigger" href="' . $url . '" data-target="' . $id . '">' . $name['title'] . '<i class="material-icons right">arrow_drop_down</i></a></li>';
             $dropdown = '<ul id="' . $id . '" class="dropdown-content">';
             $children = $name['children'];
             foreach ($children as $sub_uri => $child) {
-                $sub_url = $url . '/'.(config('pretty_uri') || $sub_uri == '' ? '' : '?page=') . $sub_uri;
+                $sub_url = $url . '/' . (config('pretty_uri') || $sub_uri == '' ? '' : '?page=') . $sub_uri;
                 $dropdown .= '<li><a href="' . $sub_url . '">' . $child . '</a></li>';
             }
             $dropdown .= '</ul>';
             $nav_menu .= $dropdown;
 
         } else {
-            $nav_menu .= '<li class="'.$class.'"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>' . $sep;
+            $nav_menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>' . $sep;
         }
     }
 
     echo trim($nav_menu, $sep);
 }
 
-/**
- * Displays page title. It takes the data from
- * URL, it replaces the hyphens with spaces and
- * it capitalizes the words.
- */
-function page_title()
+function get_page_title()
 {
     $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'Home';
+    return ucwords(str_replace('-', ' ', $page));
+}
 
-    echo ucwords(str_replace('-', ' ', $page));
+function page_title()
+{
+    echo get_page_title();
 }
 
 /**
@@ -113,4 +112,12 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
         $pieces [] = $keyspace[random_int(0, $max)];
     }
     return implode('', $pieces);
+}
+
+function wrap()
+{
+    if (get_page_title() === 'Sparql') {
+        return '';
+    }
+    return 'wrap';
 }
