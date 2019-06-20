@@ -47,4 +47,4 @@ These facts mean that Elvis was a person from the year 1935 to the year 1977, an
         licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute for Informatics.
 </div>
 
-<i>No code, so no box</i>
+<!--<i>No code, so no box</i>-->

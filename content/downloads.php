@@ -24,16 +24,24 @@
                 <p>The first major update of YAGO, which adds in GeoNames.</p>
             </div>
         </a>
+        <a href="<?php site_url(); ?>/downloads/yago-2s" class="item right">
+            <div>
+                <h2>Yago2s</h2>
+                <p>The improved version of Yago 2.</p>
+            </div>
+        </a>
 
-        <a href="<?php site_url(); ?>/downloads/yago-1" class="item right">
+
+    </div>
+    <div class="row">
+        <a href="<?php site_url(); ?>/downloads/yago-1" class="item left">
             <div>
                 <h2>Yago1</h2>
                 <p>The original version of YAGO, extracted from Wikipedia and WordNet.</p>
             </div>
         </a>
-    </div>
-    <div class="row">
-        <a href="<?php site_url(); ?>/downloads/logo" class="item" >
+
+        <a href="<?php site_url(); ?>/downloads/logo" class="item right" >
             <div>
                 <h2>Logo</h2>
                 <p>Download Yago logo in .png, .svg etc.</p>

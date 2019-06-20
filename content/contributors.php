@@ -5,7 +5,7 @@
         <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/fabian.jpg' ?>"
              alt="Fabian Suchanek">
         <p class="caption">
-            <a href=https://suchanek.name" rel="noreferrer noopener" target="_blank">Fabian Suchanek</a>
+            <a href="https://suchanek.name" rel="noreferrer noopener" target="_blank">Fabian Suchanek</a>
             <br/>
             Télécom Paris
         </p>

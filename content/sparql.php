@@ -8,5 +8,5 @@
 </div>
 
 <div class="query-wikidata">
-    <iframe style="width:100%; height:100vh;" scrolling="yes" src="https://query.wikidata.org/">
+    <iframe style="width:100%; height:100vh;" scrolling="yes" src="https://query.wikidata.org/" width="300">
 </div>
