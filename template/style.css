@@ -173,7 +173,8 @@ news on the front page
 SPARQL
 */
 .query-wikidata {
-    width: 80%;
+    width: 50%;
+    /*width: 1000px;*/
     margin: 0 auto;
 }
 
