@@ -3,32 +3,28 @@
 /**
  * Displays site name.
  */
-function site_name()
-{
+function site_name() {
     echo config('name');
 }
 
 /**
  * Displays site url provided in conig.
  */
-function site_url()
-{
+function site_url() {
     echo config('site_url');
 }
 
 /**
  * Displays site version.
  */
-function site_version()
-{
+function site_version() {
     echo config('version');
 }
 
 /**
  * Website navigation.
  */
-function nav_menu($sep = '')
-{
+function nav_menu($sep = '') {
     $nav_menu = '';
     $nav_items = config('nav_menu');
     foreach ($nav_items as $uri => $name) {
@@ -51,18 +47,32 @@ function nav_menu($sep = '')
             $nav_menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>' . $sep;
         }
     }
-
-    echo trim($nav_menu, $sep);
+    echo trim($nav_menu, $sep); // TODO @Alex: check if trim and $sep is needed
 }
 
-function get_page_title()
-{
+/**
+ * Website mobile nav
+ */
+function nav_menu_mobile() {
+    $menu = '';
+
+    $nav_items = config('nav_menu');
+    foreach ($nav_items as $uri => $name) {
+        $class = str_replace('page=', '', $_SERVER['QUERY_STRING']) == $uri ? ' active' : '';
+        $url = config('site_url') . '/' . (config('pretty_uri') || $uri == '' ? '' : '?page=') . $uri;
+        $menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>';
+    }
+
+    echo $menu;
+}
+
+
+function get_page_title() {
     $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'Home';
     return ucwords(str_replace('-', ' ', $page));
 }
 
-function page_title()
-{
+function page_title() {
     echo get_page_title();
 }
 
@@ -71,8 +81,7 @@ function page_title()
  * the static pages inside the pages/ directory.
  * When not found, display the 404 error page.
  */
-function page_content()
-{
+function page_content() {
     $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
     $path = getcwd() . '/' . config('content_path') . '/' . $page . '.php';
@@ -87,25 +96,21 @@ function page_content()
 /**
  * Starts everything and displays the template.
  */
-function init()
-{
+function init() {
     require config('template_path') . '/template.php';
 }
 
-function get_header()
-{
+function get_header() {
     $path = getcwd() . '/' . config('template_path') . '/header.php';
     include($path);
 }
 
-function get_footer()
-{
+function get_footer() {
     $path = getcwd() . '/' . config('template_path') . '/footer.php';
     include($path);
 }
 
-function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
-{
+function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
     $pieces = [];
     $max = mb_strlen($keyspace, '8bit') - 1;
     for ($i = 0; $i < $length; ++$i) {
@@ -114,8 +119,7 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
     return implode('', $pieces);
 }
 
-function wrap()
-{
+function wrap() {
     if (get_page_title() === 'Sparql') {
         return '';
     }
