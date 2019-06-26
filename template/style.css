@@ -31,6 +31,10 @@ a {
     outline: none;
 }
 
+ul.browser-default li, ol li {
+    margin-bottom: 0.5rem;
+}
+
 /*
 HEADER
 */
@@ -101,15 +105,6 @@ CONTENT
     min-height: 60vh;
 }
 
-/*.content ul {*/
-/*    padding: revert;*/
-/*    list-style-type: revert;*/
-/*}*/
-
-/*.content ul:not(.browser-default) > li {*/
-/*    list-style-type: disc;*/
-/*}*/
-
 .demo {
     height: auto;
     width: 100%;
@@ -145,10 +140,16 @@ CONTENT
 .code-container {
     background-color: #f0efef;
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     margin-bottom: 1rem;
+    /*text-align: justify;*/
 }
 
+.code-container:first-child {
+    margin-top: 2.8rem;
+}
+
+.code-container h1,
 .code-container h2 {
     margin-top: 1rem;
 }
