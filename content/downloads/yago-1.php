@@ -6,13 +6,16 @@
     an accuracy of 95% with respect to the extraction source.
     <p>
         If you use YAGO1 for scientific purposes, please cite our paper:
-        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>, <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~kasneci">Gjergji
-            Kasneci</a>, <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
-        “Yago - A Core of Semantic Knowledge”
+        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>,
+        <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~kasneci">Gjergji Kasneci</a>,
+        <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
+        <br/>
+        <i>Yago - A Core of Semantic Knowledge</i>
         (<a rel="noreferrer noopener" target="_blank" href="https://suchanek.name/work/publications/www2007.pdf">pdf</a>)
-        <br/>Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www2007.org/">World Wide Web Conference</a>
-         (WWW)
+        <br/>
+        Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www2007.org/">
+            World Wide Web Conference (WWW)</a>
 </div>
 
 <div class="code-container">
