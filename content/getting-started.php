@@ -9,10 +9,9 @@
     <li><a href="#access">How can I access Yago?</a></li>
 </ul>
 
-<!--<hr/>-->
-
 <h2 id="what-is-yago">What is Yago?</h2>
-<p>AGO is an ontology, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
+<p>All of this is to be filled by Thomas once YAGO4 is ready. <p>
+YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
     movies, people, cities, countries, etc.) and facts about these entities (who played in which movie, which city is
     located in which country, etc.). All in all, YAGO contains 10 million entities and 120 million facts.</p>
 
