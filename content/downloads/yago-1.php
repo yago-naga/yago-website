@@ -6,7 +6,7 @@
     an accuracy of 95% with respect to the extraction source.
     <p>
         If you use YAGO1 for scientific purposes, please cite our paper:
-        <br/>
+<blockquote>
         <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>,
         <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~kasneci">Gjergji Kasneci</a>,
         <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
@@ -16,10 +16,12 @@
         <br/>
         Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www2007.org/">
             World Wide Web Conference (WWW)</a>
+</blockquote>
 </div>
 
 <div class="code-container">
     <h1>How to use YAGO1</h1>
+    <p>
     YAGO classifies each entity into a taxonomy of classes. Every entity is an instance of one or multiple classes.
     Every class (except the root class) is a subclass of one or multiple classes. This yields a hierarchy of classes —
     the taxonomy. The YAGO taxonomy is the backbone of the ontology, and is designed with much care and attention to
@@ -28,13 +30,26 @@
 </div>
 
 <div class="code-container">
-    <h1>Data (with license)</h1>
+    <h1>Data</h1>
+<p>
+        The YAGO1 knowledge base is licensed under the GNU Free Documentation License,
+        see <a rel="noreferrer noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">https://www.gnu.org/copyleft/fdl.html</a>.
+        The exact version number of this data is 1.0.0. The data was extracted from the 2008-10-01 version of Wikipedia.
 
     <p>
-        YAGO1 comes in 3 different formats: native, RDF/XML, and N3. While RDF/XML and N3 are the standard formats, the
-        native format is as follows:
-    </p>
-
+        YAGO1 comes in 3 different formats:   
+        <ul>
+        <li><a rel="noreferrer noopener" target="_blank"
+           href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/yago.zip>native</a>
+        (1GB)
+        <li><a rel="noreferrer noopener" target="_blank"
+                  href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/rdfs.zip>RDF/XML</a>
+        (1GB)
+        <li><a rel="noreferrer noopener" target="_blank"
+                  href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/n3.zip>N3</a>
+        (250Mb)
+        </ul>
+While RDF/XML and N3 are the standard formats, the  native format is as follows:
     <ul class="browser-default">
         <li>
             The folder "facts" contains the main data
@@ -59,17 +74,4 @@
 
     Note that, if a folder contains multiple files, all of these files are
     part of the knowledge base.
-    <p>
-        The YAGO1 knowledge base is licensed under the GNU Free Documentation License,
-        see <a rel="noreferrer noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">https://www.gnu.org/copyleft/fdl.html</a>.
-        The exact version number of this data is 1.0.0. The data was extracted from the 2008-10-01 version of Wikipedia.
-        It
-        <a rel="noreferrer noopener" target="_blank"
-           href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/yago.zip>native</a>
-        (1GB), <a rel="noreferrer noopener" target="_blank"
-                  href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/rdfs.zip>RDF/XML</a>
-        (1GB), <a rel="noreferrer noopener" target="_blank"
-                  href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/n3.zip>N3</a>
-        (250Mb).
-
 </div>
