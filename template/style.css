@@ -23,6 +23,8 @@ a {
 }
 
 .wrap {
+    padding-left: 1rem;
+    padding-right: 1rem;
     max-width: 720px;
     margin: 0 auto;
 }
@@ -129,8 +131,10 @@ CONTENT
 .downloads .row .item {
     width: 50%;
     text-align: center;
-    background-color: lightgrey;
+    background-color: #f0efef;
     border-radius: 5px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .downloads .row .item.left {
@@ -154,7 +158,8 @@ CONTENT
 }
 
 .code-container h1,
-.code-container h2 {
+.code-container h2,
+.item h2 {
     margin-top: 1rem;
 }
 
@@ -182,9 +187,17 @@ news on the front page
 SPARQL
 */
 .query-wikidata {
-    width: 50%;
+    width: 100%;
     /*width: 1000px;*/
     margin: 0 auto;
+}
+
+#query-data-wrap-toggle.wrap-active #wrap-full {
+    display: none;
+}
+
+#query-data-wrap-toggle:not(.wrap-active) #wrap-reduce {
+    display: none;
 }
 
 /*
@@ -195,6 +208,12 @@ Contributors
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 720px) {
+    .contributors-row {
+        flex-direction: column;
+    }
 }
 
 .contributor {
