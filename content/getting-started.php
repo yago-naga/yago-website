@@ -10,10 +10,12 @@
 </ul>
 
 <h2 id="what-is-yago">What is Yago?</h2>
-<p>All of this is to be filled by Thomas once YAGO4 is ready. <p>
-YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
+<p style="border: 1px solid red;"><b>All of this is to be filled by Thomas once YAGO4 is ready.</b></p> <!-- TODO remove this once done -->
+<p>
+    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
     movies, people, cities, countries, etc.) and facts about these entities (who played in which movie, which city is
-    located in which country, etc.). All in all, YAGO contains 10 million entities and 120 million facts.</p>
+    located in which country, etc.). All in all, YAGO contains 10 million entities and 120 million facts.
+</p>
 
 
 <h2 id="yago-special">What is so special about Yago?</h2>

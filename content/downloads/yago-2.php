@@ -21,8 +21,9 @@
     </ul>
 
     <p>
-        If you use YAGO2 for scientific purposes, please cite our paper: 
-        <blockquote>
+        If you use YAGO2 for scientific purposes, please cite our paper:
+    </p>
+    <blockquote>
         <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~jhoffart">
             Johannes Hoffart</a>,
         <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">
@@ -36,9 +37,8 @@
         <br/>
         Journal article in the
         <a rel="noreferrer noopener" target="_blank" href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">
-            Artificial Intelligence</a>,2013
-        <br/>
-        </blockquote>
+            Artificial Intelligence</a>, 2013
+    </blockquote>
 </div>
 
 <div class="code-container">
@@ -71,19 +71,28 @@
 
 <div class="code-container">
     <h1>Data</h1>
-<p>
-        The YAGO2 knowledge base is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute for
-        Informatics.         The version number of this data is 2.3.0. The data was extracted from the 2010-08-17 version of Wikipedia.
     <p>
-        YAGO2 is available in two data formats: 
-                <a rel="noreferrer noopener" target="_blank" href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.7z>native</a> and
+        The YAGO2 knowledge base is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the
+        Max-Planck Institute for
+        Informatics. The version number of this data is 2.3.0. The data was extracted from the 2010-08-17 version of
+        Wikipedia.
+    </p>
+
+    <p>
+        YAGO2 is available in two data formats:
         <a rel="noreferrer noopener" target="_blank"
-href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.rdfs.7z>RDF</a>.
-<p>
-While RDF is the standard for triple data,
+           href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.7z>native</a>
+        and
+        <a rel="noreferrer noopener" target="_blank"
+           href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.rdfs.7z>RDF</a>.
+    </p>
+
+    <p>
+        While RDF is the standard for triple data,
         the native format has the advantage that it stores the fact identifier. The native format consists of a set of
         files, which together constitute the knowledge base. The files that start with an underscore are internal files
         that will be of little use to the end-user. The other files are named after the relation they contain. For
         example, the file "ismarriedto.tsv" is a TSV file that contains 3 columns: a fact id, a subject, and an object
         &mdash; meaning that the subject was married to the object, and that this fact has the given fact id.
+    </p>
 </div>

@@ -41,7 +41,8 @@
 
     <p>
         If you use YAGO3 for scientific purposes, please cite our paper:
-<blockquote>
+    </p>
+    <blockquote>
         <a rel="noreferrer noopener" target="_blank"
            href="https://www.linkedin.com/pub/farzaneh-mahdisoltani/45/822/20a">
             Farzaneh Mahdisoltani</a>,
@@ -55,7 +56,7 @@
         <br/>
         Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www.cidrdb.org/cidr2015/index.html">
             Conference on Innovative Data Systems Research (CIDR)</a>, 2015
-</blockquote>
+    </blockquote>
 </div>
 
 <div class="code-container">
@@ -132,26 +133,34 @@
 <div class="code-container">
     <h1>Data</h1>
     <p>
-          YAGO3 is  licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute for
-        Informatics.   The exact version number of this data is 3.0.2. The data was extracted from the following versions of Wikipedia:
-en:20140626, de:20130422, fr:20140315, nl:UNKNOWN, it:20140317, es:20140320, ro:20140314, pl:20140312, ar:20140323, fa:20140319.
-<p>
-    The YAGO3 knowledge base is a set of independent modular full-text files, which together constitute the knowledge
-    base. This data is available in two formats: 
+        YAGO3 is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute
+        for
+        Informatics. The exact version number of this data is 3.0.2. The data was extracted from the following versions
+        of Wikipedia:
+        en:20140626, de:20130422, fr:20140315, nl:UNKNOWN, it:20140317, es:20140320, ro:20140314, pl:20140312,
+        ar:20140323, fa:20140319.
+    </p>
+
+    <p>
+        The YAGO3 knowledge base is a set of independent modular full-text files, which together constitute the
+        knowledge
+        base. This data is available in two formats:
+    </p>
     <ul>
-    <li>The         <a rel="noreferrer noopener" target="_blank"
-           href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_tsv.7z>
-            TSV format</a>
- contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
-        (if applicable).
-    <li>
-        The         <a rel="noreferrer noopener" target="_blank"
-           href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_ttl.7z>
-            Turtle format</a>
-is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
-        which stores the fact identifiers in a comment line before the actual fact. This means that they are not visible
-        to systems that do not support this type of comments.
-        </ul>
+        <li>The <a rel="noreferrer noopener" target="_blank"
+                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_tsv.7z>
+                TSV format</a>
+            contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
+            (if applicable).
+        <li>
+            The <a rel="noreferrer noopener" target="_blank"
+                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_ttl.7z>
+                Turtle format</a>
+            is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
+            which stores the fact identifiers in a comment line before the actual fact. This means that they are not
+            visible
+            to systems that do not support this type of comments.
+    </ul>
 </div>
 
 <div class="code-container">

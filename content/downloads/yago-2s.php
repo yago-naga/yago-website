@@ -26,7 +26,8 @@
 
     <p>
         If you use YAGO2s for scientific purposes, please cite our paper:
-<blockquote>
+    </p>
+    <blockquote>
         <a rel="noreferrer noopener" target="_blank" href="http://people.mpi-inf.mpg.de/~jbiega/">Joanna “Asia”
             Biega</a>,
         <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~ekuzey/">Erdal Kuzey</a>,
@@ -38,7 +39,7 @@
         <br/>
         Demo at the <a rel="noreferrer noopener" target="_blank" href="http://www.www2013.org/">
             World Wide Web Conference (WWW)</a>, 2013
-</blockquote>
+    </blockquote>
 
 </div>
 
@@ -116,21 +117,28 @@
 <div class="code-container">
     <h1>Data</h1>
     <p>
-    YAGO2s  is  licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute for
-        Informatics.         The exact version number of this data is 2.5.3. The data was extracted from the 2012-12-01 version of Wikipedia.
-        <p>        
+        YAGO2s is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute
+        for
+        Informatics. The exact version number of this data is 2.5.3. The data was extracted from the 2012-12-01 version
+        of Wikipedia.
+    </p>
+
+    <p>
         The YAGO2s knowledge base is a set of independent modular full-text files, which together constitute the
         knowledge base. This data is available in two formats:
+    </p>
+
     <ul>
-    <li>The                <a rel="noreferrer noopener" target="_blank"
-           href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_tsv.7z>TSV format</a>
- contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
-        (if applicable).
-    <li>
-        The               <a rel="noreferrer noopener" target="_blank"
-           href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_ttl.7z>Turtle format</a>
-is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
-        which stores the fact identifiers in a comment line before the actual fact. This means that they are not visible
-        to systems that do not support this type of comments.
-        </ul>
+        <li>The <a rel="noreferrer noopener" target="_blank"
+                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_tsv.7z>TSV format</a>
+            contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
+            (if applicable).
+        <li>
+            The <a rel="noreferrer noopener" target="_blank"
+                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_ttl.7z>Turtle format</a>
+            is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
+            which stores the fact identifiers in a comment line before the actual fact. This means that they are not
+            visible
+            to systems that do not support this type of comments.
+    </ul>
 </div>

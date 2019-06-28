@@ -35,6 +35,10 @@ ul.browser-default li, ol li {
     margin-bottom: 0.5rem;
 }
 
+blockquote {
+    border-left-color: #02aed7;
+}
+
 /*
 HEADER
 */
