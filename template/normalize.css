@@ -5,7 +5,7 @@
 
 /**
  * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
+ * 2. Prevent adjustments of fonts size after orientation changes in iOS.
  */
 
 html {
@@ -33,7 +33,7 @@ main {
 }
 
 /**
- * Correct the font size and margin on `h1` elements within `section` and
+ * Correct the fonts size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 
@@ -57,8 +57,8 @@ hr {
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. Correct the inheritance and scaling of fonts size in all browsers.
+ * 2. Correct the odd `em` fonts sizing in all browsers.
  */
 
 pre {
@@ -89,7 +89,7 @@ abbr[title] {
 }
 
 /**
- * Add the correct font weight in Chrome, Edge, and Safari.
+ * Add the correct fonts weight in Chrome, Edge, and Safari.
  */
 
 b,
@@ -98,8 +98,8 @@ strong {
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. Correct the inheritance and scaling of fonts size in all browsers.
+ * 2. Correct the odd `em` fonts sizing in all browsers.
  */
 
 code,
@@ -110,7 +110,7 @@ samp {
 }
 
 /**
- * Add the correct font size in all browsers.
+ * Add the correct fonts size in all browsers.
  */
 
 small {
@@ -153,7 +153,7 @@ img {
    ========================================================================== */
 
 /**
- * 1. Change the font styles in all browsers.
+ * 1. Change the fonts styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.
  */
 
@@ -302,7 +302,7 @@ textarea {
 
 /**
  * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
+ * 2. Change fonts properties to `inherit` in Safari.
  */
 
 ::-webkit-file-upload-button {

@@ -25,7 +25,7 @@ a {
 .wrap {
     padding-left: 1rem;
     padding-right: 1rem;
-    max-width: 720px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -70,11 +70,15 @@ nav .nav-wrapper i, nav a.sidenav-trigger i {
 .nav-wrapper .nav-items {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 nav ul a {
     color: black;
+}
+
+nav li {
+    margin-right: 1rem;
 }
 
 .sidenav-trigger {
