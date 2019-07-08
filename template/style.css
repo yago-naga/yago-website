@@ -231,3 +231,23 @@ Contributors
     border-radius: 50% 50%;
 }
 
+/*
+Publications
+*/
+.publications-list p {
+    line-height: 1.8;
+    margin-bottom: 1.5em;
+}
+
+.publications-list a {
+    color: unset;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.publications-list a > img {
+    border: 0;
+}
+
+.publications-list .award {
+    color: #e05c5c;
+}
