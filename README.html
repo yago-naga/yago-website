@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<h1 id="yagoprojectwebsite">YAGO Project Website</h1>
+
+<h2 id="setup">Set Up</h2>
+
+<p>Point your php server to the root directory of this project.</p>
+
+<ul>
+<li><a href="https://www.mamp.info/de/">mamp</a> for mac</li>
+<li><a href="https://www.apachefriends.org/de/index.html">xampp</a> for windows, linux or mac</li>
+</ul>
+
+<h2 id="folder">Folder</h2>
+
+<pre><code>.
+├── assets
+│   ├── fonts
+│   └── images
+├── content
+│   └── downloads
+├── includes
+├── js
+└── template
+</code></pre>
+
+<ul>
+<li><code>assets</code> keeps all the static content such as fonts and images. PDFs or bibtex file would be added here.</li>
+<li><code>content</code> mirrors the routing structure of the webpage. Each file/folder can be navigated to. New pages would be added here.</li>
+<li><code>includes</code> contains the basic configuration of the application and necessary php functions.</li>
+<li><code>js</code> includes all the javascript files.</li>
+<li><code>template</code> contains the basic html page layout with the header and footer. If you like to add meta tags, other stylesheet or libraries that is the place.</li>
+</ul>
+
+<h2 id="deploy">Deploy</h2>
+
+<p>When deploying this application make sure to also copy the hidden <code>.htaccess</code> file to ensure proper routing.
+If the website is not hosted at root (e.g. example.com/yago-project/&#8230;) adjust the <code>site_url</code> in <code>includes/config.php</code>.</p>
+
+</body>
+</html>
+
