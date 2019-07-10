@@ -20,6 +20,8 @@
     <link href="<?php site_url(); ?>/template/materialize.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/template/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/template/style.css" rel="stylesheet" type="text/css"/>
+
+    <link href="http://yago-knowledge.org/<?php echo get_page_id(); ?>" rel="canonical"/>
 </head>
 <body>
 

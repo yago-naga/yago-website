@@ -77,12 +77,19 @@ function page_title() {
 }
 
 /**
+ * Page canonical name like "home"
+ */
+function get_page_id() {
+    return isset($_GET['page']) && $_GET['page'] ? $_GET['page'] : 'home';
+}
+
+/**
  * Displays page content. It takes the data from
  * the static pages inside the pages/ directory.
  * When not found, display the 404 error page.
  */
 function page_content() {
-    $page = isset($_GET['page']) && $_GET['page'] ? $_GET['page'] : 'home';
+    $page = get_page_id();
 
     $path = getcwd() . '/' . config('content_path') . '/' . $page . '.php';
 
