@@ -17,9 +17,9 @@
     <meta name="theme-color" content="#ffffff">
 
     <link href="<?php site_url(); ?>/assets/fonts/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/materialize.min.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/normalize.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/style.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/materialize.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/style.css" rel="stylesheet" type="text/css"/>
 
     <link href="http://yago-knowledge.org/<?php echo get_page_id(); ?>" rel="canonical"/>
 </head>

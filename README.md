@@ -20,7 +20,7 @@ Point your php server to the root directory of this project.
 └── template
 ```
 
-- `assets` keeps all the static content such as fonts and images. PDFs or bibtex file would be added here.
+- `assets` keeps all the static content such as fonts, images and stylesheets. PDFs or bibtex file would be added here.
 - `content` mirrors the routing structure of the webpage. Each file/folder can be navigated to. New pages would be added here.
 - `includes` contains the basic configuration of the application and necessary php functions.
 - `js` includes all the javascript files.
