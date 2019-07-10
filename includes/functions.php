@@ -82,12 +82,12 @@ function page_title() {
  * When not found, display the 404 error page.
  */
 function page_content() {
-    $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+    $page = isset($_GET['page']) && $_GET['page'] ? $_GET['page'] : 'home';
 
     $path = getcwd() . '/' . config('content_path') . '/' . $page . '.php';
 
     if (!file_exists($path)) {
-        $path = getcwd() . '/' . config('content_path') . '/404.phtml';
+        $path = getcwd() . '/' . config('content_path') . '/404.php';
     }
 
     include($path);
