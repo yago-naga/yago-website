@@ -19,9 +19,11 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap" rel="stylesheet">
 
     <link href="<?php site_url(); ?>/assets/fonts/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/materialize.min.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/normalize.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/template/style.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/materialize.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php site_url(); ?>/assets/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <link href="http://yago-knowledge.org/<?php echo get_page_id(); ?>" rel="canonical"/>
 </head>
 <body>
 
