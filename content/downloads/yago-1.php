@@ -14,15 +14,20 @@
     <p>If you use YAGO1 for scientific purposes, please cite our paper:</p>
 
     <blockquote>
-        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>,
-        <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~kasneci">Gjergji Kasneci</a>,
-        <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
-        <br/>
-        <i>Yago - A Core of Semantic Knowledge</i>
-        (<a rel="noreferrer noopener" target="_blank" href="https://suchanek.name/work/publications/www2007.pdf">pdf</a>)
-        <br/>
-        Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www2007.org/">
-            World Wide Web Conference (WWW)</a>
+        <p>
+            <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>,
+            <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~kasneci">Gjergji Kasneci</a>,
+            <a rel="noreferrer noopener" target="_blank" href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
+            <br/>
+            <b>Yago - A Core of Semantic Knowledge</b>
+            <a class="pdf-download-icon" rel="noreferrer noopener" target="_blank"
+               href="https://suchanek.name/work/publications/www2007.pdf">
+                <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15"/>
+            </a>
+            <br/>
+            Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www2007.org/">
+                World Wide Web Conference (WWW)</a>
+        </p>
     </blockquote>
 </div>
 

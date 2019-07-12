@@ -28,17 +28,21 @@
         If you use YAGO2s for scientific purposes, please cite our paper:
     </p>
     <blockquote>
-        <a rel="noreferrer noopener" target="_blank" href="http://people.mpi-inf.mpg.de/~jbiega/">Joanna “Asia”
-            Biega</a>,
-        <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~ekuzey/">Erdal Kuzey</a>,
-        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>:
-        <br/>
-        <i>Inside YAGO2s: A Transparent Information Extraction Architecture</i>
-        (<a rel="noreferrer noopener" target="_blank"
-            href="https://suchanek.name/work/publications/www2013demo.pdf">pdf</a>)
-        <br/>
-        Demo at the <a rel="noreferrer noopener" target="_blank" href="http://www.www2013.org/">
-            World Wide Web Conference (WWW)</a>, 2013
+        <p>
+            <a rel="noreferrer noopener" target="_blank" href="http://people.mpi-inf.mpg.de/~jbiega/">Joanna “Asia”
+                Biega</a>,
+            <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~ekuzey/">Erdal Kuzey</a>,
+            <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>:
+            <br/>
+            <b>Inside YAGO2s: A Transparent Information Extraction Architecture</b>
+            <a class="pdf-download-icon" rel="noreferrer noopener" target="_blank"
+               href="https://suchanek.name/work/publications/www2013demo.pdf">
+                <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15"/>
+            </a>
+            <br/>
+            Demo at the <a rel="noreferrer noopener" target="_blank" href="http://www.www2013.org/">
+                World Wide Web Conference (WWW)</a>, 2013
+        </p>
     </blockquote>
 
 </div>

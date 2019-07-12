@@ -226,15 +226,19 @@ Publications
     margin-bottom: 1.5em;
 }
 
-.publications-list a {
+blockquote p {
+    line-height: 1.5;
+}
+
+.publications-list a, blockquote a {
     color: unset;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.publications-list .pdf-download-icon {
+.publications-list .pdf-download-icon, blockquote .pdf-download-icon {
     border: 0;
 }
 
-.publications-list .award {
+.publications-list .award, blockquote .award {
     color: #e05c5c;
 }

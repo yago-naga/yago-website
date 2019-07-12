@@ -24,20 +24,25 @@
         If you use YAGO2 for scientific purposes, please cite our paper:
     </p>
     <blockquote>
-        <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~jhoffart">
-            Johannes Hoffart</a>,
-        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">
-            Fabian M. Suchanek</a>,
-        <a rel="noreferrer noopener" target="_blank" href="http://mpi-inf.mpg.de/~kberberi/">
-            Klaus Berberich</a>,
-        <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
-        <br/>
-        <i>YAGO2: A Spatially and Temporally Enhanced Knowledge Base from Wikipedia</i>
-        (<a rel="noreferrer noopener" target="_blank" href="https://suchanek.name/work/publications/aaaij.pdf">pdf</a>)
-        <br/>
-        Journal article in the
-        <a rel="noreferrer noopener" target="_blank" href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">
-            Artificial Intelligence</a>, 2013
+        <p>
+            <a rel="noreferrer noopener" target="_blank" href="http://www.mpi-inf.mpg.de/~jhoffart">
+                Johannes Hoffart</a>,
+            <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">
+                Fabian M. Suchanek</a>,
+            <a rel="noreferrer noopener" target="_blank" href="http://mpi-inf.mpg.de/~kberberi/">
+                Klaus Berberich</a>,
+            <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
+            <br/>
+            <b>YAGO2: A Spatially and Temporally Enhanced Knowledge Base from Wikipedia</b>
+            <a class="pdf-download-icon" rel="noreferrer noopener" target="_blank"
+               href="https://suchanek.name/work/publications/aaaij.pdf">
+                <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15"/>
+            </a>
+            <br/>
+            Journal article in the
+            <a rel="noreferrer noopener" target="_blank" href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">
+                Artificial Intelligence</a>, 2013
+        </p>
     </blockquote>
 </div>
 

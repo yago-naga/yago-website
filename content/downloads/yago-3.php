@@ -43,19 +43,24 @@
         If you use YAGO3 for scientific purposes, please cite our paper:
     </p>
     <blockquote>
-        <a rel="noreferrer noopener" target="_blank"
-           href="https://www.linkedin.com/pub/farzaneh-mahdisoltani/45/822/20a">
-            Farzaneh Mahdisoltani</a>,
-        <a rel="noreferrer noopener" target="_blank" href="http://people.mpi-inf.mpg.de/~jbiega/">
-            Joanna “Asia” Biega</a>,
-        <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>:
-        <br/>
-        <i>YAGO3: A Knowledge Base from Multilingual Wikipedias</i>
-        (<a rel="noreferrer noopener" target="_blank" href="https://suchanek.name/work/publications/cidr2015.pdf">
-            pdf</a>)
-        <br/>
-        Full paper at the <a rel="noreferrer noopener" target="_blank" href="http://www.cidrdb.org/cidr2015/index.html">
-            Conference on Innovative Data Systems Research (CIDR)</a>, 2015
+        <p>
+            <a rel="noreferrer noopener" target="_blank"
+               href="https://www.linkedin.com/pub/farzaneh-mahdisoltani/45/822/20a">
+                Farzaneh Mahdisoltani</a>,
+            <a rel="noreferrer noopener" target="_blank" href="http://people.mpi-inf.mpg.de/~jbiega/">
+                Joanna “Asia” Biega</a>,
+            <a rel="noreferrer noopener" target="_blank" href="https://suchanek.name">Fabian M. Suchanek</a>:
+            <br/>
+            <b>YAGO3: A Knowledge Base from Multilingual Wikipedias</b>
+            <a class="pdf-download-icon" rel="noreferrer noopener" target="_blank"
+               href="https://suchanek.name/work/publications/cidr2015.pdf">
+                <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15"/>
+            </a>
+            <br/>
+            Full paper at the <a rel="noreferrer noopener" target="_blank"
+                                 href="http://www.cidrdb.org/cidr2015/index.html">
+                Conference on Innovative Data Systems Research (CIDR)</a>, 2015
+        </p>
     </blockquote>
 </div>
 
