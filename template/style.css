@@ -2,6 +2,10 @@
 GENERAL
 */
 
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
 h1 {
     margin: 2.8rem 0 1.68rem 0;
 }
