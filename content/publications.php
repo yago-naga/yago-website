@@ -16,8 +16,8 @@
         <b>YAGO: a multilingual knowledge base from Wikipedia
             Wordnet
             and Geonames</b>
-        <a href="https://suchanek.name/work/publications/iswc-2016-yago.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/iswc-2016-yago.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Short paper at the <a href="http://iswc2016.semanticweb.org">International Semantic Web Conference</a>
         (ISWC
@@ -30,8 +30,8 @@
         <a href="https://suchanek.name">Fabian M. Suchanek</a>:
         <br/>
         <b>YAGO3: A Knowledge Base from Multilingual Wikipedias</b>
-        <a href="https://suchanek.name/work/publications/cidr2015.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/cidr2015.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Full paper at the <a href="http://www.cidrdb.org/cidr2015/index.html">Conference on Innovative Data Systems
             Research</a> (CIDR 2015)
@@ -44,8 +44,8 @@
         <a href="https://suchanek.name">Fabian M. Suchanek</a>:
         <br/>
         <b>Recent Research Topics around the YAGO Knowledge Base</b>
-        <a href="https://suchanek.name/work/publications/apweb2014.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/apweb2014.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Invited paper at the <a href="http://www.cse.ust.hk/apweb2014/">Asia Pacific Web Conference</a> (APWEB
         2014)
@@ -59,8 +59,8 @@
         <a href="https://suchanek.name">Fabian M. Suchanek</a>:
         <br/>
         <b>Inside YAGO2s: A Transparent Information Extraction Architecture</b>
-        <a href="https://suchanek.name/work/publications/www2013demo.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/www2013demo.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Demo at the <a href="http://www.www2013.org/">World Wide Web Conference</a> (WWW 2013)
     </p>
@@ -72,8 +72,8 @@
         <a href="http://www.mpii.mpg.de/~edwin">Edwin Lewis-Kelham</a>:
         <br/>
         <b>YAGO2s: Modular High-Quality Information Extraction with an Application to Flight Planning</b>
-        <a href="https://suchanek.name/work/publications/btw2013d.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/btw2013d.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Demo at the <a href="http://www.btw-2013.de/">German Database Symposium</a> (BTW 2013)
     </p>
@@ -88,8 +88,8 @@
         <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
         <b>YAGO2: A Spatially and Temporally Enhanced Knowledge Base from Wikipedia</b>
-        <a href="https://suchanek.name/work/publications/aaaij.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/aaaij.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>
         Journal article in the <a href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">Artificial Intelligence</a>
@@ -107,8 +107,8 @@
         <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
         <b>YAGO2: A Spatially and Temporally Enhanced Knowledge Base from Wikipedia</b>
-        <a href="https://suchanek.name/work/publications/www2011demo.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/www2011demo.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>
         Demo at the <a href="http://www.www2011india.com/">World Wide Web</a> (WWW 2011)
@@ -126,8 +126,8 @@
         <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
         <b>The YAGO-NAGA Approach to Knowledge Discovery</b>
-        <a href="https://suchanek.name/work/publications/sigmodrec2008.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/sigmodrec2008.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>
         Short journal article in the <a href="http://www.sigmod.org/record/">SIGMOD record</a> (2008)
@@ -139,8 +139,8 @@
         <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
         <b>Yago - A Large Ontology from Wikipedia and WordNet</b>
-        <a href="https://suchanek.name/work/publications/jws2008.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/jws2008.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>
         Journal article in the <a href="http://www.elsevier.com/locate/websem/">Elsevier Journal of Web Semantics</a>
@@ -153,8 +153,8 @@
         <a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>:
         <br/>
         <b>Yago - A Core of Semantic Knowledge</b>
-        <a href="https://suchanek.name/work/publications/www2007.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15">
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/www2007.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Full paper at the <a href="http://www2007.org/">World Wide Web Conference</a> (WWW 2007)
     </p>
