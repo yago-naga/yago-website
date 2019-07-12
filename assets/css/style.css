@@ -192,23 +192,6 @@ news on the front page
 }
 
 /*
-SPARQL
-*/
-.query-wikidata {
-    width: 100%;
-    /*width: 1000px;*/
-    margin: 0 auto;
-}
-
-#query-data-wrap-toggle.wrap-active #wrap-full {
-    display: none;
-}
-
-#query-data-wrap-toggle:not(.wrap-active) #wrap-reduce {
-    display: none;
-}
-
-/*
 Contributors
 */
 .contributors-row {

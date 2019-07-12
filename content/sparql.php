@@ -6,13 +6,6 @@
         There is a 1 minutes timeout to ensure a responsive SPARQL endpoint for everyone.
         You can also fire a SPARQL query directly in the field below.
     </p>
-
-    <p>
-        <a class="waves-effect waves-light btn" id="query-data-wrap-toggle">
-            <span id="wrap-full">FULL WIDTH</span>
-            <span id="wrap-reduce">REDUCE WIDTH</span>
-        </a>
-    </p>
 </div>
 
 <div id="query-data-wrap" class="wrap">

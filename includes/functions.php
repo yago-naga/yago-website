@@ -125,10 +125,3 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
     }
     return implode('', $pieces);
 }
-
-function wrap() {
-    if (get_page_title() === 'Sparql') {
-        return '';
-    }
-    return 'wrap';
-}

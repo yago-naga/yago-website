@@ -29,7 +29,7 @@
 
 <?php get_header(); ?>
 
-<div class="<?php echo wrap(); ?>">
+<div class="wrap">
     <div class="content">
         <?php page_content(); ?>
     </div>
