@@ -24,7 +24,7 @@ function site_version() {
 /**
  * Website navigation.
  */
-function nav_menu($sep = '') {
+function nav_menu() {
     $nav_menu = '';
     $nav_items = config('nav_menu');
     foreach ($nav_items as $uri => $name) {
@@ -47,7 +47,7 @@ function nav_menu($sep = '') {
             $nav_menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>' . $sep;
         }
     }
-    echo trim($nav_menu, $sep); // TODO @Alex: check if trim and $sep is needed
+    echo trim($nav_menu);
 }
 
 /**

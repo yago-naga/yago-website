@@ -16,8 +16,6 @@
     <meta name="msapplication-config" content="<?php site_url(); ?>/assets/images/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap" rel="stylesheet">
-
     <link href="<?php site_url(); ?>/assets/fonts/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/assets/css/materialize.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/assets/css/normalize.css" rel="stylesheet" type="text/css"/>

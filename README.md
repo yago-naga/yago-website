@@ -16,6 +16,8 @@ Point your php server to the root directory of this project.
 ├── content
 │   └── downloads
 ├── includes
+│   ├── config.php
+│   └── functinos.php
 ├── js
 └── template
 ```
@@ -23,6 +25,8 @@ Point your php server to the root directory of this project.
 - `assets` keeps all the static content such as fonts, images and stylesheets. PDFs or bibtex file would be added here.
 - `content` mirrors the routing structure of the webpage. Each file/folder can be navigated to. New pages would be added here.
 - `includes` contains the basic configuration of the application and necessary php functions.
+    - `config.php`: the navigation and global variables are defined here. If you would like to add a new page to the website, you can add the name of the file and the title of the page here. For example, if you chose to host the website not at the root level (e.g. example.com/yago-project), you can update the `site_url` to `/yago-project`.
+    - `functions.php`: functions that are called within the application are store here. For example, the navigation menu is generated via `nav_menu()`. Those functions can be called in any .php file. For example, you can define a constant there and get its value via a function.
 - `js` includes all the javascript files.
 - `template` contains the basic html page layout with the header and footer. If you like to add meta tags, other stylesheet or libraries that is the place.
 
