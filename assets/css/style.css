@@ -273,3 +273,10 @@ blockquote p {
 .publications-list .award, blockquote .award {
     color: #e05c5c;
 }
+
+/*
+Entities
+ */
+.card {
+    margin-top: 2em;
+}

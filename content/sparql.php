@@ -1,7 +1,7 @@
 <h1>SPARQL</h1>
 <p>
     YAGO can be queried by a SPARQL API.
-    The SPARQL endpoint URI is <code>http://yago.r2.enst.fr/sparql/query</code>.
+    The SPARQL endpoint URI is <code><?php echo config('sparql_endpoint'); ?></code>.
     There is a 1 minutes timeout to ensure a responsive SPARQL endpoint for everyone.
     You can also fire a SPARQL query directly in the field below.
 </p>
@@ -16,7 +16,7 @@
     var yasqe = YASQE(document.getElementById("yasqe"), {
         sparql: {
             showQueryButton: true,
-            endpoint: 'http://yago.r2.enst.fr/sparql/query'
+            endpoint: '<?php echo config('sparql_endpoint'); ?>'
         }
     });
     var yasr = YASR(document.getElementById("yasr"), {
