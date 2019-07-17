@@ -44,7 +44,7 @@ function nav_menu() {
             $nav_menu .= $dropdown;
 
         } else {
-            $nav_menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>' . $sep;
+            $nav_menu .= '<li class="' . $class . '"><a href="' . $url . '" title="' . $name['title'] . '" class="item">' . $name['title'] . '</a></li>';
         }
     }
     echo trim($nav_menu);
