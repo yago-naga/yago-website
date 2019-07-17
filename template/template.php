@@ -16,8 +16,8 @@
     <meta name="msapplication-config" content="<?php site_url(); ?>/assets/images/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link href="<?php site_url(); ?>/assets/fonts/iconfont/material-icons.css" rel="stylesheet" type="text/css"/>
-    <link href="<?php site_url(); ?>/assets/css/materialize.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//tools-static.wmflabs.org/cdnjs/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/assets/css/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="<?php site_url(); ?>/assets/css/style.css" rel="stylesheet" type="text/css"/>
 
