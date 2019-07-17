@@ -68,8 +68,7 @@ function nav_menu_mobile() {
 
 
 function get_page_title() {
-    $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'Home';
-    return ucwords(str_replace('-', ' ', $page));
+    return ucwords(str_replace('-', ' ', htmlspecialchars(get_page_id())));
 }
 
 function page_title() {
