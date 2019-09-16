@@ -1,171 +1,18 @@
 <?php
 
-$locale = isset($_GET['lang']) ? $_GET['lang'] : 'en';
-$locale = Locale::canonicalize($locale);
-//TODO: use Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
-
-$GLOBALS['PREFIXES'] = [
-    'dbpedia' => 'http://dbpedia.org/resource/',
-    'freebase' => 'http://rdf.freebase.com/ns/',
-    'owl' => 'http://www.w3.org/2002/07/owl#',
-    'rdf' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
-    'schema' => 'http://schema.org/',
-    'wd' => 'http://www.wikidata.org/entity/',
-    'xsd' => 'http://www.w3.org/2001/XMLSchema#',
-    'yago' => 'http://yago-knowledge.org/resource/',
-];
-
-$SAME_AS_LABELS = [
-    'http://dbpedia.org/resource/' => 'DBpedia',
-    'http://www.wikidata.org/entity/' => 'Wikidata',
-    'https://' . Locale::getPrimaryLanguage($locale) . '.wikipedia.org/wiki/' => 'Wikipedia',
-];
-
-/**
- * Executes SPARQL query $query and returns its results according to https://www.w3.org/TR/sparql11-results-json/
- */
-function doSparqlQuery($query)
-{
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                'Accept: application/sparql-results+json'
-            ],
-        ]
-    ]);
-
-    $url = config('sparql_endpoint') . '?query=' . urlencode($query);
-    $response = file_get_contents($url, false, $context);
-    return json_decode($response, true);
-}
-
-function uriToPrefixedName($uri)
-{
-    global $PREFIXES;
-
-    $edited = false;
-    foreach ($PREFIXES as $k => $v) {
-        if (strpos($uri, $v) === 0) {
-            $uri = str_replace($v, $k . ':', $uri);
-            $edited = true;
-            break;
-        }
-    }
-
-    if ($edited) {
-        return htmlspecialchars($uri);
-    } else {
-        return '&lt;' . htmlspecialchars($uri) . '&gt;';
-    }
-}
-
-function uriToUrl($uri)
-{
-    return htmlspecialchars(str_replace('http://yago-knowledge.org/', '/', $uri));
-}
-
-function uriToLink($uri)
-{
-    return '<a href="' . uriToUrl($uri) . '">' . uriToPrefixedName($uri) . '</a>';
-}
-
-function getValueInDisplayLanguage(array $propertyValues, $propertyUri, $locale)
-{
-    $values = [];
-    if (isset($propertyValues[$propertyUri])) {
-        foreach ($propertyValues[$propertyUri] as $value) {
-            $values[$value['xml:lang']] = $value['value'];
-        }
-    }
-    $target = Locale::lookup(array_keys($values), $locale, true, null);
-    return isset($values[$target]) ? $values[$target] : null;
-}
-
-function describeEntity($resource, $locale, $reverse = false)
-{
-    $filter = $reverse ? '?o ?p <' . $resource . '>' : ' <' . $resource . '> ?p ?o';
-    $sparql = doSparqlQuery('
-    PREFIX schema: <http://schema.org/> 
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT DISTINCT ?p ?o ?label WHERE { ' . $filter . ' . OPTIONAL { ?o rdfs:label|schema:name ?label . FILTER(LANG(?label) = "' . Locale::getPrimaryLanguage($locale) . '") } } LIMIT 1000');
-
-    $propertyValues = [];
-    foreach ($sparql['results']['bindings'] as $binding) {
-        $property = $binding['p']['value'];
-        $valueKey = json_encode($binding['o']);
-        $propertyValues[$property][$valueKey] = $binding['o'];
-        if (isset($binding['label'])) {
-            $propertyValues[$property][$valueKey]['label'] = $binding['label'];
-        }
-    }
-
-    return $propertyValues;
-}
-
-function getResourceShapes($resource)
-{
-    $sparql = doSparqlQuery('
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT DISTINCT ?c WHERE { <' . $resource . '> rdf:type/rdfs:subClassOf* ?c . FILTER(STRSTARTS(STR(?c), "http://schema.org/")) } LIMIT 200');
-
-    $shapes = [];
-    foreach ($sparql['results']['bindings'] as $binding) {
-        $shapes[] = $binding['c']['value'];
-    }
-
-    return $shapes;
-}
-
-function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicate', $objectLabel = 'Object')
-{
-    print '<table><thead><tr><th scope="col" style="min-width: 40%;">' . $predicateLabel . '</th><th scope="col">' . $objectLabel . '</th></tr></thead><tbody>';
-    foreach ($propertyValues as $property => $values) {
-        print '<tr><th scope="row">' . uriToLink($property) . '</th><td><ul>';
-        foreach ($values as $value) {
-            print '<li>';
-            if ($value['type'] === 'uri') {
-                $label = uriToPrefixedName($value['value']);
-                $description = isset($value['label']) ? $value['label']['value'] : '';
-                print '<a href="' . uriToUrl($value['value']) . '" title="' . $description . '">' . $label . '</a>';
-            } elseif ($value['type'] === 'bnode') {
-                print '_:' . htmlspecialchars($value['value']);
-            } elseif ($value['type'] === 'literal') {
-                $label = htmlspecialchars($value['value']);
-                if (isset($value['xml:lang'])) {
-                    $lang = htmlspecialchars($value['xml:lang']);
-                    print '"<span lang="' . $lang . '">' . $label . '</span>"@' . $lang . '';
-                } elseif (isset($value['datatype'])) {
-                    print '"' . $label . '"^^' . uriToLink($value['datatype']) . '</a>';
-                } else {
-                    print '"' . $label . '"';
-                }
-            }
-            print '</li>';
-        }
-        print '</ul></td></tr>';
-    }
-    print '</tbody></table>';
-}
-
-function wfUrlencode($s)
-{
-    //Clone of MediaWiki wfUrlencode
-    return str_ireplace(
-        ['%3B', '%40', '%24', '%21', '%2A', '%28', '%29', '%2C', '%2F', '%7E', '%3A'],
-        [';', '@', '$', '!', '*', '(', ')', ',', '/', '~', ':'],
-        urlencode($s)
-    );
-}
+require 'includes/sparql.php';
 
 if (!isset($_GET['resource']) || !$_GET['resource']) {
     include '404.php';
     return;
 }
 
-$resource = 'http://yago-knowledge.org/resource/' . wfUrlencode($_GET['resource']);
+$resourceParts = explode(':', wfUrlencode($_GET['resource']), 2);
+if (count($resourceParts) === 2 && isset($PREFIXES[$resourceParts[0]])) {
+    $resource = $PREFIXES[$resourceParts[0]] . $resourceParts[1];
+} else {
+    $resource = 'http://yago-knowledge.org/resource/' . implode(':', $resourceParts);
+}
 
 $propertyValues = describeEntity($resource, $locale);
 
@@ -217,12 +64,34 @@ if (isset($propertyValues['http://schema.org/image'])) {
 $shapes = getResourceShapes($resource);
 sort($shapes);
 
+$childrenClasses = getClassesTree($resource, Locale::getPrimaryLanguage($locale), 3, false);
+$parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($locale), 4, true);
+
+$shapeDesc = null;
+$instancesCount = null;
+if (in_array('http://www.w3.org/2002/07/owl#Class', $shapes)) {
+    $instancesCount = intval(doSingleResultQuery('SELECT (COUNT(?i) AS ?c) WHERE { ?i a/<http://www.w3.org/2000/01/rdf-schema#subClassOf>* <' . $resource . '> }')['value']);
+    $shapeDesc = getShapeDescription($resource, Locale::getPrimaryLanguage($locale));
+}
+
+$usagesCount = null;
+if (in_array('http://www.w3.org/2002/07/owl#ObjectProperty', $shapes) || in_array('http://www.w3.org/2002/07/owl#DatatypeProperty', $shapes)) {
+    $usagesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $resource . '> ?o }')['value']);
+}
+
 print '<div class="card horizontal">';
 print '<div class="card-stacked">';
 print '<div class="card-content">';
 print '<span class="card-title">' . $resourceLabel . '</span>';
 print '<p>' . $resourceDescription . '</p>';
 print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
+print '<p>URI: <a href=' . htmlspecialchars($resource) . '>' . htmlspecialchars($resource) . '</a></p>';
+if ($instancesCount !== null) {
+    print '<p>Number of instances: ' . $numberFormatter->format($instancesCount) . '</a></p>';
+}
+if ($usagesCount !== null) {
+    print '<p>Number of usages: ' . $numberFormatter->format($usagesCount) . '</a></p>';
+}
 print '</div>';
 if ($sameAsLinks) {
     print '<div class="card-action">';
@@ -237,6 +106,37 @@ if ($resourceImage !== null) {
 }
 print '</div>';
 
+if ($parentClasses['children']) {
+    print '';
+    foreach ($parentClasses['children'] as $rootValues) {
+        foreach ($rootValues['children'] as $childName => $childValues) {
+            foreach (treeToPaths($childName, $childValues) as $path) {
+                print '<nav><div class="nav-wrapper"><div class="col s12">';
+                foreach ($path as $element) {
+                    print '<span class="breadcrumb">' . $element . '</span>';
+                }
+                print '<span class="breadcrumb"></span></div></div></nav>';
+            }
+        }
+    }
+}
+
+if ($shapeDesc) {
+    print '<div class="card"><div class="card-content"><span class="card-title">Possible properties</span>';
+    print '<table><thead><tr><th scope="col">Property</th><th scope="col">Range</th><th scope="col">All usages</th></tr></thead><tbody>';
+    foreach ($shapeDesc as $property => $values) {
+        print '<tr><th scope="row">' . uriToLink($property, $values['label'], $values['comment']) . '</th><td><ul>';
+        print implode(' or ', array_map('uriToLink', array_merge($values['node'], $values['datatype'])));
+        if ($values['pattern']) {
+            print ' matching ' . $values['pattern'];
+        }
+        $count = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $property . '> ?o }')['value']);
+        print '</ul></td><td>' . $numberFormatter->format($count) . '</td></tr>';
+    }
+    print '</tbody></table>';
+    print '</div></div>';
+}
+
 print '<div class="card"><div class="card-content"><span class="card-title">Properties</span>';
 displayPropertyValuesTable($propertyValues);
 print '</div></div>';
@@ -246,4 +146,12 @@ if ($reversePropertyValues) {
     print '<div class="card"><div class="card-content"><span class="card-title">Incoming properties</span>';
     displayPropertyValuesTable($reversePropertyValues, 'Predicate', 'Subject');
     print '</div></div>';
+}
+
+if ($childrenClasses['children'] && next($childrenClasses['children'])['children']) {
+    print '<div class="card"><div class="card-content"><span class="card-title">Child classes</span><ul class="tree-node">';
+    foreach ($childrenClasses['children'] as $childName => $childValues) {
+        printTreeNode($childName, $childValues);
+    }
+    print '</ul></div></div>';
 }

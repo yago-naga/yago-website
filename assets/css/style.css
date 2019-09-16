@@ -60,7 +60,7 @@ a {
 .wrap {
     padding-left: 1rem;
     padding-right: 1rem;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -279,4 +279,16 @@ Entities
  */
 .card {
     margin-top: 2em;
+}
+
+.tree-edge {
+    margin-left: 2em;
+}
+
+nav .nav-wrapper .breadcrumb a {
+    color: black;
+}
+
+nav .nav-wrapper {
+    margin-left: 2em;
 }

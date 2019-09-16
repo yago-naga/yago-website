@@ -10,6 +10,6 @@
 </footer>
 
 <script
-    src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/scripts.js"></script>
