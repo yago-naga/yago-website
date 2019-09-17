@@ -123,7 +123,7 @@ if ($parentClasses['children']) {
 
 if ($shapeDesc) {
     print '<div class="card"><div class="card-content"><span class="card-title">Possible properties</span>';
-    print '<table><thead><tr><th scope="col">Property</th><th scope="col">Range</th><th scope="col">All usages</th></tr></thead><tbody>';
+    print '<table><thead><tr><th scope="col">Property</th><th scope="col">Range</th><th scope="col">Cardinality</th><th scope="col">All usages</th></tr></thead><tbody>';
     foreach ($shapeDesc as $property => $values) {
         print '<tr><th scope="row">' . uriToLink($property, $values['label'], $values['comment']) . '</th><td><ul>';
         print implode(' or ', array_map('uriToLink', array_merge($values['node'], $values['datatype'])));
@@ -131,7 +131,11 @@ if ($shapeDesc) {
             print ' matching ' . $values['pattern'];
         }
         $count = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $property . '> ?o }')['value']);
-        print '</ul></td><td>' . $numberFormatter->format($count) . '</td></tr>';
+        print '</ul></td><td>';
+        if($values['maxCount']) {
+            print '≤ ' . $numberFormatter->format($values['maxCount']);
+        }
+        print '</td><td>' . $numberFormatter->format($count) . '</td></tr>';
     }
     print '</tbody></table>';
     print '</div></div>';

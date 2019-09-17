@@ -239,6 +239,7 @@ function getShapeDescription($shape, $language)
             OPTIONAL { ?p sh:or/rdf:rest*/rdf:first/sh:datatype  ?datatype }
             OPTIONAL { ?p sh:node ?node }
             OPTIONAL { ?p sh:or/rdf:rest*/rdf:first/sh:node  ?node }
+            OPTIONAL { ?p sh:maxCount ?maxCount }
             OPTIONAL { ?p sh:pattern ?pattern }
         } ORDER BY ?prop';
     $shape = [];
@@ -249,6 +250,7 @@ function getShapeDescription($shape, $language)
                 'datatype' => [],
                 'node' => [],
                 'pattern' => null,
+                'maxCount' => null,
                 'label' => null,
                 'comment' => null,
             ];
@@ -262,8 +264,10 @@ function getShapeDescription($shape, $language)
             $shape[$prop]['node'][$node] = $node;
         }
         if (isset($binding['pattern'])) {
-            $pattern = $binding['pattern']['value'];
-            $shape[$prop]['pattern'] = $pattern;
+            $shape[$prop]['pattern'] = $binding['pattern']['value'];
+        }
+        if (isset($binding['maxCount'])) {
+            $shape[$prop]['maxCount'] = intval($binding['maxCount']['value']);
         }
         if (isset($binding['label'])) {
             $shape[$prop]['label'] = $binding['label']['value'];
