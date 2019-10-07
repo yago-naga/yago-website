@@ -7,7 +7,7 @@ if (!isset($_GET['resource']) || !$_GET['resource']) {
     return;
 }
 
-$resourceParts = explode(':', wfUrlencode($_GET['resource']), 2);
+$resourceParts = explode(':', $_GET['resource'], 2);
 if (count($resourceParts) === 2 && isset($PREFIXES[$resourceParts[0]])) {
     $resource = $PREFIXES[$resourceParts[0]] . $resourceParts[1];
 } else {
@@ -132,7 +132,7 @@ if ($shapeDesc) {
         }
         $count = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $property . '> ?o }')['value']);
         print '</ul></td><td>';
-        if($values['maxCount']) {
+        if ($values['maxCount']) {
             print '≤ ' . $numberFormatter->format($values['maxCount']);
         }
         print '</td><td>' . $numberFormatter->format($count) . '</td></tr>';

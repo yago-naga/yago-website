@@ -213,16 +213,6 @@ function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicat
     print '</tbody></table>';
 }
 
-function wfUrlencode($s)
-{
-    //Clone of MediaWiki wfUrlencode
-    return str_ireplace(
-        ['%3B', '%40', '%24', '%21', '%2A', '%28', '%29', '%2C', '%2F', '%7E', '%3A'],
-        [';', '@', '$', '!', '*', '(', ')', ',', '/', '~', ':'],
-        urlencode($s)
-    );
-}
-
 
 function getShapeDescription($shape, $language)
 {
