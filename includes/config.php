@@ -27,8 +27,14 @@ function config($key = '')
 
                 ],
             ],
-            'sparql' => ['title' => 'SPARQL'],
-            'schema' => ['title' => 'Schema'],
+            'browse' => [
+                'title' => 'Browse/Query',
+                'children' => [
+                    "graph" => "Browse",
+                    "schema" => "Schema",					
+                    "sparql" => "SPARQL",
+                ],
+            ],
             'publications' => ['title' => 'Publications'],
             'contributors' => ['title' => 'Contributors'],
         ],

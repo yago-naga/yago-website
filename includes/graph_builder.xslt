@@ -167,28 +167,34 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
                 <xsl:variable name="scaleX" select="$width div $maxX" />
                 <xsl:variable name="scaleY" select="$height div 2 div $maxY" />
                 <xsl:variable name="scale">
-					<xsl:if test="$scaleY&gt;$scaleX">
-				   		<xsl:value-of select="$scaleX" />
-					</xsl:if>
-					<xsl:if test="not($scaleY&gt;$scaleX)">
-				   		<xsl:value-of select="$scaleY" />
-					</xsl:if>				
+                	<xsl:choose>
+                		<xsl:when test="$scaleY&gt;$scaleX and $scaleX&lt;1">
+							<xsl:value-of select="$scaleX" />
+						</xsl:when>
+						<xsl:when test="not($scaleY&gt;$scaleX) and $scaleY&lt;1">
+				   			<xsl:value-of select="$scaleY" />
+						</xsl:when>				
+						<xsl:otherwise>1</xsl:otherwise>
+					</xsl:choose>
                 </xsl:variable>
                 <xsl:variable name="shiftHelper">
 					<xsl:if test="not($scaleY&gt;$scaleX)">
-				   		<xsl:value-of select=" ($width - $maxX*$scaleY) div 2" />
-					</xsl:if>				
+				   		<xsl:value-of select=" ($width - $maxX*$scale) div 2" />
+					</xsl:if>
+					<xsl:if test="$scaleY&gt;$scaleX">
+				   		<xsl:value-of select=" 0" />
+					</xsl:if>
                 </xsl:variable>
                 <xsl:variable name="shift" select="normalize-space($shiftHelper)" />
 				<use href="#taxonomy" x="{$shift div $scale}" y="0" transform="scale({$scale})" />
 				
 				<!-- Print the entity name -->
 				<xsl:variable name="x" select="$width div 2" />
-				<xsl:variable name="y" select="$height div 2" />
+				<xsl:variable name="y" select="$maxY * $scale" />
+				<xsl:variable name="displayEntity" select="concat(substring($entity,number(string-length($entity)&gt;20)*(string-length($entity)+1)),substring(concat($entity,'...'),number(string-length($entity)&lt;21)*22))" />
 				<text text-anchor="middle" x="{$x}" y="{$y+$fontSize}" font-size="{$fontSize}">
-					<xsl:value-of select="$entity" />
+					<xsl:value-of select="$displayEntity"/>
 				</text>
-				
 				<!-- Link the name to all classes that have no subclasses -->
 				<xsl:variable name="taxonomy" select="/s:sparql/s:results/s:result/s:binding" />
 				<!-- for unknown reasons, /s:sparql and the keys are not accessible inside the xsl:for-each, so we save it to a variable -->
@@ -204,34 +210,29 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 				<xsl:variable name="numberOfFacts" select="count($facts)" />
 				<xsl:for-each select="$facts">
 					<xsl:variable name="object" select="s:binding[@name='o']/s:uri/text() | s:binding[@name='o']/s:literal/text()" />
-					<xsl:variable name="displayObject">
-						<xsl:if test="string-length($object)&gt;30">
- 							<xsl:value-of select="concat(substring($object,1,27),'...')"/>
-						</xsl:if>
-						<xsl:if test="not(string-length($object)&gt;30)">
- 							<xsl:value-of select="$object"/>
-						</xsl:if>						
-					</xsl:variable>
+					<xsl:variable name="isString" select="boolean(s:binding[@name='o']/s:literal)" />
+					<xsl:variable name="displayObject" select="concat(substring($object,number(string-length($object)&gt;30)*(string-length($object)+1)), substring(concat(substring($object,1,27),'...'),number(string-length($object)&lt;31)*30))" />
 					<xsl:variable name="predicate" select="s:binding[@name='p']/s:uri/text()" />
-					<xsl:variable name="displayPredicate">
-						<xsl:if test="string-length($predicate)&gt;20">
- 							<xsl:value-of select="concat(substring($object,1,17),'...')"/>
-						</xsl:if>
-						<xsl:if test="not(string-length($predicate)&gt;20)">
- 							<xsl:value-of select="$predicate"/>
-						</xsl:if>						
-					</xsl:variable>
+					<xsl:variable name="displayPredicate" select="concat(substring($predicate,number(string-length($predicate)&gt;20)*(string-length($predicate)+1)), substring(concat(substring($predicate,1,17),'...'),number(string-length($predicate)&lt;21)*22))" />
 					
 					<!-- Draw the arrow -->
-					<line x1="{$x+ $fontSize*string-length($entity)*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<line x1="{$x+ $fontSize*20*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>
 						<xsl:when test="position()&lt; $numberOfFacts div 2">
-							<a href="{concat($yagoUrl,$object)}"><text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
-								<xsl:value-of select="$displayObject" />
-								<xsl:if test="number(s:binding[@name='count']/s:literal/text())&gt;1">&#x20;(+<xsl:value-of select="number(s:binding[@name='count']/s:literal/text())-1" />)</xsl:if>
-							</text></a>
+							<xsl:if test="$isString">
+								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}"  fill="black">
+									"<xsl:value-of select="$displayObject" />"
+									<xsl:if test="number(s:binding[@name='count']/s:literal/text())&gt;1">&#x20;(+<xsl:value-of select="number(s:binding[@name='count']/s:literal/text())-1" />)</xsl:if>
+								</text>
+							</xsl:if>
+							<xsl:if test="not($isString)">
+								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
+									<a href="{concat($yagoUrl, $object)}"><xsl:value-of select="$displayObject" /></a>
+									<xsl:if test="number(s:binding[@name='count']/s:literal/text())&gt;1">&#x20;(+<xsl:value-of select="number(s:binding[@name='count']/s:literal/text())-1" />)</xsl:if>
+								</text>
+							</xsl:if>
 							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}" fill="black">
 								<xsl:value-of select="$displayPredicate" />
 							</text>
@@ -255,12 +256,12 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {$width} {$height}">
-			<!-- We open the definitions here, and will close them in the recursive template -->
+			<defs>
             <xsl:text disable-output-escaping="yes">&lt;defs&gt;</xsl:text>
 				<marker id="mblack" markerHeight="3" markerUnits="strokeWidth" markerWidth="4" orient="auto" refX="0" refY="5" viewBox="0 0 10 10">
 					<path d="M 0 0 L 10 5 L 0 10 z" fill="black" stroke="black"/>
 				</marker>
-
+			</defs>
 			<!-- Open the taxonomy group here, we will close it in the recursive template-->
 			 <xsl:text disable-output-escaping="yes">&lt;g id="taxonomy"&gt;</xsl:text>
 			 
