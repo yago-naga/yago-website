@@ -43,12 +43,13 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 	<xsl:strip-space elements="*"/>
 	
 	<!-- Configuration: fontSize, the vertical distance between two taxonomy items, the radius of the star, and the width and height of the image -->
-	<xsl:variable name="fontSize" select="40"/>
-	<xsl:variable name="taxonomyDistance" select="50"/>
-	<xsl:variable name="radius" select="$fontSize*30"/>
+	<xsl:variable name="fontSize" select="30"/>
+	<xsl:variable name="taxonomyDistance" select="60"/>
+	<xsl:variable name="radius" select="450"/>
 	<xsl:variable name="width" select="$radius*4"/>
-	<xsl:variable name="height" select="$radius*3"/>
-	
+	<xsl:variable name="height" select="$radius*4"/>
+	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
+
 	<!-- Build indexes for sub- and superclasses -->
 	<xsl:key name="getSubclasses" match="/s:sparql/s:results/s:result[s:binding[@name='p']/s:uri/text()='rdfs:subClassOf']" use="s:binding[@name='o']/s:uri/text()" />
 	<xsl:key name="getSuperclasses" match="/s:sparql/s:results/s:result[s:binding[@name='p']/s:uri/text()='rdfs:subClassOf']" use="s:binding[@name='s']/s:uri/text()" />
@@ -203,7 +204,23 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 				<xsl:variable name="numberOfFacts" select="count($facts)" />
 				<xsl:for-each select="$facts">
 					<xsl:variable name="object" select="s:binding[@name='o']/s:uri/text() | s:binding[@name='o']/s:literal/text()" />
+					<xsl:variable name="displayObject">
+						<xsl:if test="string-length($object)&gt;30">
+ 							<xsl:value-of select="concat(substring($object,1,27),'...')"/>
+						</xsl:if>
+						<xsl:if test="not(string-length($object)&gt;30)">
+ 							<xsl:value-of select="$object"/>
+						</xsl:if>						
+					</xsl:variable>
 					<xsl:variable name="predicate" select="s:binding[@name='p']/s:uri/text()" />
+					<xsl:variable name="displayPredicate">
+						<xsl:if test="string-length($predicate)&gt;20">
+ 							<xsl:value-of select="concat(substring($object,1,17),'...')"/>
+						</xsl:if>
+						<xsl:if test="not(string-length($predicate)&gt;20)">
+ 							<xsl:value-of select="$predicate"/>
+						</xsl:if>						
+					</xsl:variable>
 					
 					<!-- Draw the arrow -->
 					<line x1="{$x+ $fontSize*string-length($entity)*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
@@ -211,20 +228,20 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>
 						<xsl:when test="position()&lt; $numberOfFacts div 2">
-							<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
-								<xsl:value-of select="$object" />
+							<a href="{concat($yagoUrl,$object)}"><text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
+								<xsl:value-of select="$displayObject" />
 								<xsl:if test="number(s:binding[@name='count']/s:literal/text())&gt;1">&#x20;(+<xsl:value-of select="number(s:binding[@name='count']/s:literal/text())-1" />)</xsl:if>
-							</text>
-							<text text-anchor="end" x="{$x+$radius - $fontSize}" y="{$y - $fontSize*0.2}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}" fill="blue">
-								<xsl:value-of select="$predicate" />
+							</text></a>
+							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({180 div ($numberOfFacts + 1)*position()} {$x} {$y})" font-size="{$fontSize}" fill="black">
+								<xsl:value-of select="$displayPredicate" />
 							</text>
 						</xsl:when>
 						<xsl:otherwise>
-							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-180 div ($numberOfFacts + 1)*($numberOfFacts - position()+1)} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
-								<xsl:value-of select="$object" />
-							</text>
-							<text x="{$x - $radius + $fontSize*1.5}" y="{$y - $fontSize*0.2}" transform="rotate({-180 div ($numberOfFacts + 1)*($numberOfFacts - position()+1)} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
-								<xsl:value-of select="$predicate" />
+							<a href="{concat($yagoUrl,$object)}"><text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-180 div ($numberOfFacts + 1)*($numberOfFacts - position()+1)} {$x} {$y})" font-size="{$fontSize}"  fill="blue">
+								<xsl:value-of select="$displayObject" />
+							</text></a>
+							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-180 div ($numberOfFacts + 1)*($numberOfFacts - position()+1)} {$x} {$y})" font-size="{$fontSize}"  fill="black">
+								<xsl:value-of select="$displayPredicate" />
 							</text>
 						</xsl:otherwise>
 					</xsl:choose>
