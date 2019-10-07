@@ -3,7 +3,12 @@
 
 require 'includes/sparql.php';
 
-$resource = 'http://yago-knowledge.org/resource/Elvis_Presley';
+$resourceParts = explode(':', $_GET['resource'], 2);
+if (count($resourceParts) === 2 && isset($PREFIXES[$resourceParts[0]])) {
+    $resource = $PREFIXES[$resourceParts[0]] . $resourceParts[1];
+} else {
+    $resource = 'http://yago-knowledge.org/resource/' . implode(':', $resourceParts);
+}
 
 $stylesheet = new DOMDocument();
 $stylesheet->load(__DIR__ . '/../includes/graph_builder.xslt');
