@@ -1,0 +1,725 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='s'/>
+		<variable name='p'/>
+		<variable name='o'/>
+		<variable name='count'/>
+	</head>
+	<results>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:alumniOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Humes_Preparatory_Academy_Middle_School</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:award</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q56479277</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>4</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:image</uri>
+			</binding>
+			<binding name='o'>
+				<uri>http://commons.wikimedia.org/wiki/Special:FilePath/Elvis%20Presley%20promoting%20Jailhouse%20Rock.jpg</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:birthDate</uri>
+			</binding>
+			<binding name='o'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#date'>1935-01-08</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:birthPlace</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Tupelo,_Mississippi</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:children</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Lisa_Marie_Presley</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:deathDate</uri>
+			</binding>
+			<binding name='o'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#date'>1977-08-16</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:deathPlace</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Graceland</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:familyName</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Presley</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:givenName</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Elvis_(name)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:hasOccupation</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q10800557</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>6</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:homeLocation</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Graceland</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:knowsLanguage</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:English_language</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:nationality</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:United_States</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:parent</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q4377426</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>2</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:spouse</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Priscilla_Presley</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:alternateName</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='ast'>Elvis Aaron Presley</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>30</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:description</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='ast'>cantante estauxunidense</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>45</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='nl'>Elvis Presley</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>166</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>schema:sameAs</uri>
+			</binding>
+			<binding name='o'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#anyURI'>https://th.wikipedia.org/wiki/เอลวิส_เพรสลีย์</literal>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>154</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://www.w3.org/2002/07/owl#sameAs</uri>
+			</binding>
+			<binding name='o'>
+				<uri>http://www.wikidata.org/entity/Q303</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>schema:Person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>schema:Thing</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Abstract_object</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Object_(philosophy)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Entity</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>schema:Thing</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:First-degree_relatives</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q12758374</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Human</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>schema:Person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Human</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Natural_person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Human</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Individual</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Unit_of_analysis</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Individual</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q23958946</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Legal_person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Subject_(philosophy)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Legal_person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q24229398</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Legal_person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q26720107</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Natural_person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Legal_person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Object_(philosophy)</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Entity</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>schema:Person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Individual</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Subject_(philosophy)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q24229398</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Sibling</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:First-degree_relatives</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Subject_(philosophy)</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Entity</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Twin</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Sibling</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Unit_of_analysis</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q2198779</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:Unit_of_analysis</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q4330518</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q12758374</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Person</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q2198779</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Abstract_object</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q23958946</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Entity</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q24229398</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q23958946</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q26720107</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Subject_(philosophy)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q26720107</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:wikidata_Q24229398</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>yago:wikidata_Q4330518</uri>
+			</binding>
+			<binding name='p'>
+				<uri>rdfs:subClassOf</uri>
+			</binding>
+			<binding name='o'>
+				<uri>yago:Object_(philosophy)</uri>
+			</binding>
+			<binding name='count'>
+				<literal datatype='http://www.w3.org/2001/XMLSchema#integer'>1</literal>
+			</binding>
+		</result>
+	</results>
+</sparql>

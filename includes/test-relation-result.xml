@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+	<head>
+		<variable name='s'/>
+		<variable name='p'/>
+		<variable name='o'/>
+		<variable name='page'/>
+	</head>
+	<results>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='et'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='eu'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='ext'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='fa'>الویس پریسلی</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='fi'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='fo'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='fr'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='frc'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='fy'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='ga'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gd'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gl'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gn'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gom'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gsw'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='gv'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='he'>אלביס פרסלי</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='hi'>एल्विस प्रेस्ली</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='hif'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+		<result>
+			<binding name='s'>
+				<uri>http://yago-knowledge.org/resource/Elvis_Presley</uri>
+			</binding>
+			<binding name='p'>
+				<uri>http://schema.org/name</uri>
+			</binding>
+			<binding name='o'>
+				<literal xml:lang='hr'>Elvis Presley</literal>
+			</binding>
+			<binding name='page'>
+				<literal>3</literal>
+			</binding>
+		</result>
+	</results>
+</sparql>
