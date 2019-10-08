@@ -39,7 +39,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 				<xsl:variable name="entity" select="/s:sparql/s:results/s:result[1]/s:binding[@name='s']" />
 				<text text-anchor="middle" x="{$x}" y="{$y}" font-size="{$fontSize}">
 					<xsl:call-template name="printObject">
-						<xsl:with-param name="object" select="$entity" />						
+						<xsl:with-param name="object" select="$entity" />		
 					</xsl:call-template>
 				</text>
 
@@ -58,14 +58,15 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 				<xsl:for-each select="$objects">
 					
 					<!-- Draw the arrow -->
-					<line x1="{$x+ $fontSize*20*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<line x1="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					
 					<!-- Treat left and right half differently -->
 					<xsl:choose>
 						<xsl:when test="position()&lt; $numberOfObjects div 2">
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
-										<xsl:with-param name="object" select="s:binding[@name='o']" />						
+										<xsl:with-param name="object" select="s:binding[@name='o']" />		
+										<xsl:with-param name="length" select="$maxEntityDisplayLength" />										
 									</xsl:call-template>
 								</text>
 							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
@@ -77,7 +78,8 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 						<xsl:otherwise>
 							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-360 div $numberOfObjects * ($numberOfObjects - position()) + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
-									<xsl:with-param name="object" select="s:binding[@name='o']" />						
+									<xsl:with-param name="object" select="s:binding[@name='o']" />	
+									<xsl:with-param name="length" select="$maxEntityDisplayLength" />											
 								</xsl:call-template>
 							</text>
 							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-360 div $numberOfObjects  * ($numberOfObjects - position())  + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">

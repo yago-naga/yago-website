@@ -2,14 +2,11 @@
 <!--- Transforms a SPARLQ query result about an entity into an SVG visualization. The query takes the following form:
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <rdfs:>
-PREFIX yago: <http://yago-knowledge.org/resource/>
-PREFIX schema: <http://schema.org/>
-PREFIX owl: 	<http://www.w3.org/2002/07/owl#>
- 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
 SELECT ?s ?p ?o ?count WHERE {
  {
- SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (1 AS ?count) WHERE {
+ SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-1 AS ?count) WHERE {
    <http://yago-knowledge.org/resource/Elvis_Presley> rdf:type ?c .
    ?c rdfs:subClassOf* ?s .
    ?s rdfs:subClassOf ?o .
@@ -22,12 +19,24 @@ AS ?count) WHERE {
      BIND(<http://yago-knowledge.org/resource/Elvis_Presley> AS ?s)
      ?s ?p ?o .
      FILTER(?p != rdf:type)
+     FILTER(?p != rdfs:subClassOf)
    }
    GROUP BY ?s ?p
  }
+ UNION {
+	SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-2 AS ?count) WHERE {
+   <http://yago-knowledge.org/resource/Elvis_Presley> rdfs:subClassOf+ ?s .
+   ?s rdfs:subClassOf ?o .
+ }
+
+ }
 }
 
-http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/1999/02/22-rdf-syntax-ns#>%20PREFIX%20rdfs:%20<rdfs:>%20PREFIX%20yago:%20<http://yago-knowledge.org/resource/>%20PREFIX%20schema:%20<http://schema.org/>%20PREFIX%20owl:%20<http://www.w3.org/2002/07/owl#>%20%20%20SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount%20WHERE%20{%20%20{%20%20SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(1%20AS%20%3Fcount)%20WHERE%20{%20%20%20%20<http://yago-knowledge.org/resource/Elvis_Presley>%20rdf:type%20%3Fc%20.%20%20%20%20%3Fc%20rdfs:subClassOf*%20%3Fs%20.%20%20%20%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20%20}%20%20}%20%20UNION%20%20{%20%20%20%20SELECT%20%3Fs%20%3Fp%20(SAMPLE(%3Fo)%20AS%20%3Fo)%20(COUNT(%3Fo)%20AS%20%3Fcount)%20WHERE%20{%20%20%20%20%20%20BIND(<http://yago-knowledge.org/resource/Elvis_Presley>%20AS%20%3Fs)%20%20%20%20%20%20%3Fs%20%3Fp%20%3Fo%20.%20%20%20%20%20%20FILTER(%3Fp%20!=%20rdf:type)%20%20%20%20}%20%20%20%20GROUP%20BY%20%3Fs%20%3Fp%20%20}%20}%20
+// For Elvis
+http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount%20WHERE%20{%20{%20SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-1%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Elvis_Presley>%20rdf:type%20%3Fc%20.%20%3Fc%20rdfs:subClassOf*%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}%20UNION%20{%20SELECT%20%3Fs%20%3Fp%20(SAMPLE(%3Fo)%20AS%20%3Fo)%20(COUNT(%3Fo)AS%20%3Fcount)%20WHERE%20{%20BIND(<http://yago-knowledge.org/resource/Elvis_Presley>%20AS%20%3Fs)%20%3Fs%20%3Fp%20%3Fo%20.%20FILTER(%3Fp%20!=%20rdf:type)%20}%20GROUP%20BY%20%3Fs%20%3Fp%20}%20UNION%20{	SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-2%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Elvis_Presley>%20rdfs:subClassOf*%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}}
+
+// For Sibling
+http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount%20WHERE%20{%20{%20SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-1%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Sibling>%20rdf:type%20%3Fc%20.%20%3Fc%20rdfs:subClassOf*%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}%20UNION%20{%20SELECT%20%3Fs%20%3Fp%20(SAMPLE(%3Fo)%20AS%20%3Fo)%20(COUNT(%3Fo)AS%20%3Fcount)%20WHERE%20{%20BIND(<http://yago-knowledge.org/resource/Sibling>%20AS%20%3Fs)%20%3Fs%20%3Fp%20%3Fo%20.%20FILTER(%3Fp%20!=%20rdf:type)%20FILTER(%3Fp%20!=%20rdfs:subClassOf)%20}%20GROUP%20BY%20%3Fs%20%3Fp%20}%20UNION%20{	SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-2%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Sibling>%20rdfs:subClassOf+%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}}
 
 -->
 <!-- We need the node-set operator, which is either in the Microsoft namespace or in the EXSLT namespace, depending on the XSLT processor you use. Rename the prefix to "ex" for the namespace that corresponds to your processor. -->
@@ -42,9 +51,12 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 	 <xsl:import href="builder_config.xslt" />
 
 	<!-- Build indexes for sub- and superclasses -->
-	<xsl:key name="getSubclasses" match="/s:sparql/s:results/s:result[s:binding[@name='p']/s:uri/text()='rdfs:subClassOf']" use="s:binding[@name='o']/s:uri/text()" />
-	<xsl:key name="getSuperclasses" match="/s:sparql/s:results/s:result[s:binding[@name='p']/s:uri/text()='rdfs:subClassOf']" use="s:binding[@name='s']/s:uri/text()" />
-	<xsl:variable name="entity" select="/s:sparql/s:results/s:result[s:binding[@name='p']/s:uri/text()!='rdfs:subClassOf']/s:binding[@name='s']/s:uri/text()"/>
+	<xsl:variable name="entity" select="/s:sparql/s:results/s:result[number(s:binding[@name='count']/s:literal/text())&gt;0]/s:binding[@name='s']/s:uri/text()"/>
+	<xsl:variable name="isClass" select="boolean(/s:sparql/s:results/s:result[number(s:binding[@name='count']/s:literal/text())=-2])" />
+	<xsl:variable name="countValue" select="-1 - $isClass" />
+	<xsl:key name="getSubclasses" match="/s:sparql/s:results/s:result[number(s:binding[@name='count']/s:literal/text())&lt;0]" use="s:binding[@name='o']/s:uri/text()" />
+	<xsl:key name="getSuperclasses" match="/s:sparql/s:results/s:result[number(s:binding[@name='count']/s:literal/text())&lt;0]" use="s:binding[@name='s']/s:uri/text()" />
+
 	<!-- Given a set of classes to do, and given a set of classes that are done, remove one class to be done, print it, link it to its superclasses by an arrow, and add all its subclasses to the classes to be done. Use  a tail recursion. -->
 	<xsl:template name="makeTaxonomy">
 		<xsl:param name="classesToDo"/>
@@ -53,8 +65,8 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 			<xsl:when test="$classesToDo/svg:class">
 				<!-- Save the current class name, its y-coordinate, its superclasses and its subclasses into variables-->
 				<xsl:variable name="currentClassName" select="$classesToDo/svg:class[1]/@name"/>
-				<xsl:variable name="subClasses" select="key('getSubclasses', $currentClassName)/s:binding[@name='s']/s:uri"/>
-				<xsl:variable name="superClasses" select="key('getSuperclasses', $currentClassName)/s:binding[@name='o']/s:uri"/>
+				<xsl:variable name="subClasses" select="key('getSubclasses', $currentClassName)[number(s:binding[@name='count']/s:literal/text())=$countValue]/s:binding[@name='s']/s:uri"/>
+				<xsl:variable name="superClasses" select="key('getSuperclasses', $currentClassName)[number(s:binding[@name='count']/s:literal/text())=$countValue]/s:binding[@name='o']/s:uri"/>
 				<xsl:variable name="y" select="$classesToDo/svg:class[1]/@y"/>
 				<!-- The x-coordinate is the maximum "xEnd" value of all classes that have the same y-coordinate-->
 				<xsl:variable name="x">
@@ -167,13 +179,16 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 				</xsl:variable>
 				<xsl:variable name="shift" select="normalize-space($shiftHelper)" />
 				<use href="#taxonomy" x="{$shift div $scale}" y="0" transform="scale({$scale})" />
+
 				<!-- Print the entity name -->
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
-				<xsl:variable name="displayEntity" select="concat(substring($entity,number(string-length($entity)&gt;20)*(string-length($entity)+1)),substring(concat(substring($entity,1,17),'...'),number(string-length($entity)&lt;21)*22))" />
 				<text text-anchor="middle" x="{$x}" y="{$y}" font-size="{$fontSize}">
-					<xsl:value-of select="$displayEntity"/>
+									<xsl:call-template name="printString">
+										<xsl:with-param name="object" select="$entity" />						
+									</xsl:call-template>					
 				</text>
+
 				<!-- Link the name to all classes that have no subclasses -->
 				<xsl:variable name="taxonomy" select="/s:sparql/s:results/s:result/s:binding" />
 				<!-- for unknown reasons, /s:sparql and the keys are not accessible inside the xsl:for-each, so we save it to a variable -->
@@ -183,15 +198,16 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 						<line stroke-width="{$fontSize*0.1}"  opacity="0.2" stroke="black" x1="{$x}" y1="{$y - $fontSize}" x2="{@x*$scale+$shift+$fontSize*3*$scale}" y2="{@y*$scale+$fontSize*0.5*$scale}" marker-end="url(#mblack)"/>
 					</xsl:if>
 				</xsl:for-each>
+
 				<!-- Print the facts -->
-				<xsl:variable name="facts" select="/s:sparql/s:results/s:result[s:binding[@name='p' and s:uri/text()!='rdfs:subClassOf']]" />
+				<xsl:variable name="facts" select="/s:sparql/s:results/s:result[s:binding[@name='count' and number(s:literal/text())&gt;0]]" />
 				<xsl:variable name="numberOfObjects" select="count($facts)" />
 				<xsl:for-each select="$facts">
 					<xsl:variable name="object" select="s:binding[@name='o']" />
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
 					<!-- Draw the arrow -->
-					<line x1="{$x+ $fontSize*20*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<line x1="{$x+ $maxPredicateDisplayLength div 2 * $fontSize div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>
@@ -199,7 +215,7 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfObjects - 1) * (position()-1) } {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />						
-										<xsl:with-param name="length" select="$maxDisplayLength * 2" />		
+										<xsl:with-param name="length" select="$maxEntityDisplayLength" />		
 										<xsl:with-param name="more" select="s:binding[@name='count']" />			
 										<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,$predicate,1)	" />																									
 									</xsl:call-template>
@@ -214,7 +230,7 @@ http://yago.r2.enst.fr/sparql/query?query=PREFIX%20rdf:%20<http://www.w3.org/199
 							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position()  ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
 									<xsl:with-param name="object" select="s:binding[@name='o']" />						
-									<xsl:with-param name="length" select="$maxDisplayLength * 2" />															
+									<xsl:with-param name="length" select="$maxEntityDisplayLength" />															
 									<xsl:with-param name="more" select="s:binding[@name='count']" />
 									<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,$predicate,1)	" />									
 								</xsl:call-template>

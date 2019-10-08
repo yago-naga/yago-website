@@ -17,17 +17,18 @@
 	<xsl:variable name="radius" select="450"/>
 	<xsl:variable name="width" select="$radius*4"/>
 	<xsl:variable name="height" select="$radius*4"/>
-	<xsl:variable name="maxDisplayLength" select="20"/>
+	<xsl:variable name="maxEntityDisplayLength" select="40"/>
+	<xsl:variable name="maxPredicateDisplayLength" select="20"/>
 	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
 
 	<!-- Prints a string, truncated if necessary-->
 	<xsl:template name="printString">
 		<xsl:param name="object" />
-		<xsl:param name="length" select="$maxDisplayLength"/>
-		<xsl:if test="string-length($object)&gt;$length - 3">
-			<xsl:value-of select="substring($object,1,17)"/>...		
+		<xsl:param name="length" select="$maxPredicateDisplayLength"/>
+		<xsl:if test="string-length($object)&gt;$length">
+			<xsl:value-of select="substring($object,1,$length - 3)"/>...		
 		</xsl:if>
-		<xsl:if test="not(string-length($object)&gt;$length - 3)">
+		<xsl:if test="not(string-length($object)&gt;$length)">
 			<xsl:value-of select="$object"/>
 		</xsl:if>
 	</xsl:template>
@@ -35,7 +36,7 @@
 	<!-- Prints an object from a SPARQL result binding -->
 	<xsl:template name="printObject">
 		<xsl:param name="object" />
-		<xsl:param name="length" select="$maxDisplayLength" />
+		<xsl:param name="length" select="$maxPredicateDisplayLength" />
 		<xsl:param name="more" />
 		<xsl:param name="moreUrl" />
 		<xsl:variable name="entityObject" select="$object/s:uri" />
