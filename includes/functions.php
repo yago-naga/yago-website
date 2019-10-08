@@ -37,7 +37,7 @@ function nav_menu() {
             $dropdown = '<ul id="' . $id . '" class="dropdown-content">';
             $children = $name['children'];
             foreach ($children as $sub_uri => $child) {
-                $sub_url = $url . '/' . (config('pretty_uri') || $sub_uri == '' ? '' : '?page=') . $sub_uri;
+                $sub_url = config('site_url') . '/' . (config('pretty_uri') || $uri == '' ? '' : '?page=') . $sub_uri;
                 $dropdown .= '<li><a href="' . $sub_url . '">' . $child . '</a></li>';
             }
             $dropdown .= '</ul>';
