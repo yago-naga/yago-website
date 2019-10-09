@@ -86,7 +86,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 				</xsl:variable>
 				<!-- Print the class name -->
 				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="blue" >
-					<xsl:value-of select="$currentClassName"/>
+					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of select="$currentClassName"/></a>
 				</text>
 				<!-- Link the class name to all superclasses by arrows -->
 				<xsl:for-each select="$superClasses">
@@ -211,7 +211,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>
-						<xsl:when test="position()&lt; $numberOfObjects div 2">
+						<xsl:when test="position()&lt; $numberOfObjects div 2 + 1">
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfObjects - 1) * (position()-1) } {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />						
