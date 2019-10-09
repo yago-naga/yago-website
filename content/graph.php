@@ -3,22 +3,73 @@
 
 require 'includes/sparql.php';
 
-$resourceParts = explode(':', $_GET['resource'], 2);
-if (count($resourceParts) === 2 && isset($PREFIXES[$resourceParts[0]])) {
-    $resource = $PREFIXES[$resourceParts[0]] . $resourceParts[1];
-} else {
-    $resource = 'http://yago-knowledge.org/resource/' . implode(':', $resourceParts);
+function getSparqlQueryXmlDocument(string $query) {
+    global $PREFIXES;
+
+    // We do the SPARQL query: custom code to get XML results
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'GET',
+            'header' => [
+                'Accept: application/sparql-results+xml',
+                'User-Agent: YagoWebsite/1.0'
+            ],
+        ]
+    ]);
+    $url = config('sparql_endpoint') . '?query=' . urlencode($query);
+    $response = file_get_contents($url, false, $context);
+    if (!$response) {
+        throw new Exception("HTTP error for SPARQL query:\n" . $query);
+    }
+
+    // We replace expended URIs by their prefix (very hacky):
+    foreach ($PREFIXES as $prefix => $base) {
+        $response = str_replace($base, $prefix . ':', $response);
+    }
+
+
+    $document = new DOMDocument();
+    $document->loadXML($response);
+    return $document;
 }
 
-$stylesheet = new DOMDocument();
-$stylesheet->load(__DIR__ . '/../includes/graph_builder.xslt');
+function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile) {
+    $xslt = new XSLTProcessor();
+    $stylesheet = new DOMDocument();
+    $stylesheet->load($xsltFile);
+    $xslt->importStyleSheet($stylesheet);
+    return $xslt->transformToXML($inputDocument);
+}
 
-$sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+if (!isset($_GET['resource']) || !$_GET['resource']) {
+    include '404.php';
+    return;
+}
+
+$resource = resolvePrefixedUri($_GET['resource']);
+
+$relation = isset($_GET['relation']) ? resolvePrefixedUri($_GET['relation']) : null;
+$cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
+
+if($relation !== null) {
+    $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?s ?p ?o (' . $cursor . ' AS ?page) WHERE {
+ BIND(<' . $resource . '> AS ?s)
+ BIND(<' . $relation . '> AS ?p)
+ ?s ?p ?o
+} LIMIT 20 OFFSET ' . $cursor * 20;
+    print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/relation_builder.xslt');
+
+} else {
+    $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?s ?p ?o ?count WHERE {
- {SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (1 AS ?count) WHERE {
-   <' . $resource . '> rdf:type/rdfs:subClassOf* ?s .
+ {SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-1 AS ?count) WHERE {
+   <' . $resource . '> rdf:type ?c .
+   ?c rdfs:subClassOf* ?s .
    ?s rdfs:subClassOf ?o .
  }}
  UNION
@@ -26,36 +77,15 @@ SELECT ?s ?p ?o ?count WHERE {
    BIND(<' . $resource . '> AS ?s)
    ?s ?p ?o .
    FILTER(?p != rdf:type)
- } GROUP BY ?s ?p}
-}';
-
-// We do the SPARQL query: custom code to get XML results
-$context = stream_context_create([
-    'http' => [
-        'method' => 'GET',
-        'header' => [
-            'Accept: application/sparql-results+xml',
-            'User-Agent: YagoWebsite/1.0'
-        ],
-    ]
-]);
-$url = config('sparql_endpoint') . '?query=' . urlencode($sparqlQuery);
-$response = file_get_contents($url, false, $context);
-if (!$response) {
-    throw new Exception("HTTP error for SPARQL query:\n" . $sparqlQuery);
+   FILTER(?p != rdfs:subClassOf)
+ } GROUP BY ?s ?p }
+ UNION
+ {SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-2 AS ?count) WHERE {
+   <' . $resource . '> rdfs:subClassOf+ ?s .
+   ?s rdfs:subClassOf ?o .
+ }}
 }
-
-// We replace expended URIs by their prefix (very hacky):
-foreach ($PREFIXES as $prefix => $base) {
-    $response = str_replace($base, $prefix . ':', $response);
+';
+    print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/graph_builder.xslt');
 }
-
-
-$input = new DOMDocument();
-$input->loadXML($response);
-
-$xslt = new XSLTProcessor();
-$xslt->importStyleSheet($stylesheet);
-print $xslt->transformToXML($input);
-
 ?>

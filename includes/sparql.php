@@ -109,6 +109,17 @@ function uriToLink($uri, $label = null, $description = null)
     return '<a href="' . uriToUrl($uri) . '" title="' . htmlspecialchars($title) . '">' . uriToPrefixedName($uri) . '</a>';
 }
 
+function resolvePrefixedUri($prefixed) {
+    global $PREFIXES;
+
+    $parts = explode(':', $prefixed, 2);
+    if (count($parts) === 2 && isset($PREFIXES[$parts[0]])) {
+        return $PREFIXES[$parts[0]] . $parts[1];
+    } else {
+        return $PREFIXES['yago'] . implode(':', $parts);
+    }
+}
+
 function getValueInDisplayLanguage(array $propertyValues, $propertyUri, $locale)
 {
     $values = [];

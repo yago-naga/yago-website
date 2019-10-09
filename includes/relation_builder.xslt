@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--- Transforms a SPARLQ query result about an entity and a relation into an SVG visualization. The query takes the following form:
+<!--- Transforms a SPARQL query result about an entity and a relation into an SVG visualization. The query takes the following form:
 
 SELECT ?s ?p ?o ('3' AS ?page) WHERE {
      BIND(<http://yago-knowledge.org/resource/Elvis_Presley> AS ?s)
@@ -49,9 +49,9 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 				<xsl:variable name="predicate" select="/s:sparql/s:results/s:result[1]/s:binding[@name='p']" />
 				<xsl:variable name="page" select="number(/s:sparql/s:results/s:result[1]/s:binding[@name='page']/s:literal/text())" />
 
-				<!-- Print the page number -->				
-				<text text-anchor="end" x="{$width - $fontSize}" y="{$height - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page" />&#8239;
-				<xsl:if test="$numberOfObjects=20"><a href="{concat($yagoUrl,$entity,$predicate,$page + 1)}" style="fill: blue">(more)</a></xsl:if>
+				<!-- Print the page number -->
+				<text text-anchor="end" x="{$width - $fontSize}" y="{$height - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page + 1" />&#8239;
+				<xsl:if test="$numberOfObjects=20"><a href="{concat($yagoUrl,$entity,'?relation=',$predicate,'&amp;cursor=',$page + 1)}" style="fill: blue">(more)</a></xsl:if>
 			    </text>
 
 				<!-- Print the facts -->

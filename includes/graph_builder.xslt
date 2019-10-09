@@ -217,7 +217,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 										<xsl:with-param name="object" select="s:binding[@name='o']" />						
 										<xsl:with-param name="length" select="$maxEntityDisplayLength" />		
 										<xsl:with-param name="more" select="s:binding[@name='count']" />			
-										<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,$predicate,1)	" />																									
+										<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,'?relation=',$predicate)	" />
 									</xsl:call-template>
 								</text>
 							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({180 div ($numberOfObjects - 1) * (position()-1) } {$x} {$y})" font-size="{$fontSize}">
@@ -232,7 +232,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 									<xsl:with-param name="object" select="s:binding[@name='o']" />						
 									<xsl:with-param name="length" select="$maxEntityDisplayLength" />															
 									<xsl:with-param name="more" select="s:binding[@name='count']" />
-									<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,$predicate,1)	" />									
+									<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,'?relation=',$predicate)" />
 								</xsl:call-template>
 							</text>
 							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position() ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">

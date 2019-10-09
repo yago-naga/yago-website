@@ -49,7 +49,7 @@
 			<xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:50%; " dy="-0.5em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if>
 		</xsl:if>
 		<xsl:if test="$entityObject">
-			<a href="concat($yagoUrl,$object)"  style="fill:blue">
+			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">
 				<xsl:call-template name="printString">
 					<xsl:with-param  name="object" select="$entityObject"/>
 					<xsl:with-param name="length" select="$length"/>

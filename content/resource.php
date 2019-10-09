@@ -7,13 +7,7 @@ if (!isset($_GET['resource']) || !$_GET['resource']) {
     return;
 }
 
-$resourceParts = explode(':', $_GET['resource'], 2);
-if (count($resourceParts) === 2 && isset($PREFIXES[$resourceParts[0]])) {
-    $resource = $PREFIXES[$resourceParts[0]] . $resourceParts[1];
-} else {
-    $resource = 'http://yago-knowledge.org/resource/' . implode(':', $resourceParts);
-}
-
+$resource = resolvePrefixedUri($_GET['resource']);
 $propertyValues = describeEntity($resource, $locale);
 
 if (!$propertyValues) {
