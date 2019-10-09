@@ -14,7 +14,7 @@
 	<!-- Configuration: fontSize, the vertical distance between two taxonomy items, the radius of the star, and the width and height of the image -->
 	<xsl:variable name="fontSize" select="30"/>
 	<xsl:variable name="taxonomyDistance" select="60"/>
-	<xsl:variable name="radius" select="450"/>
+	<xsl:variable name="radius" select="500"/>
 	<xsl:variable name="width" select="$radius*4"/>
 	<xsl:variable name="height" select="$radius*4"/>
 	<xsl:variable name="maxEntityDisplayLength" select="40"/>
@@ -26,6 +26,7 @@
 		<xsl:param name="object" />
 		<xsl:param name="length" select="$maxPredicateDisplayLength"/>
 		<xsl:if test="string-length($object)&gt;$length">
+			<title><xsl:value-of select="$object" /></title>
 			<xsl:value-of select="substring($object,1,$length - 3)"/>...		
 		</xsl:if>
 		<xsl:if test="not(string-length($object)&gt;$length)">
@@ -46,7 +47,7 @@
 				<xsl:with-param name="object" select="$stringObject"/>
 				<xsl:with-param name="length" select="$length"/>
 			</xsl:call-template>"<xsl:if test="$object/s:literal/@xml:lang">@<xsl:value-of select="$object/s:literal/@xml:lang"/></xsl:if>
-			<xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:80%; " dy="-0.5em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if>
+			<xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:80%; " dy="-0.3em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if>
 		</xsl:if>
 		<xsl:if test="$entityObject">
 			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">

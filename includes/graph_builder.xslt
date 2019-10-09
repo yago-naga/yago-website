@@ -176,8 +176,9 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 					<xsl:if test="$scaleY&gt;$scaleX">
 						<xsl:value-of select=" 0" />
 					</xsl:if>
-				</xsl:variable>
-				<xsl:variable name="shift" select="normalize-space($shiftHelper)" />
+				</xsl:variable>				
+				<xsl:variable name="shift_" select="normalize-space($shiftHelper)" />
+				<xsl:variable name="shift" select="($width - $maxX*$scale) div 2" />
 				<use href="#taxonomy" x="{$shift div $scale}" y="0" transform="scale({$scale})" />
 
 				<!-- Print the entity name -->
