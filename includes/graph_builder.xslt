@@ -6,6 +6,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?s ?p ?o ?count WHERE {
  {
+
+ # Get taxonomy. As a code, we set count=-1
  SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-1 AS ?count) WHERE {
    <http://yago-knowledge.org/resource/Elvis_Presley> rdf:type ?c .
    ?c rdfs:subClassOf* ?s .
@@ -14,6 +16,8 @@ SELECT ?s ?p ?o ?count WHERE {
  }
  UNION
  {
+
+ # Get the facts. The variable count contains the number of facts per  relation.
    SELECT ?s ?p (SAMPLE(?o) AS ?o) (COUNT(?o)
 AS ?count) WHERE {
      BIND(<http://yago-knowledge.org/resource/Elvis_Presley> AS ?s)
@@ -24,6 +28,8 @@ AS ?count) WHERE {
    GROUP BY ?s ?p
  }
  UNION {
+
+   # Get taxonomy in case of classes. As a code, we set count=-2
 	SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-2 AS ?count) WHERE {
    <http://yago-knowledge.org/resource/Elvis_Presley> rdfs:subClassOf+ ?s .
    ?s rdfs:subClassOf ?o .
@@ -31,12 +37,6 @@ AS ?count) WHERE {
 
  }
 }
-
-// For Elvis
-http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount%20WHERE%20{%20{%20SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-1%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Elvis_Presley>%20rdf:type%20%3Fc%20.%20%3Fc%20rdfs:subClassOf*%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}%20UNION%20{%20SELECT%20%3Fs%20%3Fp%20(SAMPLE(%3Fo)%20AS%20%3Fo)%20(COUNT(%3Fo)AS%20%3Fcount)%20WHERE%20{%20BIND(<http://yago-knowledge.org/resource/Elvis_Presley>%20AS%20%3Fs)%20%3Fs%20%3Fp%20%3Fo%20.%20FILTER(%3Fp%20!=%20rdf:type)%20}%20GROUP%20BY%20%3Fs%20%3Fp%20}%20UNION%20{	SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-2%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Elvis_Presley>%20rdfs:subClassOf%2B%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}}
-
-// For Sibling
-http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount%20WHERE%20{%20{%20SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-1%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Sibling>%20rdf:type%20%3Fc%20.%20%3Fc%20rdfs:subClassOf*%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}%20UNION%20{%20SELECT%20%3Fs%20%3Fp%20(SAMPLE(%3Fo)%20AS%20%3Fo)%20(COUNT(%3Fo)AS%20%3Fcount)%20WHERE%20{%20BIND(<http://yago-knowledge.org/resource/Sibling>%20AS%20%3Fs)%20%3Fs%20%3Fp%20%3Fo%20.%20FILTER(%3Fp%20!=%20rdf:type)%20FILTER(%3Fp%20!=%20rdfs:subClassOf)%20}%20GROUP%20BY%20%3Fs%20%3Fp%20}%20UNION%20{	SELECT%20DISTINCT%20%3Fs%20(rdfs:subClassOf%20AS%20%3Fp)%20%3Fo%20(-2%20AS%20%3Fcount)%20WHERE%20{%20<http://yago-knowledge.org/resource/Sibling>%20rdfs:subClassOf%2B%20%3Fs%20.%20%3Fs%20rdfs:subClassOf%20%3Fo%20.%20}%20}}
 
 -->
 <!-- We need the node-set operator, which is either in the Microsoft namespace or in the EXSLT namespace, depending on the XSLT processor you use. Rename the prefix to "ex" for the namespace that corresponds to your processor. -->
@@ -46,6 +46,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 	xmlns:ex_="urn:schemas-microsoft-com:xslt"
 	xmlns:s="http://www.w3.org/2005/sparql-results#"
 	xmlns:svg="http://www.w3.org/2000/svg"
+	xmlns:math="http://www.w3.org/2005/xpath-functions/math"
 	xmlns:ex="http://exslt.org/common" version="1.0" exclude-result-prefixes="xsl s svg ex ex_">
 
 	 <xsl:import href="builder_config.xslt" />
@@ -207,8 +208,10 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 					<xsl:variable name="object" select="s:binding[@name='o']" />
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
-					<!-- Draw the arrow -->
-					<line x1="{$x+ $maxPredicateDisplayLength div 2 * $fontSize div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
+					<xsl:variable name="minDistance" select="$fontSize * 2" />
+					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * ($maxEntityDisplayLength * $fontSize div 8 - $minDistance)" />					
+					<line x1="{$x + $minDistance +$indentation}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>

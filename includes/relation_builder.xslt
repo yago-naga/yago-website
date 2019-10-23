@@ -15,9 +15,7 @@ SELECT ?s ?p ?o ('3' AS ?page) ('1' AS ?inverse) (<http://schema.org/name> AS ?r
      ?o ?p ?s .     
 } LIMIT 20 OFFSET 40
 
-Here, the ?relation is either a YAGO relation (if the ?p are all the same), or the keyword 'all' (if the ?p are different relations).
-
-http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20AS%20%3Fpage)%20('1'%20AS%20%3Finverse)%20WHERE%20{BIND(<http://yago-knowledge.org/resource/Elvis_Presley>%20AS%20%3Fs)BIND(<http://schema.org/name>%20AS%20%3Fp)%20%3Fs%20%3Fp%20%3Fo%20.}%20LIMIT%2020%20OFFSET%2040
+Here, the ?relation is either a YAGO relation (if the ?p are all the same), or the keyword 'all' (if the ?p are different relations). The variable ?inverse decides whether incoming our outgoing links should be shown.
 
 -->
 
