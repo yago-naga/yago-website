@@ -58,21 +58,22 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 				<xsl:variable name="numberOfObjects" select="count($objects)" />				
 				<xsl:variable name="page" select="number(/s:sparql/s:results/s:result[1]/s:binding[@name='page']/s:literal/text())" />
 				<xsl:variable name="relation" select="/s:sparql/s:results/s:result[1]/s:binding[@name='relation']/s:literal/text()" />
+				<xsl:variable name="inverse" select="s:binding[@name='inverse']" />
 
 				<!-- Print the page number -->
 				<text text-anchor="end" x="{$width - $fontSize}" y="{$height - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page + 1" />&#8239;
-				<xsl:if test="$numberOfObjects=20"><a href="{concat($yagoUrl,$entity,'?relation=',$relation,'&amp;cursor=',$page + 1)}" style="fill: blue">(more)</a></xsl:if>
+				<xsl:if test="$numberOfObjects=20"><a href="{concat($yagoUrl,$entity,'?relation=',$relation,'&amp;cursor=',$page + 1,'&amp;inverse=',$inverse)}" style="fill: blue">(more)</a></xsl:if>
 			    </text>
 
 				<!-- Print the facts -->
 				<xsl:for-each select="$objects">
 					
 					<!-- Draw the arrow -->
-					<xsl:if test="not(s:binding[@name='inverse']='1')">
-						<line x1="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<xsl:if test="not(inverse)">
+						<line x1="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					</xsl:if>
-					<xsl:if test="s:binding[@name='inverse']='1'">
-						<line x1="{$x+$radius}" y1="{$y}" x2="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position()} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<xsl:if test="inverse">
+						<line x1="{$x+$radius}" y1="{$y}" x2="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					</xsl:if>
 
 					<!-- Treat left and right half differently -->
