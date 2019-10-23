@@ -3,7 +3,8 @@
 
 require 'includes/sparql.php';
 
-function getSparqlQueryXmlDocument(string $query) {
+function getSparqlQueryXmlDocument(string $query)
+{
     global $PREFIXES;
 
     // We do the SPARQL query: custom code to get XML results
@@ -33,7 +34,8 @@ function getSparqlQueryXmlDocument(string $query) {
     return $document;
 }
 
-function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile) {
+function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
+{
     $xslt = new XSLTProcessor();
     $stylesheet = new DOMDocument();
     $stylesheet->load($xsltFile);
@@ -52,13 +54,13 @@ $relation = isset($_GET['relation']) ? resolvePrefixedUri($_GET['relation']) : n
 $inverse = isset($_GET['inverse']) && is_numeric($_GET['inverse']) ? intval($_GET['inverse']) : 0;
 $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
 
-if($relation !== null) {
+if ($relation !== null) {
     $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . $inverse . ' AS ?inverse) (' . $relation . ' AS ?relation) WHERE {
- BIND(<' . $resource . '> AS ?s)' . ($relation=='all'?'':'BIND(<' . $relation . '> AS ?p)') .
-($inverse>0?'?o ?p ?s':'?s ?p ?o') .'} LIMIT 20 OFFSET ' . $cursor * 20;
+ BIND(<' . $resource . '> AS ?s)' . ($relation == 'all' ? '' : 'BIND(<' . $relation . '> AS ?p)') .
+        ($inverse > 0 ? '?o ?p ?s' : '?s ?p ?o') . '} LIMIT 20 OFFSET ' . $cursor * 20;
     print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/relation_builder.xslt');
 
 } else {
