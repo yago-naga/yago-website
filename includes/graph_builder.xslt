@@ -202,7 +202,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 
 				<!-- Print the facts -->
 				<xsl:variable name="facts" select="/s:sparql/s:results/s:result[s:binding[@name='count' and number(s:literal/text())&gt;0]]" />
-				<xsl:variable name="numberOfObjects" select="count($facts)" />
+				<xsl:variable name="numberOfObjects" select="count($facts)+number($isClass)*2" />
 				<xsl:for-each select="$facts">
 					<xsl:variable name="object" select="s:binding[@name='o']" />
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
@@ -244,6 +244,18 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20%3Fcount
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:for-each>
+
+				<!-- Print the type and subclass relationships for classes -->
+				<xsl:if test="$isClass">
+					<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxPredicateDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}"  fill="blue">rdf:type</text>
+					<a href="{concat($yagoUrl,$entity,'?relation=rdf:type&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
+					<g transform="rotate({-180 div ($numberOfObjects - 1)} {$x} {$y})">
+						<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxPredicateDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+						<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}"  fill="blue">rdfs:subClassOf</text>
+						<a href="{concat($yagoUrl,$entity,'?relation=rdfs:subClassOf&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
+					</g>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

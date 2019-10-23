@@ -43,11 +43,14 @@
 		<xsl:variable name="entityObject" select="$object/s:uri" />
 		<xsl:variable name="stringObject" select="$object/s:literal" />
 		<xsl:if test="$stringObject" >
-			"<xsl:call-template name="printString">
-				<xsl:with-param name="object" select="$stringObject"/>
-				<xsl:with-param name="length" select="$length"/>
-			</xsl:call-template>"<xsl:if test="$object/s:literal/@xml:lang">@<xsl:value-of select="$object/s:literal/@xml:lang"/></xsl:if>
-			<xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:80%; " dy="-0.3em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if>
+			<a href="{concat($yagoUrl,'&quot;',$object,'&quot;',substring(concat('@',$object/s:literal/@xml:lang),number(not(boolean($object/s:literal/@xml:lang)))*100),substring(concat('^^',$object/s:literal/@datatype),number(not(boolean($object/s:literal/@datatype)))*1000),'?relation=all&amp;.inverse=1')}"  style="fill:blue">
+				"<xsl:call-template name="printString">
+					<xsl:with-param name="object" select="$stringObject"/>
+					<xsl:with-param name="length" select="$length"/>
+				</xsl:call-template>"
+				<xsl:if test="$object/s:literal/@xml:lang">@<xsl:value-of select="$object/s:literal/@xml:lang"/></xsl:if>
+				<xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:80%; " dy="-0.3em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if>
+			</a>
 		</xsl:if>
 		<xsl:if test="$entityObject">
 			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">
