@@ -1,4 +1,23 @@
-<h1>Graph visualization</h1>
+<h1 style="text-align: center;">Graph visualization</h1>
+
+<form id="search" class="row">
+    <div class="col s2"></div>
+    <div class="col s7 input-field">
+        <input placeholder="Search Yago in English" name="search" id="search-field" type="text">
+    </div>
+    <div class="col s1">
+        <button type="submit" class="waves-effect waves-light btn">search</button>
+    </div>
+    <div class="col s2"></div>
+<script>
+    window.onload = function () {
+        $('#search').submit(function () {
+            window.location.href = '/graph/"' + $('#search-field').val() + '"@en?relation=all&inverse=1';
+            return false;
+        });
+    };
+</script>
+
 <?php
 
 require 'includes/sparql.php';
@@ -44,20 +63,18 @@ function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
 }
 
 if (!isset($_GET['resource']) || !$_GET['resource']) {
-    include '404.php';
     return;
 }
 
 $resource = $_GET['resource'];
-if(preg_match('/^"[^"]*"(@[a-zA-Z\-]+)?$/', $resource)) {
+if (preg_match('/^".*"(@[a-zA-Z\-]+)?$/', $resource)) {
     // Plain literal ok
-} else if(preg_match('/^"([^"]*)"\^\^<([^>])>$/', $resource, $m)) {
-    //Literal with full datatype URI
-    $resource = '"' . $m[1] . '"^^<' . $m[2] . '>';
-} else if(preg_match('/^"([^"]*)"\^\^(.*)$/', $resource, $m)) {
+} else if (preg_match('/^".*"\^\^<.+>$/', $resource, $m)) {
+    //Literal with full datatype URI ok
+} else if (preg_match('/^"(.*)"\^\^(.+)$/', $resource, $m)) {
     //Literal with relative datatype URI
     $resource = '"' . $m[1] . '"^^<' . resolvePrefixedUri($m[2]) . '>';
-} elseif(preg_match('/^<[^>]+>$/', $resource)) {
+} elseif (preg_match('/^<.+>$/', $resource)) {
     // URI
     $resource = '<' . resolvePrefixedUri(substr($resource, 1, -1)) . '>';
 } else {
@@ -65,14 +82,14 @@ if(preg_match('/^"[^"]*"(@[a-zA-Z\-]+)?$/', $resource)) {
 }
 
 $relation = isset($_GET['relation']) ? resolvePrefixedUri($_GET['relation']) : null;
-$inverse = isset($_GET['inverse']) && is_numeric($_GET['inverse']) ? intval($_GET['inverse']) : 0;
+$inverse = isset($_GET['inverse']) && $_GET['inverse'];
 $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
 
 if ($relation !== null) {
     $sparqlQuery = '
-SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . $inverse . ' AS ?inverse) (\'' . $relation . '\' AS ?relation) WHERE {
+SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . ($inverse ? 'true' : 'false') . ' AS ?inverse) (\'' . $relation . '\' AS ?relation) WHERE {
  BIND(' . $resource . ' AS ?s)' . ($relation == 'http://yago-knowledge.org/resource/all' ? '' : 'BIND(<' . $relation . '> AS ?p)') .
-        ($inverse > 0 ? '?o ?p ?s' : '?s ?p ?o') . '} LIMIT 20 OFFSET ' . $cursor * 20;
+        ($inverse ? '?o ?p ?s' : '?s ?p ?o') . '} LIMIT 20 OFFSET ' . $cursor * 20;
     print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/relation_builder.xslt');
 } else {
     $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
