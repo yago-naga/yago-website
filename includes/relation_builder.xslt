@@ -57,7 +57,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 				<xsl:variable name="objects" select="/s:sparql/s:results/s:result" />
 				<xsl:variable name="numberOfObjects" select="count($objects)" />				
 				<xsl:variable name="page" select="number(/s:sparql/s:results/s:result[1]/s:binding[@name='page']/s:literal/text())" />
-				<xsl:variable name="relation" select="/s:sparql/s:results/s:result/s:binding[@name='relation']/s:literal/text()" />
+				<xsl:variable name="relation" select="/s:sparql/s:results/s:result[1]/s:binding[@name='relation']/s:literal/text()" />
 
 				<!-- Print the page number -->
 				<text text-anchor="end" x="{$width - $fontSize}" y="{$height - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page + 1" />&#8239;
@@ -77,7 +77,7 @@ http://yago.r2.enst.fr/sparql/query?query=SELECT%20%3Fs%20%3Fp%20%3Fo%20('3'%20A
 
 					<!-- Treat left and right half differently -->
 					<xsl:choose>
-						<xsl:when test="position()&lt; $numberOfObjects div 2">
+						<xsl:when test="position()&lt; $numberOfObjects div 2 + 1">
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />		
