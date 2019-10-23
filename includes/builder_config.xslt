@@ -43,7 +43,7 @@
 		<xsl:variable name="entityObject" select="$object/s:uri" />
 		<xsl:variable name="stringObject" select="$object/s:literal" />
 		<xsl:if test="$stringObject" >
-			<a href="{concat($yagoUrl,'&quot;',$object,'&quot;',substring(concat('@',$object/s:literal/@xml:lang),number(not(boolean($object/s:literal/@xml:lang)))*100),substring(concat('^^',$object/s:literal/@datatype),number(not(boolean($object/s:literal/@datatype)))*1000),'?relation=all&amp;.inverse=1')}"  style="fill:blue">
+			<a href="{concat($yagoUrl,'&quot;',$object,'&quot;',substring(concat('@',$object/s:literal/@xml:lang),number(not(boolean($object/s:literal/@xml:lang)))*100),substring(concat('^^',$object/s:literal/@datatype),number(not(boolean($object/s:literal/@datatype)))*1000),'?relation=all&amp;inverse=1')}"  style="fill:blue">
 				"<xsl:call-template name="printString">
 					<xsl:with-param name="object" select="$stringObject"/>
 					<xsl:with-param name="length" select="$length"/>
