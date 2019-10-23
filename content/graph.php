@@ -55,14 +55,11 @@ $inverse = isset($_GET['inverse']) && is_numeric($_GET['inverse']) ? intval($_GE
 $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
 
 if ($relation !== null) {
-    $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . $inverse . ' AS ?inverse) (' . $relation . ' AS ?relation) WHERE {
- BIND(<' . $resource . '> AS ?s)' . ($relation == 'all' ? '' : 'BIND(<' . $relation . '> AS ?p)') .
+    $sparqlQuery = '
+SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . $inverse . ' AS ?inverse) (<' . $relation . '> AS ?relation) WHERE {
+ BIND(<' . $resource . '> AS ?s)' . ($relation == 'http://yago-knowledge.org/resource/all' ? '' : 'BIND(<' . $relation . '> AS ?p)') .
         ($inverse > 0 ? '?o ?p ?s' : '?s ?p ?o') . '} LIMIT 20 OFFSET ' . $cursor * 20;
     print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/relation_builder.xslt');
-
 } else {
     $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
