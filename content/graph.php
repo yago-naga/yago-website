@@ -1,23 +1,3 @@
-<h1 style="text-align: center;">Graph visualization</h1>
-
-<form id="search" class="row">
-    <div class="col s2"></div>
-    <div class="col s7 input-field">
-        <input placeholder="Search Yago in English" name="search" id="search-field" type="text">
-    </div>
-    <div class="col s1">
-        <button type="submit" class="waves-effect waves-light btn">search</button>
-    </div>
-    <div class="col s2"></div>
-<script>
-    window.onload = function () {
-        $('#search').submit(function () {
-            window.location.href = '/graph/"' + $('#search-field').val() + '"@en?relation=all&inverse=1';
-            return false;
-        });
-    };
-</script>
-
 <?php
 
 require 'includes/sparql.php';
@@ -62,18 +42,23 @@ function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
     return $xslt->transformToXML($inputDocument);
 }
 
-if (!isset($_GET['resource']) || !$_GET['resource']) {
-    return;
-}
-
-$resource = $_GET['resource'];
-if (preg_match('/^".*"(@[a-zA-Z\-]+)?$/', $resource)) {
+$resource = isset($_GET['resource']) ? $_GET['resource'] : '';
+$searchText = '';
+$searchLang = 'en';
+if (preg_match('/^"(.*)"$/', $resource, $m)) {
     // Plain literal ok
-} else if (preg_match('/^".*"\^\^<.+>$/', $resource, $m)) {
+    $searchText = $m[1];
+} else if (preg_match('/^"(.*)"@([a-zA-Z\-]+)$/', $resource, $m)) {
+    // Plain lang literal ok
+    $searchText = $m[1];
+    $searchLang = $m[2];
+} else if (preg_match('/^"(.*)"\^\^<.+>$/', $resource, $m)) {
     //Literal with full datatype URI ok
+    $searchText = $m[1];
 } else if (preg_match('/^"(.*)"\^\^(.+)$/', $resource, $m)) {
     //Literal with relative datatype URI
     $resource = '"' . $m[1] . '"^^<' . resolvePrefixedUri($m[2]) . '>';
+    $searchText = $m[1];
 } elseif (preg_match('/^<.+>$/', $resource)) {
     // URI
     $resource = '<' . resolvePrefixedUri(substr($resource, 1, -1)) . '>';
@@ -84,6 +69,53 @@ if (preg_match('/^".*"(@[a-zA-Z\-]+)?$/', $resource)) {
 $relation = isset($_GET['relation']) ? resolvePrefixedUri($_GET['relation']) : null;
 $inverse = isset($_GET['inverse']) && $_GET['inverse'];
 $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
+
+?>
+    <h1 style="text-align: center;">Graph visualization</h1>
+
+    <form id="search" class="row">
+        <div class="col s1"></div>
+        <div class="col s6 input-field">
+            <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
+            <label for="search-text">Search Yago</label>
+        </div>
+        <div class="col s3 input-field">
+            <select id="search-lang">
+                <?php
+                $languages = array_unique(array_map(function ($locale) {
+                    return Locale::getPrimaryLanguage($locale);
+                }, ResourceBundle::getLocales('')));
+                foreach ($languages as $language) {
+                    if ($language === $searchLang) {
+                        print '<option value="' . $language . '" selected>' . Locale::getDisplayLanguage($language, $language) . '</option>';
+                    } else {
+                        print '<option value="' . $language . '">' . Locale::getDisplayLanguage($language, $language) . '</option>';
+                    }
+                }
+                ?>
+            </select>
+            <label for="search-lang">Search language</label>
+        </div>
+        <div class="col s1" style="margin-top: 1.5rem;">
+            <button type="submit" class="waves-effect waves-light btn">search</button>
+        </div>
+        <div class="col s1"></div>
+    </form>
+    <script>
+        window.onload = function () {
+            $('#search-lang').formSelect();
+
+            $('#search').submit(function () {
+                window.location.href = '/graph/"' + $('#search-text').val() + '"@' + $('#search-lang').val() + '?relation=all&inverse=1';
+                return false;
+            });
+        };
+    </script>
+
+<?php
+if ($resource === '') {
+    return;
+}
 
 if ($relation !== null) {
     $sparqlQuery = '
