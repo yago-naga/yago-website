@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--- Transforms a SPARQL query result about an entity and a relation into an SVG visualization. The query takes the following form:
 
-SELECT ?s ?p ?o ('3' AS ?page) ('0' AS ?inverse) (<http://schema.org/name> AS ?relation) WHERE {
+SELECT ?s ?p ?o ('3' AS ?page) ('0' AS ?inverse) (<http://www.w3.org/2000/01/rdf-schema#label> AS ?relation) WHERE {
      BIND(<http://yago-knowledge.org/resource/Elvis_Presley> AS ?s)
-     BIND(<http://schema.org/name> AS ?p)
+     BIND(<http://www.w3.org/2000/01/rdf-schema#label> AS ?p)
      ?s ?p ?o .     
 } LIMIT 20 OFFSET 40
 
 ... or...
 
-SELECT ?s ?p ?o ('3' AS ?page) ('1' AS ?inverse) (<http://schema.org/name> AS ?relation) WHERE {
+SELECT ?s ?p ?o ('3' AS ?page) ('1' AS ?inverse) (<http://www.w3.org/2000/01/rdf-schema#label> AS ?relation) WHERE {
      BIND(<http://yago-knowledge.org/resource/Elvis_Presley> AS ?s)
-     BIND(<http://schema.org/name> AS ?p)
+     BIND(<http://www.w3.org/2000/01/rdf-schema#label> AS ?p)
      ?o ?p ?s .     
 } LIMIT 20 OFFSET 40
 

@@ -109,7 +109,8 @@ function uriToLink($uri, $label = null, $description = null)
     return '<a href="' . uriToUrl($uri) . '" title="' . htmlspecialchars($title) . '">' . uriToPrefixedName($uri) . '</a>';
 }
 
-function resolvePrefixedUri($prefixed) {
+function resolvePrefixedUri($prefixed)
+{
     global $PREFIXES;
 
     $parts = explode(':', $prefixed, 2);
@@ -150,7 +151,7 @@ function describeEntity($resource, $locale, $reverse = false)
 
     $propertyValues = [];
     foreach ($properties as $property) {
-        $sparql = doSparqlQuery('SELECT DISTINCT ?o ?label WHERE { BIND(<' . $property . '> AS ?p) ' . $filter . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label>|<http://schema.org/name> ?label . FILTER(LANG(?label) = "' . Locale::getPrimaryLanguage($locale) . '") } } LIMIT 100');
+        $sparql = doSparqlQuery('SELECT DISTINCT ?o ?label WHERE { BIND(<' . $property . '> AS ?p) ' . $filter . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . Locale::getPrimaryLanguage($locale) . '") } } LIMIT 100');
 
         foreach ($sparql['results']['bindings'] as $binding) {
             $valueKey = json_encode($binding['o']);

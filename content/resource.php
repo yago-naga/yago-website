@@ -15,13 +15,10 @@ if (!$propertyValues) {
     return;
 }
 
-$resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://schema.org/name', $locale)
-    ?: getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#label', $locale)
-        ?: uriToPrefixedName($resource);
+$resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#label', $locale)
+    ?: uriToPrefixedName($resource);
 
-$resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://schema.org/description', $locale)
-    ?: getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment', $locale)
-        ?: '';
+$resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment', $locale) ?: '';
 
 $sameAsLinks = [];
 if (isset($propertyValues['http://www.w3.org/2002/07/owl#sameAs'])) {
