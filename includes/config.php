@@ -27,10 +27,10 @@ function config($key = '')
 
                 ],
             ],
-            'browse' => [
+            'graph/Elvis_Presley' => [
                 'title' => 'Browse/Query',
                 'children' => [
-                    "graph" => "Browse",
+                    "graph/Elvis_Presley" => "Browse",
                     "schema" => "Schema",					
                     "sparql" => "SPARQL",
                 ],
