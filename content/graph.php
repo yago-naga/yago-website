@@ -42,6 +42,15 @@ function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
     return $xslt->transformToXML($inputDocument);
 }
 
+if ( !isset( $_GET['resource'] ) || !$_GET['resource'] ) {
+    // We pick something randomly
+    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?c a  <http://schema.org/Thing> }')['value']);
+    $offset = random_int(0, $resourcesCount - 1);
+    $resource = doSingleResultQuery('SELECT ?r WHERE { ?r a <http://schema.org/Thing> } OFFSET ' . $offset . ' LIMIT 1')['value'];
+    header('Location: /graph/' . uriToPrefixedName($resource), true, 302);
+    exit();
+}
+
 $resource = isset($_GET['resource']) ? $_GET['resource'] : '';
 $searchText = '';
 $searchLang = 'en';
@@ -74,7 +83,6 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
     <h1 style="text-align: center;">Graph visualization</h1>
 
     <form id="search" class="row">
-        <div class="col s1"></div>
         <div class="col s6 input-field">
             <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
             <label for="search-text">Search Yago</label>
@@ -94,12 +102,12 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
                 }
                 ?>
             </select>
-            <label for="search-lang">Search language</label>
         </div>
-        <div class="col s1" style="margin-top: 1.5rem;">
+        <div class="col s3" style="margin-top: 1.5rem;">
             <button type="submit" class="waves-effect waves-light btn">search</button>
+            <button id="random" class="waves-effect waves-light btn">random</button>
         </div>
-        <div class="col s1"></div>
+        </div>
     </form>
     <script>
         window.onload = function () {
@@ -107,6 +115,11 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
 
             $('#search').submit(function () {
                 window.location.href = '/graph/"' + $('#search-text').val() + '"@' + $('#search-lang').val() + '?relation=all&inverse=1';
+                return false;
+            });
+
+            $('#random').click(function () {
+                window.location.href = '/graph/';
                 return false;
             });
         };
