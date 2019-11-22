@@ -48,6 +48,7 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 				<text text-anchor="middle" x="{$x}" y="{$y}" font-size="{$fontSize}">
 					<xsl:call-template name="printObject">
 						<xsl:with-param name="object" select="$entity" />		
+						<xsl:with-param name="length" select="$maxSubjectDisplayLength" />		
 					</xsl:call-template>
 				</text>
 
@@ -87,7 +88,7 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />		
-										<xsl:with-param name="length" select="$maxEntityDisplayLength" />										
+										<xsl:with-param name="length" select="$maxObjectDisplayLength" />										
 									</xsl:call-template>
 								</text>
 							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
@@ -100,7 +101,7 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-360 div $numberOfObjects * ($numberOfObjects - position()) + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
 									<xsl:with-param name="object" select="s:binding[@name='o']" />	
-									<xsl:with-param name="length" select="$maxEntityDisplayLength" />											
+									<xsl:with-param name="length" select="$maxObjectDisplayLength" />											
 								</xsl:call-template>
 							</text>
 							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-360 div $numberOfObjects  * ($numberOfObjects - position())  + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">

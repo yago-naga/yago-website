@@ -85,8 +85,9 @@ AS ?count) WHERE {
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				<!-- Print the class name -->
-				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="blue" >
+				<!-- Print the class name, in red for schemas -->
+				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or starts-with($currentClassName/text(),'bioschemas:'))" />
+				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="{substring('blue red  ',$isShape*5+1,4)}">
 					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of select="$currentClassName"/></a>
 				</text>
 				<!-- Link the class name to all superclasses by arrows -->
@@ -185,7 +186,7 @@ AS ?count) WHERE {
 				<!-- Print the entity name -->
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
-				<text text-anchor="middle" x="{$x}" y="{$y}" font-size="{$fontSize}">
+				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.3}" font-size="{$fontSize}">
 									<xsl:call-template name="printString">
 										<xsl:with-param name="object" select="$entity" />						
 									</xsl:call-template>					
@@ -210,7 +211,7 @@ AS ?count) WHERE {
 
 					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
 					<xsl:variable name="minDistance" select="$fontSize * 2" />
-					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * ($maxEntityDisplayLength * $fontSize div 8 - $minDistance)" />					
+					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * ($maxSubjectDisplayLength * $fontSize div 8 - $minDistance)" />					
 					<line x1="{$x + $minDistance +$indentation}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
 					<!-- Treat left and right quadrant differently -->
@@ -219,7 +220,7 @@ AS ?count) WHERE {
 								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({180 div ($numberOfObjects - 1) * (position()-1) } {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />						
-										<xsl:with-param name="length" select="$maxEntityDisplayLength" />		
+										<xsl:with-param name="length" select="$maxObjectDisplayLength" />		
 										<xsl:with-param name="more" select="s:binding[@name='count']" />			
 										<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,'?relation=',$predicate)	" />
 									</xsl:call-template>
@@ -234,7 +235,7 @@ AS ?count) WHERE {
 							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position()  ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
 									<xsl:with-param name="object" select="s:binding[@name='o']" />						
-									<xsl:with-param name="length" select="$maxEntityDisplayLength" />															
+									<xsl:with-param name="length" select="$maxObjectDisplayLength" />															
 									<xsl:with-param name="more" select="s:binding[@name='count']" />
 									<xsl:with-param name="moreUrl" select="concat($yagoUrl,$entity,'?relation=',$predicate)" />
 								</xsl:call-template>
