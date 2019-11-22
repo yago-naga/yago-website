@@ -86,7 +86,7 @@ AS ?count) WHERE {
 					</xsl:choose>
 				</xsl:variable>
 				<!-- Print the class name, in red for schemas -->
-				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or starts-with($currentClassName/text(),'bioschemas:'))" />
+				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or starts-with($currentClassName,'bioschemas:'))" />
 				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="{substring('blue red  ',$isShape*5+1,4)}">
 					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of select="$currentClassName"/></a>
 				</text>
@@ -186,7 +186,7 @@ AS ?count) WHERE {
 				<!-- Print the entity name -->
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
-			    <xsl:variable name="subjectIsShape" select="(starts-with($entity/s:uri/text(),'schema:') or starts-with($entity/s:uri/text()/text(),'bioschemas:'))" />
+			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
 				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.3}" font-size="{$fontSize}" fill="{substring('black red    ', $subjectIsShape*6+1,5)}">
 									<xsl:call-template name="printString">
 										<xsl:with-param name="object" select="$entity" />						
@@ -212,9 +212,9 @@ AS ?count) WHERE {
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
 					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
-					<xsl:variable name="minDistance" select="$fontSize * 2" />
-					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * ($maxSubjectDisplayLength * $fontSize div 8 - $minDistance)" />					
-					<line x1="{$x + $minDistance +$indentation}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<xsl:variable name="minDistance" select="$maxSubjectDisplayLength * $fontSize * 0.1" />
+					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * $fontSize * 5 " /> <!--($maxSubjectDisplayLength * $fontSize div 6 - $minDistance)" />					-->
+					<line x1="{$x + $minDistance + $indentation}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>

@@ -16,7 +16,7 @@
 	<xsl:variable name="radius" select="500"/>
 	<xsl:variable name="width" select="$radius*4"/>
 	<xsl:variable name="height" select="$radius*4"/>
-	<xsl:variable name="maxSubjectDisplayLength" select="50"/>
+	<xsl:variable name="maxSubjectDisplayLength" select="30"/>
 	<xsl:variable name="maxObjectDisplayLength" select="20"/>	
 	<xsl:variable name="maxPredicateDisplayLength" select="20"/>
 	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
