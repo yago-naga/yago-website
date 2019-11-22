@@ -45,7 +45,7 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$height div 2" />
 				<xsl:variable name="entity" select="/s:sparql/s:results/s:result[1]/s:binding[@name='s']" />
-				<text text-anchor="middle" x="{$x}" y="{$y}" font-size="{$fontSize}">
+				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize*0.2}" font-size="{$fontSize}">
 					<xsl:call-template name="printObject">
 						<xsl:with-param name="object" select="$entity" />		
 						<xsl:with-param name="length" select="$maxSubjectDisplayLength" />		
@@ -75,37 +75,42 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 				<xsl:for-each select="$objects">
 					
 					<!-- Draw the arrow -->
+					<xsl:variable name="circlePosition">
+					   <xsl:if test="position()&lt;=$numberOfObjects div 2"><xsl:value-of select="(position() - 1) div ($numberOfObjects div 2)" /></xsl:if>					   
+					   <xsl:if test="position()&gt;$numberOfObjects div 2"><xsl:value-of select="(position() - $numberOfObjects div 2 - 1) div ($numberOfObjects div 2)" /></xsl:if>
+					</xsl:variable>
+					<xsl:variable name="distanceFactor" select="($circlePosition - 0.5) * ($circlePosition - 0.5)" />					
 					<xsl:if test="not($inverse)">
-						<line x1="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+						<line x1="{$x + $maxSubjectDisplayLength * $fontSize * 0.1 + $distanceFactor * $fontSize * 20}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({360 div $numberOfObjects * (position() - 1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					</xsl:if>
 					<xsl:if test="$inverse">
-						<line x1="{$x+$radius}" y1="{$y}" x2="{$x+ $fontSize*$maxPredicateDisplayLength*0.5 div 2}" y2="{$y}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+						<line x1="{$x+$radius}" y1="{$y}" x2="{$x + $maxSubjectDisplayLength * $fontSize * 0.1 + $distanceFactor * $fontSize * 20}" y2="{$y}" transform="rotate({360 div $numberOfObjects * (position() - 1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					</xsl:if>
 
 					<!-- Treat left and right half differently -->
 					<xsl:choose>
-						<xsl:when test="position()&lt; $numberOfObjects div 2">
-								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.3}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
+						<xsl:when test="(position()&lt;= $numberOfObjects div 4 + 1) or (position()&gt; $numberOfObjects div 4 * 3 + 2)">
+								<text x="{$x+$fontSize+$radius}" y="{$y+$fontSize*0.2}" transform="rotate({360 div $numberOfObjects * (position() - 1)} {$x} {$y})" font-size="{$fontSize}">
 									<xsl:call-template name="printObject">
 										<xsl:with-param name="object" select="s:binding[@name='o']" />		
 										<xsl:with-param name="length" select="$maxObjectDisplayLength" />										
 									</xsl:call-template>
 								</text>
-							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({360 div $numberOfObjects * position() - 90} {$x} {$y})" font-size="{$fontSize}">
-								<xsl:call-template name="printObject">
+							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({360 div $numberOfObjects * (position() - 1)} {$x} {$y})" font-size="{$fontSize}">
+								<xsl:call-template name="printString">
 									<xsl:with-param name="object" select="s:binding[@name='p']" />						
 								</xsl:call-template>																
 							</text>								
 						</xsl:when>
 						<xsl:otherwise>
-							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-360 div $numberOfObjects * ($numberOfObjects - position()) + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">
+					  	   <text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.2}" transform="rotate({(position() - ($numberOfObjects div 2 + 1)) * (360 div $numberOfObjects)} {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
 									<xsl:with-param name="object" select="s:binding[@name='o']" />	
 									<xsl:with-param name="length" select="$maxObjectDisplayLength" />											
 								</xsl:call-template>
 							</text>
-							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-360 div $numberOfObjects  * ($numberOfObjects - position())  + 90} {$x} {$y})" font-size="{$fontSize}"  fill="black">
-								<xsl:call-template name="printObject">
+							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({(position() - ($numberOfObjects div 2 + 1)) * (360 div $numberOfObjects)} {$x} {$y})" font-size="{$fontSize}"  fill="black">
+								<xsl:call-template name="printString">
 									<xsl:with-param name="object" select="s:binding[@name='p']" />						
 								</xsl:call-template>								
 							</text>

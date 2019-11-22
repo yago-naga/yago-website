@@ -187,7 +187,7 @@ AS ?count) WHERE {
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
 			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
-				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.3}" font-size="{$fontSize}" fill="{substring('black red    ', $subjectIsShape*6+1,5)}">
+				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="{substring('black red    ', $subjectIsShape*6+1,5)}">
 									<xsl:call-template name="printString">
 										<xsl:with-param name="object" select="$entity" />						
 										<xsl:with-param name="length" select="$maxSubjectDisplayLength" />						
@@ -212,9 +212,9 @@ AS ?count) WHERE {
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
 					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
-					<xsl:variable name="minDistance" select="$maxSubjectDisplayLength * $fontSize * 0.1" />
-					<xsl:variable name="indentation" select="(position() - ($numberOfObjects +1) div 2)*(position() - ($numberOfObjects + 1) div 2) * 4 div (1 - $numberOfObjects) div (1 - $numberOfObjects) * $fontSize * 5 " /> <!--($maxSubjectDisplayLength * $fontSize div 6 - $minDistance)" />					-->
-					<line x1="{$x + $minDistance + $indentation}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<xsl:variable name="circlePosition" select="(position() - 1) div ($numberOfObjects - 1)" />
+					<xsl:variable name="distanceFactor" select="($circlePosition - 0.5) * ($circlePosition - 0.5)" />
+					<line x1="{$x + $maxSubjectDisplayLength * $fontSize * 0.1 + $distanceFactor * $fontSize * 20}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
 					<!-- Treat left and right quadrant differently -->
 					<xsl:choose>
@@ -228,13 +228,13 @@ AS ?count) WHERE {
 									</xsl:call-template>
 								</text>
 							<text text-anchor="end" x="{$x+$radius - ($fontSize div 2)}" y="{$y - $fontSize*0.2}" transform="rotate({180 div ($numberOfObjects - 1) * (position()-1) } {$x} {$y})" font-size="{$fontSize}">
-								<xsl:call-template name="printObject">
+								<xsl:call-template name="printString">
 									<xsl:with-param name="object" select="$predicate" />						
 								</xsl:call-template>																
 							</text>								
 						</xsl:when>
 						<xsl:otherwise>
-							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.3}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position()  ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">
+							<text text-anchor="end" x="{$x - $radius - $fontSize}" y="{$y+$fontSize*0.2}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position()  ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">
 								<xsl:call-template name="printObject">
 									<xsl:with-param name="object" select="s:binding[@name='o']" />						
 									<xsl:with-param name="length" select="$maxObjectDisplayLength" />															
@@ -243,7 +243,7 @@ AS ?count) WHERE {
 								</xsl:call-template>
 							</text>
 							<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" transform="rotate({-180 div ($numberOfObjects - 1) * ($numberOfObjects - position() ) } {$x} {$y})" font-size="{$fontSize}"  fill="black">
-								<xsl:call-template name="printObject">
+								<xsl:call-template name="printString">
 									<xsl:with-param name="object" select="$predicate" />						
 								</xsl:call-template>								
 							</text>
@@ -253,12 +253,12 @@ AS ?count) WHERE {
 
 				<!-- Print the type and subclass relationships for classes -->
 				<xsl:if test="$isClass">
-					<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxPredicateDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
-					<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}"  fill="blue">rdf:type</text>
+					<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxSubjectDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+					<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}" >rdf:type</text>
 					<a href="{concat($yagoUrl,$entity,'?relation=rdf:type&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
 					<g transform="rotate({-180 div ($numberOfObjects - 1)} {$x} {$y})">
-						<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxPredicateDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
-						<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}"  fill="blue">rdfs:subClassOf</text>
+						<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxSubjectDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+						<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}">rdfs:subClassOf</text>
 						<a href="{concat($yagoUrl,$entity,'?relation=rdfs:subClassOf&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
 					</g>
 				</xsl:if>
