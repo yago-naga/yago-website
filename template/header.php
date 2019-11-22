@@ -1,7 +1,7 @@
 <header>
     <div class="logo">
         <a href="/">
-            <img src="<?php site_url(); ?>/assets/images/logo.png" alt="Yago Project - Select Knowledge"/ >
+            <img src="<?php site_url(); ?>/assets/images/logo.png" alt="Yago Project - Select Knowledge"/>
         </a>
     </div>
 

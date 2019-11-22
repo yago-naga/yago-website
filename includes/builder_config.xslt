@@ -16,7 +16,7 @@
 	<xsl:variable name="radius" select="500"/>
 	<xsl:variable name="width" select="$radius*4"/>
 	<xsl:variable name="height" select="$radius*4"/>
-	<xsl:variable name="maxSubjectDisplayLength" select="40"/>
+	<xsl:variable name="maxSubjectDisplayLength" select="50"/>
 	<xsl:variable name="maxObjectDisplayLength" select="20"/>	
 	<xsl:variable name="maxPredicateDisplayLength" select="20"/>
 	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
@@ -46,7 +46,7 @@
 		<xsl:variable name="stringObject" select="$object/s:literal" />
 		<xsl:variable name="isUrl" select="$stringObject/@datatype='xsd:anyURI'" />				
 		<xsl:variable name="isUrlEntity" select="starts-with($entityObject/text(),'http')" />						
-		<xsl:variable name="isShapeProperty" select="starts-with($stringObject/text(),'yago:shape-prop')" />						
+		<xsl:variable name="isShapeProperty" select="starts-with($entityObject/text(),'yago:shape-prop')" />						
 		<xsl:choose>
 		<xsl:when test="$isShapeProperty" >
 			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">

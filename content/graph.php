@@ -107,7 +107,6 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
             <button type="submit" class="waves-effect waves-light btn">search</button>
             <button id="random" class="waves-effect waves-light btn">random</button>
         </div>
-        </div>
     </form>
     <script>
         window.onload = function () {

@@ -186,9 +186,11 @@ AS ?count) WHERE {
 				<!-- Print the entity name -->
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
-				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.3}" font-size="{$fontSize}">
+			    <xsl:variable name="subjectIsShape" select="(starts-with($entity/s:uri/text(),'schema:') or starts-with($entity/s:uri/text()/text(),'bioschemas:'))" />
+				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.3}" font-size="{$fontSize}" fill="{substring('black red    ', $subjectIsShape*6+1,5)}">
 									<xsl:call-template name="printString">
 										<xsl:with-param name="object" select="$entity" />						
+										<xsl:with-param name="length" select="$maxSubjectDisplayLength" />						
 									</xsl:call-template>					
 				</text>
 
