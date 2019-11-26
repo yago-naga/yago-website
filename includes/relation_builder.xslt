@@ -76,8 +76,8 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 					
 					<!-- Draw the arrow -->
 					<xsl:variable name="circlePosition">
-					   <xsl:if test="position()&lt;=$numberOfObjects div 2"><xsl:value-of select="(position() - 1) div ($numberOfObjects div 2)" /></xsl:if>					   
-					   <xsl:if test="position()&gt;$numberOfObjects div 2"><xsl:value-of select="(position() - $numberOfObjects div 2 - 1) div ($numberOfObjects div 2)" /></xsl:if>
+					   <xsl:if test="position()&lt;=$numberOfObjects div 2 or position()=1"><xsl:value-of select="(position() - 1) div ($numberOfObjects div 2)" /></xsl:if>					   
+					   <xsl:if test="position()&gt;$numberOfObjects div 2 and position()!=1"><xsl:value-of select="(position() - floor($numberOfObjects div 2) - 1) div ($numberOfObjects div 2)" /></xsl:if>					   
 					</xsl:variable>
 					<xsl:variable name="distanceFactor" select="($circlePosition - 0.5) * ($circlePosition - 0.5)" />					
 					<xsl:if test="not($inverse)">

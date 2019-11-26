@@ -18,7 +18,7 @@
 	<xsl:variable name="height" select="$radius*4"/>
 	<xsl:variable name="maxSubjectDisplayLength" select="30"/>
 	<xsl:variable name="maxObjectDisplayLength" select="20"/>	
-	<xsl:variable name="maxPredicateDisplayLength" select="20"/>
+	<xsl:variable name="maxPredicateDisplayLength" select="16"/>
 	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
 	
 	<!-- Prints a string, truncated if necessary-->
@@ -29,7 +29,7 @@
 			<title>
 				<xsl:value-of select="$object" />
 			</title>
-			<xsl:value-of select="substring($object,1,$length - 3)"/>...				
+			<xsl:value-of select="substring($object,1,$length - 1)"/>&#x2026;
 		</xsl:if>
 		<xsl:if test="not(string-length($object)&gt;$length)">
 			<xsl:value-of select="$object"/>
@@ -45,6 +45,7 @@
 		<xsl:variable name="entityObject" select="$object/s:uri" />
 		<xsl:variable name="stringObject" select="$object/s:literal" />
 		<xsl:variable name="isUrl" select="$stringObject/@datatype='xsd:anyURI'" />				
+		<xsl:variable name="isForeign" select="starts-with($entityObject/text(),'rdf:') or starts-with($entityObject/text(),'rdfs:') or starts-with($entityObject/text(),'wd:') or starts-with($entityObject/text(),'owl:') or starts-with($entityObject/text(),'dbpedia:')" />				
 		<xsl:variable name="isUrlEntity" select="starts-with($entityObject/text(),'http')" />						
 		<xsl:variable name="isShapeProperty" select="starts-with($entityObject/text(),'yago:shape-prop')" />						
 		<xsl:choose>
@@ -77,15 +78,14 @@
 				"<xsl:call-template name="printString">
 					<xsl:with-param name="object" select="$stringObject"/>
 					<xsl:with-param name="length" select="$length"/>
-				</xsl:call-template>"				
-				<xsl:if test="$object/s:literal/@xml:lang">@<xsl:value-of select="$object/s:literal/@xml:lang"/>
-				</xsl:if>
-				<xsl:if test="$object/s:literal/@datatype">
-					<tspan style="font-size:80%; " dy="-0.3em">^^<xsl:value-of select="$object/s:literal/@datatype" />
-					</tspan>
-				</xsl:if>
-			</a>
+				</xsl:call-template>"<xsl:if test="$object/s:literal/@xml:lang">@<xsl:value-of select="$object/s:literal/@xml:lang"/></xsl:if><xsl:if test="$object/s:literal/@datatype"><tspan style="font-size:80%; " dy="-0.3em">^^<xsl:value-of select="$object/s:literal/@datatype" /></tspan></xsl:if></a>
 		</xsl:when>
+		<xsl:when test="$isForeign">			
+				<xsl:call-template name="printString">
+					<xsl:with-param  name="object" select="$entityObject"/>
+					<xsl:with-param name="length" select="$length"/>
+				</xsl:call-template>
+		</xsl:when>		
 		<xsl:when test="$entityObject">
 			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">
 				<xsl:call-template name="printString">
@@ -96,7 +96,7 @@
 		</xsl:when>
 		</xsl:choose>
 		<xsl:if test="$more and $more&gt;1">
-			<a href="{$moreUrl}" style="fill:blue">&#8239;&#8239;&#8239;&#8239;(+				
+			<a href="{$moreUrl}" style="fill:blue">&#8239;&#8239;(+				
 				<xsl:value-of select="number($more)-1" />)				
 			</a>
 		</xsl:if>

@@ -212,7 +212,7 @@ AS ?count) WHERE {
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
 					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
-					<xsl:variable name="circlePosition" select="(position() - 1) div ($numberOfObjects - 1)" />
+					<xsl:variable name="circlePosition" select="(position() - 1) div (number($numberOfObjects=1)*1 + number($numberOfObjects!=1)*($numberOfObjects - 1))" />
 					<xsl:variable name="distanceFactor" select="($circlePosition - 0.5) * ($circlePosition - 0.5)" />
 					<line x1="{$x + $maxSubjectDisplayLength * $fontSize * 0.1 + $distanceFactor * $fontSize * 20}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
@@ -257,7 +257,7 @@ AS ?count) WHERE {
 					<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}" >rdf:type</text>
 					<a href="{concat($yagoUrl,$entity,'?relation=rdf:type&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
 					<g transform="rotate({-180 div ($numberOfObjects - 1)} {$x} {$y})">
-						<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxSubjectDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
+						<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxSubjectDisplayLength div 2 * $fontSize div 3.5}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 						<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}">rdfs:subClassOf</text>
 						<a href="{concat($yagoUrl,$entity,'?relation=rdfs:subClassOf&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
 					</g>
