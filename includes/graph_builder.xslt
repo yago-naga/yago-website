@@ -212,7 +212,7 @@ AS ?count) WHERE {
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
 
 					<!-- Draw the arrow. Use a quadratic approximation of an ellipse. -->
-					<xsl:variable name="circlePosition" select="(position() - 1) div (number($numberOfObjects=1)*1 + number($numberOfObjects!=1)*($numberOfObjects - 1))" />
+					<xsl:variable name="circlePosition" select="(position() - 1) div ($numberOfObjects - number($numberOfObjects!=1))" />
 					<xsl:variable name="distanceFactor" select="($circlePosition - 0.5) * ($circlePosition - 0.5)" />
 					<line x1="{$x + $maxSubjectDisplayLength * $fontSize * 0.1 + $distanceFactor * $fontSize * 20}" y1="{$y}" x2="{$x+$radius}" y2="{$y}" transform="rotate({180 div ($numberOfObjects - 1)* (position()-1)} {$x} {$y})" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 
