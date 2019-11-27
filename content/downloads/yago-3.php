@@ -1,40 +1,38 @@
 <div class="code-container">
-    <h1>YAGO3</h1>
+    <h1>YAGO 3</h1>
     <p>
-        YAGO3 combines the information from the Wikipedias in multiple languages with WordNet, GeoNames, and other data
-        sources. YAGO3 taps into multilingual resources of Wikipedia, getting to know more local entities and facts. In
-        the
-        current version, it has been extracted from 10 different Wikipedia versions (English, German, French, Dutch,
-        Italian, Spanish, Polish, Romanian, Persian, and Arabic). YAGO3 is special in several ways:
+        YAGO 3 combines the information from the Wikipedias in multiple languages with WordNet, GeoNames, and other data
+        sources. YAGO 3 taps into multilingual resources of Wikipedia, getting to know more local entities and facts. This version has been extracted from 10 different Wikipedia versions (English, German, French, Dutch,
+        Italian, Spanish, Polish, Romanian, Persian, and Arabic). YAGO 3 is special in several ways:
     </p>
 
-    <ol>
+    <ol  class="browser-default">
         <li>
-            YAGO3 combines the clean taxonomy of WordNet with the richness of the Wikipedia category system, assigning
+            YAGO 3 combines the clean taxonomy of WordNet with the richness of the Wikipedia category system, assigning
             the entities to more than 350,000 classes.
         </li>
 
         <li>
-            YAGO3 is anchored in time and space. YAGO attaches a temporal dimension and a spatial dimension to many of
+            YAGO 3 is anchored in time and space. YAGO attaches a temporal dimension and a spatial dimension to many of
             its facts and entities.
         </li>
 
-        <li>In addition to taxonomy, YAGO has thematic domains such as "music" or "science" from WordNet Domains.</li>
+        <li>In addition to taxonomy, YAGO has thematic domains such as “music” or “science” from WordNet Domains.</li>
 
-        <li>YAGO3 extracts and combines entities and facts from 10 Wikipedias in different languages.</li>
+        <li>YAGO 3 extracts and combines entities and facts from 10 Wikipedias in different languages.</li>
 
         <li>
-            YAGO3 contains canonical representations of entities appearing in different Wikipedia language editions.
+            YAGO 3 contains canonical representations of entities appearing in different Wikipedia language editions.
         </li>
 
-        <li>YAGO3 integrates all non-English entities into the rich type taxonomy of YAGO.</li>
+        <li>YAGO 3 integrates all non-English entities into the rich type taxonomy of YAGO.</li>
 
-        <li>YAGO3 provides a mapping between non-English infobox attributes and YAGO relations.</li>
+        <li>YAGO 3 provides a mapping between non-English infobox attributes and YAGO relations.</li>
     </ol>
 
     <p>
-        YAGO3 knows more than 17 million entities (like persons, organizations, cities, etc.) and contains more than 150
-        million facts about these entities. As with all major releases, the accuracy of YAGO3 has been manually
+        YAGO 3 knows more than 17 million entities (like persons, organizations, cities, etc.) and contains more than 150
+        million facts about these entities. As with all major releases, the accuracy of YAGO 3 has been manually
         evaluated,
         proving a confirmed accuracy of 95%. Every relation is annotated with its confidence value.
     </p>
@@ -78,7 +76,7 @@
         The taxonomy consists of 4 layers:
     </p>
 
-    <ol>
+    <ol  class="browser-default">
         <li>
             The root node of the taxonomy is <code>rdfs:Resource</code>. It includes entities, but also properties,
             literals, etc. <code>rdfs:Resource</code> has a subclass <code>owl:Thing</code>, which is the class of
@@ -86,7 +84,7 @@
         </li>
 
         <li>
-            Under owl:Thing, there is the class taxonomy from WordNet. Each class name is of the form
+            Under <code>owl:Thing</code>, there is the class taxonomy from WordNet. Each class name is of the form
             <code>&lt;wordnet_XXX_YYY&gt;</code>, where XXX is the name of the concept (e.g., singer), and YYY is the
             WordNet 3.0 synset id of the concept (e.g., 110599806). For example, the class of singers is
             <code>&lt;wordnet_singer_110599806&gt;</code>. Each class is connected to its more general class by the
@@ -138,7 +136,7 @@
 <div class="code-container">
     <h1>Data</h1>
     <p>
-        YAGO3 is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute
+        YAGO 3 is licensed under a <a href=https://creativecommons.org/licenses/by/3.0/>Creative Commons Attribution 3.0 License</a> by the YAGO team of the Max-Planck Institute
         for
         Informatics. The exact version number of this data is 3.0.2. The data was extracted from the following versions
         of Wikipedia:
@@ -151,7 +149,7 @@
         knowledge
         base. This data is available in two formats:
     </p>
-    <ul>
+    <ul  class="browser-default">
         <li>The <a rel="noreferrer noopener" target="_blank"
                    href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_tsv.7z>
                 TSV format</a>
@@ -179,8 +177,31 @@
         The source code of YAGO is a Java project that extracts facts from Wikipedia and the other data sources, and
         stores these facts in files. These files make up the YAGO knowledge base. If you run the code yourself, you can
         define (a) what Wikipedia languages to cover, and (b) which specific Wikipedia, Wikidata, and Wikimedia Commons
-        snapshots should be used during the build. The YAGO3 source code is
+        snapshots should be used during the build. The YAGO 3 source code is
         available at <a rel="noreferrer noopener" target="_blank" href=https://github.com/yago-naga/yago3>Github</a>. It
-        is licensed under GNU General Public License, version 3 or later.
+        is licensed under the <a href=https://www.gnu.org/licenses/gpl-3.0.en.html>GNU General Public License</a>, version 3 or later.
     </p>
 </div>
+
+<div class="code-container">
+    <h1>Acknowledgements</h1>
+<p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
+<ul class="browser-default">
+    <li>
+        the numerous voluntary editors of <a href="http://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
+        Thank you for giving mankind such a wonderful huge encyclopedia!
+    </li>
+    <li>
+        the team of <a href="http://www.geonames.org/" rel="noreferrer noopener" target="_blank">Geonames</a>.
+        Thank you for creating this marvellous collection of geographical data, and thank you for providing this work for free!
+    </li>        
+    <li>
+        the creators of <a href="http://wordnet.princeton.edu" rel="noreferrer noopener"
+                           target="_blank">WordNet</a>.
+        Thank you for organizing and analyzing the English language in such a diligent way and thank you for making your
+        work available for free!
+    </li>
+    <li>the <a href=http://wndomains.fbk.eu/>WordNet Domains</a> project for categorizing WordNet synsets into thematic domains.</li>    
+    <li>the <a href=http://www.lexvo.org/uwn/>Universal WordNet</a>, which provided YAGO with multilingual labels for classes.</li>    
+    </ul>
+ </div>   

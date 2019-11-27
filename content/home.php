@@ -1,12 +1,11 @@
 <h1>YAGO: A High-Quality Knowledge Base</h1>
 
 <p>
-    YAGO is a large knowledge base with general knowledge about people, cities, countries, movies, organizations, etc,
-    together with a taxonomy from WordNet.
+    YAGO is a large knowledge base with general knowledge about people, cities, countries, movies, and organizations.
 </p>
 
-<a href="/graph/Elvis_Presley" target="_blank" rel="noopener">
-    <img src="<?php site_url(); ?>/assets/images/demo.png" alt="Demo" class="demo"/>
+<a href="/graph/Elvis_Presley" rel="noopener">
+    <img src="<?php site_url(); ?>/assets/images/demo.svg" alt="Demo" class="demo"/>
 </a>
 
 <h2>News</h2>

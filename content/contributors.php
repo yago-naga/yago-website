@@ -104,26 +104,3 @@
 </div>
 
 
-<h2>Acknowledgements</h2>
-
-<p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
-<ul class="browser-default">
-    <li>
-        the creators and contributors of <a href="http://wikidata.org" rel="noreferrer noopener" target="_blank">Wikidata</a>.
-        <br/>
-        Thank you for having and implementing such an ambitious vision of building a “Wikipedia for machines”, and thank
-        you for keeping it open!
-    </li>
-    <li>
-        the numerous voluntary editors of <a href="http://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
-        <br/>
-        Thank you for giving mankind such a wonderful huge encyclopedia!
-    </li>
-    <li>
-        the creators of <a href="http://wordnet.princeton.edu" rel="noreferrer noopener"
-                           target="_blank">WordNet</a>.
-        <br/>
-        Thank you for organizing and analyzing the English language in such a diligent way and thank you for making your
-        work available for free!
-    </li>
-</ul>

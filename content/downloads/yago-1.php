@@ -6,12 +6,12 @@
         etc.).
         It knows 20 million facts about these entities. This version of YAGO includes the data extracted from the
         categories
-        and infoboxes of Wikipedia, combined with the taxonomy of WordNet. YAGO1 was manually evaluated, and found to
+        and infoboxes of Wikipedia, combined with the taxonomy of WordNet. YAGO 1 was manually evaluated, and found to
         have
         an accuracy of 95% with respect to the extraction source.
     </p>
 
-    <p>If you use YAGO1 for scientific purposes, please cite our paper:</p>
+    <p>If you use YAGO 1 for scientific purposes, please cite our paper:</p>
 
     <blockquote>
         <p>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="code-container">
-    <h1>How to use YAGO1</h1>
+    <h1>How to use YAGO 1</h1>
     <p>
         YAGO classifies each entity into a taxonomy of classes. Every entity is an instance of one or multiple classes.
         Every class (except the root class) is a subclass of one or multiple classes. This yields a hierarchy of classes
@@ -45,16 +45,15 @@
 <div class="code-container">
     <h1>Data</h1>
     <p>
-        The YAGO1 knowledge base is licensed under the GNU Free Documentation License,
-        see <a rel="noreferrer noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">https://www.gnu.org/copyleft/fdl.html</a>.
+        The YAGO1 knowledge base is licensed under the <a rel="noreferrer noopener" target="_blank" href="https://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</a>.
         The exact version number of this data is 1.0.0. The data was extracted from the 2008-10-01 version of Wikipedia.
     </p>
 
     <p>
-        YAGO1 comes in 3 different formats:
+        YAGO 1 comes in 3 different formats:
     </p>
 
-    <ul>
+    <ul  class="browser-default">
         <li><a rel="noreferrer noopener" target="_blank"
                href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/yago.zip>native</a>
             (1GB)
@@ -66,12 +65,12 @@
             (250Mb)
     </ul>
 
-    <p>While RDF/XML and N3 are the standard formats, the native format is as follows:</p>
+    <p> RDF/XML and N3 are the standard formats. The native format is as follows:</p>
 
     <ul class="browser-default">
         <li>
-            The folder "facts" contains the main data
-            There is one subfolder for each relation
+            The folder "facts" contains the main data.
+            There is one subfolder for each relation.
             Each subfolder contains several files.
             Each of these files contains lines of the form
             <code>&lt;factId&gt; TAB &lt;arg1&gt; TAB &lt;arg2&gt; TAB &lt;confidence&gt;</code>.
@@ -80,9 +79,9 @@
         </li>
 
         <li>
-            The folder "Entities" contains all entities
+            The folder “Entities” contains all entities.
             There are several files, each of which contains lines of the form
-            <code>&lt;entity&gt; TAB &lt;isConcept&gt; TAB &lt;URL&gt;</code>
+            <code>&lt;entity&gt; TAB &lt;isConcept&gt; TAB &lt;URL&gt;</code>,
             where <code>&lt;isConcept&gt;</code> is either true or false and tells whether the
             entity is a concept. <code>&lt;URL&gt;</code> is an URL that describes the entity
             (or null). This table is compiled as additional information from the
@@ -95,3 +94,20 @@
         part of the knowledge base.
     </p>
 </div>
+
+<div class="code-container">
+    <h1>Acknowledgements</h1>
+<p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
+<ul class="browser-default">
+    <li>
+        the numerous voluntary editors of <a href="http://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
+        Thank you for giving mankind such a wonderful huge encyclopedia!
+    </li>
+    <li>
+        the creators of <a href="http://wordnet.princeton.edu" rel="noreferrer noopener"
+                           target="_blank">WordNet</a>.
+        Thank you for organizing and analyzing the English language in such a diligent way and thank you for making your
+        work available for free!
+    </li>
+    </ul>
+ </div>   

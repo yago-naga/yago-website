@@ -1,21 +1,20 @@
 <div class="code-container">
-    <h1>YAGO2s</h1>
+    <h1>YAGO 2s</h1>
 
-    <p>YAGO2s is an improved version of YAGO 2, with the following main characteristics:</p>
+    <p>YAGO 2s is an improved version of YAGO 2, with the following main characteristics:</p>
 
     <ul class="browser-default">
         <li>
             YAGO2s is stored natively in Turtle, making it completely RDF/OWL compliant while still maintaining the fact
             identifiers that are unique to YAGO.
         </li>
-
         <li>
             The YAGO2s architecture enables cooperation of several contributors, facilitates debugging and maintenance.
-            The data is divided into themes, so that users can download only particular pieces of YAGO ("YAGO à la
-            carte").
+            The data is divided into themes, so that users can download only particular pieces of YAGO (“YAGO à la
+            carte”).
         </li>
 
-        <li>YAGO2s contains thematic domains such as "music" or "science", which gives a topic structure to YAGO.</li>
+        <li>YAGO2s contains thematic domains such as “music” or “science” from WordNet Domains, which gives a topic structure to YAGO.</li>
     </ul>
 
     <p>
@@ -48,7 +47,7 @@
 </div>
 
 <div class="code-container">
-    <h1>How to use YAGO2s</h1>
+    <h1>How to use YAGO 2s</h1>
 
     <p>
         YAGO classifies each entity into a taxonomy of classes. Every entity is an instance of one or multiple classes.
@@ -56,13 +55,12 @@
         —
         the taxonomy. The YAGO taxonomy is the backbone of the ontology, and is designed with much care and attention to
         correctness.
-        <br/>
         For those interested in the details of that taxonomy, we provide here a more in-depth explanation of the
         classes.
         The taxonomy consists of 4 layers:
     </p>
 
-    <ol>
+    <ol  class="browser-default">
         <li>
             The root node of the taxonomy is <code>rdfs:Resource</code>. It includes entities, but also properties,
             literals, etc.
@@ -121,7 +119,7 @@
 <div class="code-container">
     <h1>Data</h1>
     <p>
-        YAGO2s is licensed under a Creative Commons Attribution 3.0 License by the YAGO team of the Max-Planck Institute
+        YAGO2s is licensed under a <a href=https://creativecommons.org/licenses/by/3.0/>Creative Commons Attribution 3.0 License</a> by the YAGO team of the Max-Planck Institute
         for
         Informatics. The exact version number of this data is 2.5.3. The data was extracted from the 2012-12-01 version
         of Wikipedia.
@@ -132,7 +130,7 @@
         knowledge base. This data is available in two formats:
     </p>
 
-    <ul>
+    <ul  class="browser-default">
         <li>The <a rel="noreferrer noopener" target="_blank"
                    href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_tsv.7z>TSV format</a>
             contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
@@ -142,7 +140,29 @@
                    href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_ttl.7z>Turtle format</a>
             is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
             which stores the fact identifiers in a comment line before the actual fact. This means that they are not
-            visible
-            to systems that do not support this type of comments.
+            visible (and no obstacle) to systems that do not support this type of comments.
     </ul>
 </div>
+
+<div class="code-container">
+    <h1>Acknowledgements</h1>
+<p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
+<ul class="browser-default">
+    <li>
+        the numerous voluntary editors of <a href="http://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
+        Thank you for giving mankind such a wonderful huge encyclopedia!
+    </li>
+    <li>
+        the team of <a href="http://www.geonames.org/" rel="noreferrer noopener" target="_blank">Geonames</a>.
+        Thank you for creating this marvellous collection of geographical data, and thank you for providing this work for free!
+    </li>
+    <li>
+        the creators of <a href="http://wordnet.princeton.edu" rel="noreferrer noopener"
+                           target="_blank">WordNet</a>.
+        Thank you for organizing and analyzing the English language in such a diligent way and thank you for making your
+        work available for free!
+    </li>
+    <li>the <a href=http://www.lexvo.org/uwn/>Universal WordNet</a>, which provided YAGO with multilingual labels for classes</li>
+    <li>the <a href=http://wndomains.fbk.eu/>WordNet Domains</a> project for categorizing WordNet synsets into thematic domains.</li>
+    </ul>
+ </div>   

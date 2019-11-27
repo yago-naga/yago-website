@@ -13,15 +13,15 @@
     <tbody>
     <tr>
         <td>PNG</td>
-        <td>3500x1808 (px)</td>
+        <td>3500 &times; 1808 px</td>
         <td>76kB</td>
-        <td>web</td>
+        <td>Web</td>
         <td><a href="<?php site_url() ?>/assets/images/yago-logos/yago_logo.png" download>.png</a></td>
     </tr>
 
     <tr>
         <td>PNG</td>
-        <td>1167x603 (px)</td>
+        <td>1167 &times; 603 px</td>
         <td>24kB</td>
         <td>web</td>
         <td><a href="<?php site_url() ?>/assets/images/yago-logos/yago_logo_small.png" download>.png</a></td>
@@ -29,7 +29,7 @@
 
     <tr>
         <td>JPG</td>
-        <td>2362x1181 (px)</td>
+        <td>2362 &times; 1181 px</td>
         <td>457kB</td>
         <td>print</td>
         <td><a href="<?php site_url() ?>/assets/images/yago-logos/yago_logo.jpg" download>.jpg</a></td>
@@ -47,7 +47,7 @@
         <td>SVG</td>
         <td>vectorized</td>
         <td>11kB</td>
-        <td>web</td>
+        <td>web, editing</td>
         <td><a href="<?php site_url() ?>/assets/images/yago-logos/yago-logo.svg" download>.svg</a></td>
     </tr>
 
@@ -55,6 +55,5 @@
 </table>
 
 <p>
-    The YAGO Logo is licensed under a Creative Commons Attribution Non-Commercial No-Derivatives 3.0 License by the YAGO
-    team of the Max-Planck Institute for Informatics and Telecom Paris.
+    The YAGO Logo is licensed under a <a href=https://creativecommons.org/licenses/by-nc-nd/3.0/>Creative Commons Attribution Non-Commercial No-Derivatives 3.0 License</a> by the YAGO team of the Max-Planck Institute for Informatics and Télécom Paris.
 </p>

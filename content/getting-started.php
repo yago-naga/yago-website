@@ -10,7 +10,7 @@
 </ul>
 
 <h2 id="what-is-yago">What is Yago?</h2>
-<p style="border: 1px solid red;"><b>All of this is to be filled by Thomas once YAGO4 is ready.</b></p> <!-- TODO remove this once done -->
+<p style="border: 1px solid red;"><b>Do we need this page at all??</b></p> <!-- TODO remove this once done -->
 <p>
     YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as
     movies, people, cities, countries, etc.) and facts about these entities (who played in which movie, which city is
