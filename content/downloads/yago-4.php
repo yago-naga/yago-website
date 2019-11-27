@@ -1,13 +1,12 @@
 <div class="code-container">
     <h1>YAGO4</h1>
     <p>
-       YAGO 4 is the latest version of the YAGO knowledge base. It is based on Wikidata, and refines the data as follows:
+       YAGO 4 is the latest version of the YAGO knowledge base. It is based on <a href=http://wikidata.org>Wikidata</a> &mdash; the largest public general-purpose knowledge base. YAGO refines the data as follows:
        <ol>
        <li>All entity identifiers and property identifiers are human-readable.
-       <li>The top-level hierarchy comes from schema.org
-       <li>All classes have at least 10 instances
-       <li>Properties come from schema.org
-       <li>YAGO 4 contains logical constraints in the form of SHACL
+       <li>The top-level classes come from <a href=http://schema.org>schema.org</a> &mdash; a standard repertoire of classes and properties maintained by Google and others. The lower level classes are a selection of Wikidata classes, in such a way that all classes have at least 10 instances.
+       <li>The properties come from schema.org.
+       <li>YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
        </ol>
     </p>
 </div>

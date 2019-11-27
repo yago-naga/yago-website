@@ -87,7 +87,7 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
             <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
             <label for="search-text">Search Yago</label>
         </div>
-        <div class="col s1 input-field">
+        <div class="col s2 input-field">
             <select id="search-lang">
                 <?php
                 $languages = array_unique(array_map(function ($locale) {

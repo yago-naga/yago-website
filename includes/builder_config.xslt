@@ -45,7 +45,7 @@
 		<xsl:variable name="entityObject" select="$object/s:uri" />
 		<xsl:variable name="stringObject" select="$object/s:literal" />
 		<xsl:variable name="isUrl" select="$stringObject/@datatype='xsd:anyURI'" />				
-		<xsl:variable name="isForeign" select="starts-with($entityObject/text(),'rdf:') or starts-with($entityObject/text(),'rdfs:') or starts-with($entityObject/text(),'wd:') or starts-with($entityObject/text(),'owl:') or starts-with($entityObject/text(),'dbpedia:')" />				
+		<xsl:variable name="isForeign" select="starts-with($entityObject/text(),'rdf:') or starts-with($entityObject/text(),'rdfs:') or starts-with($entityObject/text(),'wd:') or starts-with($entityObject/text(),'owl:') or starts-with($entityObject/text(),'dbpedia:') or starts-with($entityObject/text(),'geo:')" />				
 		<xsl:variable name="isUrlEntity" select="starts-with($entityObject/text(),'http')" />						
 		<xsl:variable name="isShapeProperty" select="starts-with($entityObject/text(),'yago:shape-prop')" />						
 		<xsl:choose>
