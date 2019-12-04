@@ -44,7 +44,7 @@ function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
 
 if ( !isset( $_GET['resource'] ) || !$_GET['resource'] ) {
     // We pick something randomly
-    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?c a  <http://schema.org/Thing> }')['value']);
+    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?c a <http://schema.org/Thing> }')['value']);
     $offset = random_int(0, $resourcesCount - 1);
     $resource = doSingleResultQuery('SELECT ?r WHERE { ?r a <http://schema.org/Thing> } OFFSET ' . $offset . ' LIMIT 1')['value'];
     header('Location: /graph/' . uriToPrefixedName($resource), true, 302);
