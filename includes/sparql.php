@@ -126,7 +126,7 @@ function getValueInDisplayLanguage(array $propertyValues, $propertyUri, $locale)
     $values = [];
     if (isset($propertyValues[$propertyUri])) {
         foreach ($propertyValues[$propertyUri] as $value) {
-            $values[$value['xml:lang']] = $value['value'];
+            $values[array_key_exists( 'xml:lang', $value ) ? $value['xml:lang'] : 'und'] = $value['value'];
         }
     }
     $target = Locale::lookup(array_keys($values), $locale, true, null);
