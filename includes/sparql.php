@@ -338,7 +338,7 @@ function printTreeNode($name, $values)
     print '<li class="tree-edge">';
     print uriToLink($name, $values['label'], $values['comment']);
     if ($values['children']) {
-        asort($values['children']);
+        ksort($values['children']);
         print '<ul class="tree-node">';
         foreach ($values['children'] as $childName => $childValues) {
             printTreeNode($childName, $childValues);

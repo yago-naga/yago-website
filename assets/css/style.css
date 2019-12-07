@@ -292,3 +292,8 @@ nav .nav-wrapper .breadcrumb a {
 nav .nav-wrapper {
     margin-left: 2em;
 }
+
+.card td {
+    max-width: 500px;
+    word-break: break-all;
+}
