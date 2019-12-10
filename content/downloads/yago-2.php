@@ -106,7 +106,7 @@
 <p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
 <ul class="browser-default">
     <li>
-        the numerous voluntary editors of <a href="http://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
+        the numerous voluntary editors of <a href="https://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
         Thank you for giving mankind such a wonderful huge encyclopedia!
     </li>
     <li>

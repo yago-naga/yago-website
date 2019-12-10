@@ -12,23 +12,23 @@
 
 <h2 id="what-is-yago">What is YAGO?</h2>
 <p>
-    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains <i>number</i> million entities and <i>number</i> million facts.	
+    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 2 billions facts.
 </p>
 <p>
 YAGO arranges its entities into classes: Elvis Presley belongs to the class of people, Paris belongs to the class of cities, and so on. These classes are arranged in a taxonomy: The class of cities is a subclass of the class of populated places, this class is a subclass of geographical locations, etc.
 </p>
 <p>
-YAGO also defines which relations can hold between which entities: wasBornIn, e.g., is a relation that can hold between a person and a place. The definition of these relations, together with the taxonomy is called the ontology.
+YAGO also defines which relations can hold between which entities: birthPlace, e.g., is a relation that can hold between a person and a place. The definition of these relations, together with the taxonomy is called the ontology.
 </p>
 
 <h2 id="yago-special">What is so special about YAGO?</h2>
 <p>YAGO combines two great resources:</p>
 <ol>
     <li>
-        <a href=http://wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
+        <a href=https://www.wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
     </li>
     <li>
-        <a href=http://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
+        <a href=https://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
     </li>
 </ol>
 <p>
@@ -41,13 +41,13 @@ Logical constraints are conditions that the data must fulfill. For example, a lo
 YAGO currently has the following logical constraints:
 </p>
 <ul  class="browser-default">
-<li>Disjointness: Place, person, and artwork are disjoint classes
-<li>Functionality: several relations (such as wasBornIn) can have at most one object
+<li>Disjointness: Place, person, and creative works are disjoint classes
+<li>Functionality: several relations (such as birthPlace) can have at most one object
 <li>Domain and range: for every relation, we define which class the subject and the object belong to
 </ul>
 
 <h2 id="data-model">What is the data model of YAGO?</h2>
-<p>YAGO is stored in the standard Resource Description Framework “RDF”. This means that YAGO is a set of facts, each of which consists of a subject, a predicate (also called “relation” or “property”) and an object &mdash; as in <code>&lt;Elvis&gt; &lt;wasBornIn&gt; &lt;Tupelo&gt;</code>. </p>
+<p>YAGO is stored in the standard Resource Description Framework “RDF”. This means that YAGO is a set of facts, each of which consists of a subject, a predicate (also called “relation” or “property”) and an object &mdash; as in <code>&lt;Elvis&gt; &lt;birthPlace&gt; &lt;Tupelo&gt;</code>. </p>
 <p>
 We use different vocabularies for the components of such a fact. For example, for the predicates, we use the relations that are defined by schema.org. Therefore, RDF requires that we prefix the predicates with <code>schema:</code>. This method allows us to refer to standard vocabulary without re-inventing the wheel.
 </p>
