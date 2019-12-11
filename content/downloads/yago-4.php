@@ -38,24 +38,24 @@
         knowledge base. The files are the following:
     </p>
     <ul>
-        <li><code>yago-wd-class.nt.gz</code> The taxonomy.</li>
+        <li><code>yago-wd-class.nt.gz</code> The full taxonomy of classes.</li>
         <li><code>yago-wd-full-types.nt.gz</code> The <code>rdf:type</code> relations between the described resources and the taxonomy.</li>
         <li><code>yago-wd-simple-types.nt.gz</code> The <code>rdf:type</code> relations inferred from the previous ones between the described resources and the schema.org classes. It might be useful for users only interested in the facts and basic type intormation and not in the full taxonomy.</li>
         <li><code>yago-wd-labels.nt.gz</code> The labels of the described entities (<code>rdfs:label</code>, <code>rdfs:comment</code> and <code>schema:alternateName</code> relations).</li>
-        <li><code>yago-wd-facts.nt.gz</code> The facts.</li>
+        <li><code>yago-wd-facts.nt.gz</code> The facts that are not labels.</li>
         <li><code>yago-wd-annotated-facts.ntx.gz</code> The facts annotations.</li>
         <li><code>yago-wd-sameAs.nt.gz</code> The same as relations to Wikidata, Wikipedia, dbPedia and Freebase.</li>
-        <li><code>yago-wd-schema.nt.gz</code> The schema.org classes and properties used described in OWL 2.</li>
-        <li><code>yago-wd-shapes.nt.gz</code> The SHACL shapes used to generate Yago 4.</li>
+        <li><code>yago-wd-schema.nt.gz</code> The schema.org classes and properties, in OWL 2 DL</li>
+        <li><code>yago-wd-shapes.nt.gz</code> The SHACL constraints used to generate Yago 4.</li>
     </ul>
 
     <p>
-        The current Yago version has been created from the November 25th Wikidata dumps. It is provided in three versions:
+        The current Yago version has been created from the November 25th Wikidata dumps. It is provided in three flavors:
     </p>
     <ul>
-        <li><a href="/data/yago4/full/">Full version</a>: Contains all Wikidata items.</li>
-        <li><a href="/data/yago4/wiki/">All Wikipedias version</a>: Contains only the entities with a link to a Wikipedia article.</li>
-        <li><a href="/data/yago4/en/">English Wikipedia version</a>: Contains only the entities with a link to the English Wikipedia.</li>
+        <li><a href="/data/yago4/full/">Full</a>: This flavor uses all data from Wikidata. Hence, it is an extremely large KB.</li>
+        <li><a href="/data/yago4/wiki/">Wikipedia</a>: We offer a smaller flavor of YAGO 4 that contains only the instances that have a Wikipedia article (in any language).</li>
+        <li><a href="/data/yago4/en/">English Wikipedia</a>: This is a restriction of the Wikipedia flavor to instances that have an English Wikipedia article.</li>
     </ul>
 </div>
 
