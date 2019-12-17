@@ -12,7 +12,7 @@
 
 <h2 id="what-is-yago">What is YAGO?</h2>
 <p>
-    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 2 billions facts.
+    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 2 billion facts.
 </p>
 <p>
 YAGO arranges its entities into classes: Elvis Presley belongs to the class of people, Paris belongs to the class of cities, and so on. These classes are arranged in a taxonomy: The class of cities is a subclass of the class of populated places, this class is a subclass of geographical locations, etc.
@@ -67,6 +67,6 @@ The top-level taxonomy of YAGO is taken from schema.org. In this way, we have a 
     <li>You can browse yourself through the knowledge base in our <a href=graph>Web Interface</a></li>
     <li>You can launch SPARQL queries in our <a href=sparql>SPARQL endpoint</a></li>
 	<li>You can programmatically send queries to our <a href=sparql>SPARQL endpoint</a></li>
-    <li>You can <a href=downloads>download</a> data and load it into an RDF triple store (e.g., BlazeGraph or Jena). <i>This is the preferred method if you plan to launch a larger number of queries.</i>
+    <li>You can <a href=downloads>download</a> data and load it into an RDF triple store (e.g., BlazeGraph or Jena). <br><i>This is the preferred method if you plan to launch a larger number of queries.</i>
     </li>
 </ol>
