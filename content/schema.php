@@ -3,7 +3,7 @@
 This is the top-level taxonomy of classes of YAGO. 
 <?php
 
-require 'includes/sparql.php';
+require_once 'includes/sparql.php';
 
 $shapeClasses = getClassesTree('http://schema.org/Thing', Locale::getPrimaryLanguage($locale), 10, false, 'a <http://www.w3.org/ns/shacl#NodeShape>');
 print '<ul class="tree-node">';

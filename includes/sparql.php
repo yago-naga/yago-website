@@ -1,8 +1,10 @@
 <?php
 
+global $locale;
 $locale = isset($_GET['lang']) ? $_GET['lang'] : 'en';
 const VALUES_LIMIT = 20;
 $locale = Locale::canonicalize($locale);
+global $numberFormatter;
 $numberFormatter = new NumberFormatter($locale, NumberFormatter::DEFAULT_STYLE);
 //TODO: use Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
 
@@ -36,6 +38,7 @@ $PROPERTIES_BLACKLIST = [
     'http://www.w3.org/1999/02/22-rdf-syntax-ns#rest',
 ];
 
+global $SAME_AS_LABELS;
 $SAME_AS_LABELS = [
     'http://dbpedia.org/resource/' => 'DBpedia',
     'http://www.wikidata.org/entity/' => 'Wikidata',
@@ -123,8 +126,9 @@ function resolvePrefixedUri($prefixed)
     }
 }
 
-function getValueInDisplayLanguage(array $propertyValues, $propertyUri, $locale)
+function getValueInDisplayLanguage(array $propertyValues, $propertyUri)
 {
+    global $locale;
     $values = [];
     if (isset($propertyValues[$propertyUri])) {
         foreach ($propertyValues[$propertyUri] as $value) {
@@ -135,9 +139,9 @@ function getValueInDisplayLanguage(array $propertyValues, $propertyUri, $locale)
     return isset($values[$target]) ? $values[$target] : null;
 }
 
-function describeEntity($resource, $locale, $reverse = false)
+function describeEntity($resource, $reverse = false)
 {
-    global $PROPERTIES_BLACKLIST;
+    global $PROPERTIES_BLACKLIST, $locale;
 
     $filter = $reverse ? '?o ?p <' . $resource . '>' : ' <' . $resource . '> ?p ?o';
 
