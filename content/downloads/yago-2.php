@@ -86,14 +86,13 @@
     <p>
         YAGO 2 is available in two data formats:</p>
         <ul  class="browser-default">
-        <li><a rel="noreferrer noopener" target="_blank" href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.7z>native</a>
+        <li><a rel="noreferrer noopener" target="_blank" href=yago-2-native.7z>native</a>
         <li><a rel="noreferrer noopener" target="_blank"
-        href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago2/YAGO2.3.0__yago2full_20120109/YAGO2.3.0__yago2full_20120109.rdfs.7z>RDF</a>.
+        href=yago-2-turtle.7z>Turtle</a>
            </ul>
 
     <p>
-        While RDF is the standard for triple data,
-        the native format has the advantage that it stores the fact identifier. The native format consists of a set of
+        While the Turtle format is the <a href=http://www.w3.org/TR/turtle/>W3C standard</a>, the native format has the advantage that it includes the meta facts (“facts about facts”) and information about the textual context of entities (anchor texts etc.). The native format consists of a set of
         files, which together constitute the knowledge base. The files that start with an underscore are internal files
         that will be of little use to the end-user. The other files are named after the relation they contain. For
         example, the file “ismarriedto.tsv” is a TSV file that contains 3 columns: a fact id, a subject, and an object

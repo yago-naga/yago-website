@@ -11,7 +11,7 @@
         an accuracy of 95% with respect to the extraction source.
     </p>
 
-    <p>If you use YAGO 1 for scientific purposes, please cite our paper:</p>
+    <p>If you use YAGO 4 for scientific purposes, please cite our paper:</p>
 
     <blockquote>
         <p>
@@ -50,22 +50,19 @@
     </p>
 
     <p>
-        YAGO 1 comes in 3 different formats:
+        YAGO 1 is available in two data formats:
     </p>
 
     <ul  class="browser-default">
         <li><a rel="noreferrer noopener" target="_blank"
-               href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/yago.zip>native</a>
-            (1GB)
+               href=yago-1-native.7z>native</a>
+            (500Mb)
         <li><a rel="noreferrer noopener" target="_blank"
-               href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/rdfs.zip>RDF/XML</a>
-            (1GB)
-        <li><a rel="noreferrer noopener" target="_blank"
-               href=http://resources.mpi-inf.mpg.de/yago-naga/yago1_yago2/download/yago1/YAGO1.0.0/n3.zip>N3</a>
+               href=yago-1-turtle.7z>Turtle</a>
             (250Mb)
     </ul>
 
-    <p> RDF/XML and N3 are the standard formats. The native format is as follows:</p>
+    <p> While the Turtle format is the <a href=http://www.w3.org/TR/turtle/>W3C standard</a>, the native format has the advantage that it includes the meta facts (“facts about facts”). The native format is as follows:</p>
 
     <ul class="browser-default">
         <li>
@@ -74,8 +71,7 @@
             Each subfolder contains several files.
             Each of these files contains lines of the form
             <code>&lt;factId&gt; TAB &lt;arg1&gt; TAB &lt;arg2&gt; TAB &lt;confidence&gt;</code>.
-            One such line means that <code>&lt;arg1&gt;</code> and <code>&lt;arg2&gt;</code> stand in the relation
-            given by the subfolder, with an accumulated confidence <code>&lt;confidence&gt;</code>.
+            One such line means that <code>&lt;arg1&gt;</code> and <code>&lt;arg2&gt;</code> stand in the relation given by the subfolder, with an accumulated confidence <code>&lt;confidence&gt;</code>. Some relations concern “facts about facts”, i.e., they have factIds as subjects.
         </li>
 
         <li>
@@ -90,7 +86,7 @@
     </ul>
 
     <p>
-        Note that, if a folder contains multiple files, all of these files are
+        If a folder contains multiple files, all of these files are
         part of the knowledge base.
     </p>
 </div>
