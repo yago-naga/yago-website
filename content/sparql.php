@@ -2,8 +2,8 @@
 <p>
     YAGO can be queried by a SPARQL API.
     The SPARQL endpoint URI is <code><?php echo config('sparql_endpoint'); ?></code>.
-    There is a 1 minutes timeout to ensure a responsive SPARQL endpoint for everyone.
-    You can also fire a SPARQL query directly in the field below.
+    There is a 1 minute timeout to ensure a responsive SPARQL endpoint for everyone.
+    You can also fire a SPARQL query directly in the field below. If you plan to launch several queries, please <a href=downloads>download</a> YAGO instead.
 </p>
 
 <div id="yasqe"></div>

@@ -10,6 +10,18 @@
         <li>YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
     <p>YAGO contains more than 50 million entities and 2 billion facts.</p>
+    <p>If you use YAGO 4 for scientific purposes, please cite our paper:</p>
+    <blockquote>
+	<a href="https://thomas.pellissier-tanon.fr/">Thomas Pellissier Tanon</a>, 
+		<a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>, 
+		<a href="https://suchanek.name">Fabian M. Suchanek</a>:
+        <br /> <b>“YAGO 4: A Reason-able Knowledge Base”</b>
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/eswc-2020-yago.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
+        </a>
+        <br/>
+		Resource paper at the <a href="https://2020.eswc-conferences.org/">Extended Semantic Web Conference</a>  (ESWC), 2020	
+    </blockquote>
 </div>
 
 <div class="code-container">
@@ -43,7 +55,7 @@
     <li><b>Full-types:</b>  All <code>rdf:type</code> relations.
     <li><b>Labels:</b>  All entity labels (<code>rdfs:label</code>, <code>rdfs:comment</code> and <code>schema:alternateName</code>).
     <li><b>Facts:</b>  The facts that are not labels.
-    <li><b>Annotations:</b>  The fact annotations. 
+    <li><b>Annotations:</b>  The fact annotations (“facts about facts”) in RDF*. 
     <li><b>SameAs:</b>  The <code>owl:sameAs</code> links to Wikidata, DBpedia, and Freebase. 
     <li><b>Schema:</b>  The schema.org classes and properties, in OWL 2 DL.
     <li><b>Shapes:</b>  The SHACL constraints used to generate YAGO 4.
@@ -82,11 +94,6 @@
         <br/>
         Thank you for having and implementing such an ambitious vision of building a “Wikipedia for machines”, and thank
         you for keeping it open!
-    </li>
-    <li>
-        the numerous voluntary editors of <a href="https://wikipedia.org" rel="noreferrer noopener" target="_blank">Wikipedia</a>.
-        <br/>
-        Thank you for giving mankind such a wonderful huge encyclopedia!
     </li>
     <li>
         the team of <a href="https://schema.org" rel="noreferrer noopener" target="_blank">Schema.org</a>, who created the taxonomy and the properties that we use in YAGO 4.

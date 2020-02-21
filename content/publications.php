@@ -1,7 +1,19 @@
 <h1>Publications</h1>
 
 <h2>Yago 4</h2>
-<p>...</p>
+<div class="publications-list">
+	<p>
+        <a href="https://thomas.pellissier-tanon.fr/">Thomas Pellissier Tanon</a>, 
+		<a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>, 
+		<a href="https://suchanek.name">Fabian M. Suchanek</a>:
+        <br /> <b>“YAGO 4: A Reason-able Knowledge Base”</b>
+        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/eswc-2020-yago.pdf">
+            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
+        </a>
+        <br/>
+		Resource paper at the <a href="https://2020.eswc-conferences.org/">Extended Semantic Web Conference</a>  (ESWC), 2020	
+	</p>
+</div>
 
 <h2>Yago 3</h2>
 <div class="publications-list">
@@ -19,9 +31,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/iswc-2016-yago.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>Short paper at the <a href="http://iswc2016.semanticweb.org">International Semantic Web Conference</a>
-        (ISWC
-        2016)
+        <br/>Short paper at the <a href="http://iswc2016.semanticweb.org">International Semantic Web Conference</a> (ISWC 2016)
     </p>
 
     <p>
@@ -47,8 +57,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/apweb2014.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>Invited paper at the <a href="http://www.cse.ust.hk/apweb2014/">Asia Pacific Web Conference</a> (APWEB
-        2014)
+        <br/>Invited paper at the <a href="http://www.cse.ust.hk/apweb2014/">Asia Pacific Web Conference</a> (APWEB 2014)
 
     </p>
 
@@ -91,9 +100,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/aaaij.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>
-        Journal article in the <a href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">Artificial Intelligence</a>
-        (2013)
+        <br/> Journal article in the <a href="http://www.cl.uni-heidelberg.de/~ponzetto/aij/">Artificial Intelligence</a> (2013)
         <br/>
         <span class="award"><a href="http://aij.ijcai.org/index.php/aij-awards">Prominent Paper Award</a></span>
     </p>
@@ -110,8 +117,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/www2011demo.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>
-        Demo at the <a href="http://www.www2011india.com/">World Wide Web</a> (WWW 2011)
+        <br/> Demo at the <a href="http://www.www2011india.com/">World Wide Web</a> (WWW 2011)
         <br/>
         <span class="award">Best demo award</span>
     </p>
@@ -129,8 +135,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/sigmodrec2008.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>
-        Short journal article in the <a href="http://www.sigmod.org/record/">SIGMOD record</a> (2008)
+        <br/> Short journal article in the <a href="http://www.sigmod.org/record/">SIGMOD record</a> (2008)
     </p>
 
     <p>
@@ -142,9 +147,7 @@
         <a class="pdf-download-icon" href="https://suchanek.name/work/publications/jws2008.pdf">
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
-        <br/>
-        Journal article in the <a href="http://www.elsevier.com/locate/websem/">Elsevier Journal of Web Semantics</a>
-        (2008)
+        <br/> Journal article in the <a href="http://www.elsevier.com/locate/websem/">Elsevier Journal of Web Semantics</a> (2008)
     </p>
 
     <p>
@@ -159,4 +162,3 @@
         <br/>Full paper at the <a href="http://www2007.org/">World Wide Web Conference</a> (WWW 2007)
     </p>
 </div>
-

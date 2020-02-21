@@ -1,5 +1,6 @@
 <h1>Schema</h1>
 
+This is the top-level taxonomy of classes of YAGO. 
 <?php
 
 require 'includes/sparql.php';

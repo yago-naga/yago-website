@@ -32,18 +32,32 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 
     <!-- Main template -->
 	<xsl:template match="/">
+		<!-- Decide the height of the SVG: If we just have 2 objects, we can show a thin SVG -->
+		<xsl:variable name="objects" select="/s:sparql/s:results/s:result" />
+		<xsl:variable name="numberOfObjects" select="count($objects)" />				
+		<xsl:variable name="myHeight">				
+			<xsl:if test="$numberOfObjects&lt;3"><xsl:value-of select="$fontSize*10"/></xsl:if>
+			<xsl:if test="$numberOfObjects&gt;2"><xsl:value-of select="$height"/></xsl:if>
+		</xsl:variable>
+		<xsl:variable name="x" select="$width div 2" />
+		<xsl:variable name="y" select="$myHeight div 2" />
+
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {$width} {$height}">
+			xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 {$width} {$myHeight}">
 			<defs>
 				<marker id="mblack" markerHeight="3" markerUnits="strokeWidth" markerWidth="4" orient="auto" refX="0" refY="5" viewBox="0 0 10 10">
 					<path d="M 0 0 L 10 5 L 0 10 z" fill="black" stroke="black"/>
 				</marker>
 			</defs>
-			 
+			
+			<!-- If we have no results, say so -->
+			<xsl:if test="$numberOfObjects=0">
+				<text text-anchor="middle" x="{$x}" y="{$y}"  font-size="{$fontSize}">No results...</text>
+			</xsl:if>
+			<xsl:if test="$numberOfObjects&gt;0">
+		
 				<!-- Print the entity name -->
-				<xsl:variable name="x" select="$width div 2" />
-				<xsl:variable name="y" select="$height div 2" />
 				<xsl:variable name="entity" select="/s:sparql/s:results/s:result[1]/s:binding[@name='s']" />
 				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize*0.2}" font-size="{$fontSize}">
 					<xsl:call-template name="printObject">
@@ -53,14 +67,12 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 				</text>
 
 				<!-- Get the objects -->
-				<xsl:variable name="objects" select="/s:sparql/s:results/s:result" />
-				<xsl:variable name="numberOfObjects" select="count($objects)" />				
 				<xsl:variable name="page" select="number(/s:sparql/s:results/s:result[1]/s:binding[@name='page']/s:literal/text())" />
 				<xsl:variable name="relation" select="/s:sparql/s:results/s:result[1]/s:binding[@name='relation']/s:literal/text()" />
 				<xsl:variable name="inverse" select="number(/s:sparql/s:results/s:result[1]/s:binding[@name='inverse']/s:literal/text())" />
 
 				<!-- Print the page number -->
-				<text text-anchor="end" x="{$width - $fontSize}" y="{$height - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page + 1" />&#8239;
+				<text text-anchor="end" x="{$width - $fontSize}" y="{$myHeight - $fontSize}" font-size="{$fontSize}">Page&#8239;<xsl:value-of select="$page + 1" />&#8239;
 				<xsl:if test="$numberOfObjects=20">
 					<xsl:if test="$entity/s:uri">
 						<a href="{concat($yagoUrl,$entity,'?relation=',$relation,'&amp;cursor=',$page + 1,'&amp;inverse=',$inverse)}" style="fill: blue">(more)</a>
@@ -69,8 +81,8 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 						<a href="{concat($yagoUrl,'&quot;',$entity,'&quot;',substring(concat('@',$entity/s:literal/@xml:lang),number(not(boolean($entity/s:literal/@xml:lang)))*100),substring(concat('^^',$entity/s:literal/@datatype),number(not(boolean($entity/s:literal/@datatype)))*1000),'?relation=',$relation,'&amp;cursor=',$page + 1,'&amp;inverse=',$inverse)}" style="fill: blue">(more)</a>
 					</xsl:if>
 				</xsl:if>
-			    </text>
-
+				</text>				
+			    
 				<!-- Print the facts -->
 				<xsl:for-each select="$objects">
 					
@@ -117,7 +129,7 @@ Here, the ?relation is either a YAGO relation (if the ?p are all the same), or t
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:for-each>
-
+			</xsl:if>
 		</svg>
 	</xsl:template>
 </xsl:stylesheet>

@@ -11,9 +11,16 @@
 <h2>News</h2>
 
 <div class="news_item">
-    <div class="news_time">June, 2018</div>
+    <div class="news_time">March, 2020</div>
     <div class="news_text">
-        We are working on a new version and a new Web page of YAGO, stay tuned!
+        The newest version of YAGO, <a href=downloads/yago-4>YAGO 4</a>, is now released!
+    </div>
+</div>
+
+<div class="news_item">
+    <div class="news_time">February, 2020</div>
+    <div class="news_text">
+        Our <a href=http://suchanek.name/work/publications/eswc-2020-yago.pdf>paper on YAGO 4</a> got accepted at <a href=https://2020.eswc-conferences.org/>ESWC 2020</a>
     </div>
 </div>
 

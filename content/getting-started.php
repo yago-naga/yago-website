@@ -28,7 +28,7 @@ YAGO also defines which relations can hold between which entities: birthPlace, e
         <a href=https://www.wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
     </li>
     <li>
-        <a href=https://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
+        <a href=https://schema.org>schema.org</a> (and its cousin <a href=https://bioschemas.org/>BioSchemas</a>) is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
     </li>
 </ol>
 <p>
@@ -50,6 +50,9 @@ YAGO currently has the following logical constraints:
 <p>YAGO is stored in the standard Resource Description Framework “RDF”. This means that YAGO is a set of facts, each of which consists of a subject, a predicate (also called “relation” or “property”) and an object &mdash; as in <code>&lt;Elvis&gt; &lt;birthPlace&gt; &lt;Tupelo&gt;</code>. </p>
 <p>
 We use different vocabularies for the components of such a fact. For example, for the predicates, we use the relations that are defined by schema.org. Therefore, RDF requires that we prefix the predicates with <code>schema:</code>. This method allows us to refer to standard vocabulary without re-inventing the wheel.
+</p>
+<p>
+For “facts about facts” (such as time stamps for facts or other types of annotations), we use the RDF* format.
 </p>
 
 <h2 id="relations">What are the relations in YAGO?</h2>
