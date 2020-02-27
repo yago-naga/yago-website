@@ -86,9 +86,9 @@
     <p>
         YAGO 2 is available in two data formats:</p>
         <ul  class="browser-default">
-        <li><a rel="noreferrer noopener" target="_blank" href=yago-2-native.7z>native</a>
+        <li><a rel="noreferrer noopener" target="_blank" href=/data/yago2/yago-2.3.0-native.7z>native</a>
         <li><a rel="noreferrer noopener" target="_blank"
-        href=yago-2-turtle.7z>Turtle</a>
+        href=/data/yago2/yago-2.3.0-turtle.7z>Turtle</a>
            </ul>
 
     <p>

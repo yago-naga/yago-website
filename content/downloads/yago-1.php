@@ -55,14 +55,12 @@
 
     <ul  class="browser-default">
         <li><a rel="noreferrer noopener" target="_blank"
-               href=yago-1-native.7z>native</a>
-            (500Mb)
+               href=/data/yago1/yago-1.0.0-native.7z>native</a>
         <li><a rel="noreferrer noopener" target="_blank"
-               href=yago-1-turtle.7z>Turtle</a>
-            (250Mb)
+               href=/data/yago1/yago-1.0.0-turtle.7z>Turtle</a>
     </ul>
 
-    <p> While the Turtle format is the <a href=http://www.w3.org/TR/turtle/>W3C standard</a>, the native format has the advantage that it includes the meta facts (“facts about facts”). The native format is as follows:</p>
+    <p>While the Turtle format is the <a href=http://www.w3.org/TR/turtle/>W3C standard</a>, the native format has the advantage that it includes the meta facts (“facts about facts”). The native format is as follows:</p>
 
     <ul class="browser-default">
         <li>

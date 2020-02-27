@@ -151,18 +151,14 @@
     </p>
     <ul  class="browser-default">
         <li>The <a rel="noreferrer noopener" target="_blank"
-                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_tsv.7z>
+                   href=/data/yago3/yago-3.0.2-native.7z>
                 TSV format</a>
-            contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
-            (if applicable).
+            contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object (if applicable). This file contains the entire YAGO3, split into “Themes”, i.e., into files that group facts of a certain topic (taxonomy, labels, dates, etc.).
         <li>
             The <a rel="noreferrer noopener" target="_blank"
-                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago3.0.2/yago3_entire_ttl.7z>
+                   href=/data/yago3/yago-3.0.2-turtle-simple.7z>
                 Turtle format</a>
-            is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
-            which stores the fact identifiers in a comment line before the actual fact. This means that they are not
-            visible
-            to systems that do not support this type of comments.
+            is an export of the TSV format in the <a href=http://www.w3.org/TR/turtle/>W3C standard Turtle</a>. It replicates the themes of the TSV format. It does not contain the textual facts from Wikipedia (anchor texts, Infobox templates, etc.; Theme “Other”) and the facts about extraction provenance (which fact was extracted from where and how; themes labeled “*Sources*”). It does, however, contain all other facts, as well as the meta-facts (the “facts about facts”) concerning the location and the duration of facts. For this purpose, the file stores the fact identifiers in a comment line before the actual fact. This means that they are not visible (and not an obstacle) to systems that do not support this type of comments.
     </ul>
 </div>
 

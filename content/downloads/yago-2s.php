@@ -127,20 +127,19 @@
 
     <p>
         The YAGO2s knowledge base is a set of independent modular full-text files, which together constitute the
-        knowledge base. This data is available in two formats:
+        knowledge base. This data is available in three formats:
     </p>
 
     <ul  class="browser-default">
         <li>The <a rel="noreferrer noopener" target="_blank"
-                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_tsv.7z>TSV format</a>
+                   href=/data/yago2s/yago-2.5.3-native.7z>TSV format</a>
             contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object
             (if applicable).
+		<li>The <a rel="noreferrer noopener" target="_blank"
+                   href=/data/yago2s/yago-2.5.3-turtle-simple.7z>Simple Turtle format</a> is a <a href=http://www.w3.org/TR/turtle/>Turtle</a> export of the TSV format, without the meta-facts (“facts about facts”).
         <li>
             The <a rel="noreferrer noopener" target="_blank"
-                   href=http://resources.mpi-inf.mpg.de/yago-naga/yago2.5/yago2s_ttl.7z>Turtle format</a>
-            is the native format of YAGO. It is in fact a backwards-compatible custom variant of Turtle,
-            which stores the fact identifiers in a comment line before the actual fact. This means that they are not
-            visible (and no obstacle) to systems that do not support this type of comments.
+                   href=/data/yago2s/yago-2.5.3-turtle.7z>Full Turtle format</a> is a <a href=http://www.w3.org/TR/turtle/>Turtle</a> export of YAGO that also contains the meta-facts. This is achieved by a backwards-compatible custom variant of Turtle, which stores the fact identifiers in a comment line before the actual fact. This means  that they are not visible (and no obstacle) to systems that do not support this type of comments.
     </ul>
 </div>
 
