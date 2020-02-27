@@ -124,3 +124,25 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
     }
     return implode('', $pieces);
 }
+
+function parse_accept_header($header) {
+    $accepts = [];
+    foreach (explode(',', $header) as $i) {
+        $parts = explode(';', $i);
+        $type = trim($parts[0]);
+        $priority = 1.;
+        for ($i = 1; $i < count($parts); $i++) {
+            $elements = explode('=', $parts[$i], 1);
+            if (count($elements) === 2) {
+                $key = trim($elements[0]);
+                $value = trim($elements[1]);
+                if ($key === 'q') {
+                    $priority = floatval($value);
+                }
+            }
+        }
+        $accepts[$type] = max($priority, $accepts[$type] ?? 0);
+    }
+    arsort($accepts);
+    return array_keys($accepts);
+}

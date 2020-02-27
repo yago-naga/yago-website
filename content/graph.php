@@ -1,6 +1,6 @@
 <?php
 
-require 'includes/sparql.php';
+require_once 'includes/sparql.php';
 
 function getSparqlQueryXmlDocument(string $query)
 {
