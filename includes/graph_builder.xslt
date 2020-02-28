@@ -187,12 +187,12 @@ AS ?count) WHERE {
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
 			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
-				<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="{substring('black red    ', $subjectIsShape*6+1,5)}">
+				<a href="{concat($yagoViewerUrl,$entity)}"><text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="{substring('blue red    ', $subjectIsShape*5+1,4)}">
 									<xsl:call-template name="printString">
 										<xsl:with-param name="object" select="$entity" />						
 										<xsl:with-param name="length" select="$maxSubjectDisplayLength" />						
 									</xsl:call-template>					
-				</text>
+				</text></a>
 
 				<!-- Link the name to all classes that have no subclasses -->
 				<xsl:variable name="taxonomy" select="/s:sparql/s:results/s:result/s:binding" />
