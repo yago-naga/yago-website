@@ -92,16 +92,16 @@ function uriToPrefixedName($uri)
     }
 }
 
-function uriToUrl($uri)
+function uriToUrl($uri, $visualization = 'resource')
 {
     global $DISPLAYED_PREFIXES;
 
     foreach ($DISPLAYED_PREFIXES as $prefix => $uriStart) {
         if (strpos($uri, $uriStart) === 0) {
             if ($prefix) {
-                return htmlspecialchars(str_replace($uriStart, '/resource/' . $prefix . ':', $uri));
+                return htmlspecialchars(str_replace($uriStart, '/' . $visualization . '/' . $prefix . ':', $uri));
             } else {
-                return htmlspecialchars(str_replace($uriStart, '/resource/', $uri));
+                return htmlspecialchars(str_replace($uriStart, '/' . $visualization . '/', $uri));
             }
         }
     }

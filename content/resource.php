@@ -20,7 +20,9 @@ $resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2
 
 $resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment') ?: '';
 
-$sameAsLinks = [];
+$sameAsLinks = [
+    'Graph visualization' => uriToUrl($resource, 'graph')
+];
 if (isset($propertyValues['http://www.w3.org/2002/07/owl#sameAs'])) {
     foreach ($propertyValues['http://www.w3.org/2002/07/owl#sameAs'] as $value) {
         foreach ($GLOBALS['SAME_AS_LABELS'] as $prefix => $label) {
