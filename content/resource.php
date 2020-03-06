@@ -75,7 +75,11 @@ if (in_array('http://www.w3.org/2002/07/owl#ObjectProperty', $shapes) || in_arra
 print '<div class="card horizontal">';
 print '<div class="card-stacked">';
 print '<div class="card-content">';
-print '<span class="card-title">' . $resourceLabel . '</span>';
+if (strpos($resource, 'http://yago-knowledge.org/') === 0) {
+    print '<span class="card-title">' . $resourceLabel . '</span>';
+} else {
+    print '<span class="card-title"><a href="' . $resource . '">' . uriToPrefixedName($resource) . '</a></span>';
+}
 print '<p>' . $resourceDescription . '</p>';
 print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
 print '<p>URI: <a href=' . htmlspecialchars($resource) . '>' . htmlspecialchars($resource) . '</a></p>';
