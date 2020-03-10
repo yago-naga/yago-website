@@ -3,9 +3,10 @@
         <img src="<?php site_url(); ?>/assets/images/logo-mpi.png" alt="Affiliations"/>
         <img src="<?php site_url(); ?>/assets/images/logo-telecom-paris.png" alt="Affiliations"/>
     </div>
-    <p>&copy; <?php echo date('Y'); ?> - <?php site_name(); ?>. Web design by <a href="https://alab-ux.com"
-                                                                                 target="_blank"
-                                                                                 rel="noopener noreferrer">ALAB UX</a>
+    <p>
+        &copy; <?php echo date('Y'); ?> - <?php site_name(); ?>.
+        This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+        Web design by <a href="https://alab-ux.com" target="_blank" rel="noopener noreferrer">ALAB UX</a>
     </p>
 </footer>
 
