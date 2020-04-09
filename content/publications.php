@@ -160,6 +160,7 @@
             <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
         </a>
         <br/>Full paper at the <a href="http://www2007.org/">World Wide Web Conference</a> (WWW 2007)
+        <br/>
 <span class="award"><a href="http://www.iw3c2.org/updates/">SEOUL Test of Time Award of WWW 2018</a></span>
             
     </p>
