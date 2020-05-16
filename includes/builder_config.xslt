@@ -19,8 +19,8 @@
 	<xsl:variable name="maxSubjectDisplayLength" select="30"/>
 	<xsl:variable name="maxObjectDisplayLength" select="20"/>	
 	<xsl:variable name="maxPredicateDisplayLength" select="16"/>
-	<xsl:variable name="yagoUrl" select="'http://yago-knowledge.org/graph/'"/>
-    <xsl:variable name="yagoViewerUrl" select="'http://yago-knowledge.org/resource/'"/>
+	<xsl:variable name="yagoUrl" select="'http://yago.r2.enst.fr/graph/'"/>
+    <xsl:variable name="yagoViewerUrl" select="'http://yago.r2.enst.fr/resource/'"/>
 	
 	<!-- Prints a string, truncated if necessary-->
 	<xsl:template name="printString">
