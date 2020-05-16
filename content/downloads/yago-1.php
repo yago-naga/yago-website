@@ -1,5 +1,5 @@
 <div class="code-container">
-    <h1>YAGO1</h1>
+    <h1>YAGO 1</h1>
 
     <p>
         This is the 2008 version of YAGO. It knows more than 2 million entities (like persons, organizations, cities,

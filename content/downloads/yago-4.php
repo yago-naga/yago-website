@@ -1,5 +1,5 @@
 <div class="code-container">
-    <h1>YAGO4</h1>
+    <h1>YAGO 4</h1>
     <p>
        YAGO 4 is the latest version of the YAGO knowledge base. It is based on <a href="https://wikidata.org">Wikidata</a> &mdash; the largest public general-purpose knowledge base. YAGO refines the data as follows:
     </p>

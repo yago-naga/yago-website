@@ -1,0 +1,165 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Yago",
+  "description": "YAGO is a large knowledge base with general knowledge about people, cities, countries, movies, and organizations.",
+  "url": "https://yago-knowledge.org/home",
+  "hasPart": [
+    {
+      "@type": "Dataset",
+      "name": "Yago 4",
+      "description": "YAGO 4 is the latest version of the YAGO knowledge base. It is based on Wikidata — the largest public general-purpose knowledge base. YAGO refines the data as follows:\\n* All entity identifiers and property identifiers are human-readable.\\n* The top-level classes come from schema.org — a standard repertoire of classes and properties maintained by Google and others, combined with bioschemas.org. The lower level classes are a selection of Wikidata classes.\\n* The properties come from schema.org.\\n* YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for logical reasoning on YAGO.\\nYAGO contains more than 50 million entities and 2 billion facts.",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Thomas Pellissier Tanon",
+          "givenName": "Thomas",
+          "familyName": "Pellissier Tanon",
+          "sameAs": "http://orcid.org/0000-0002-0620-6486"
+        },
+        {
+          "@type": "Person",
+          "name": "Gerhard Weikum",
+          "givenName": "Gerhard",
+          "familyName": "Weikum"
+        },
+        {
+          "@type": "Person",
+          "name": "Fabian Suchanek",
+          "givenName": "Fabian",
+          "familyName": "Suchanek"
+        }
+      ],
+      "citation": "https://doi.org/10.1007/978-3-030-49461-2_34",
+      "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "version": 4,
+      "url": "https://yago-knowledge.org/downloads/yago-4",
+      "distribution": []
+    },
+    {
+      "@type": "Dataset",
+      "name": "Yago 3",
+      "description": " YAGO 3 combines the information from the Wikipedias in multiple languages with WordNet, GeoNames, and other data sources. YAGO 3 taps into multilingual resources of Wikipedia, getting to know more local entities and facts. This version has been extracted from 10 different Wikipedia versions (English, German, French, Dutch, Italian, Spanish, Polish, Romanian, Persian, and Arabic). YAGO 3 is special in several ways:\n* YAGO 3 combines the clean taxonomy of WordNet with the richness of the Wikipedia category system, assigning the entities to more than 350,000 classes.\n* YAGO 3 is anchored in time and space. YAGO attaches a temporal dimension and a spatial dimension to many of its facts and entities.\n* In addition to taxonomy, YAGO has thematic domains such as “music” or “science” from WordNet Domains.\n* YAGO 3 extracts and combines entities and facts from 10 Wikipedias in different languages.\n* YAGO 3 contains canonical representations of entities appearing in different Wikipedia language editions.\n* YAGO 3 integrates all non-English entities into the rich type taxonomy of YAGO.\n* YAGO 3 provides a mapping between non-English infobox attributes and YAGO relations.\nYAGO 3 knows more than 17 million entities (like persons, organizations, cities, etc.) and contains more than 150 million facts about these entities. As with all major releases, the accuracy of YAGO 3 has been manually evaluated, proving a confirmed accuracy of 95%. Every relation is annotated with its confidence value. ",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Farzaneh Mahdisoltani",
+          "givenName": "Farzaneh",
+          "familyName": "Mahdisoltani"
+        },
+        {
+          "@type": "Person",
+          "name": "Joanna Biega",
+          "givenName": "Joanna",
+          "familyName": "Biega"
+        },
+        {
+          "@type": "Person",
+          "name": "Fabian Suchanek",
+          "givenName": "Fabian",
+          "familyName": "Suchanek"
+        }
+      ],
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "version": 3,
+      "url": "https://yago-knowledge.org/downloads/yago-3",
+      "distribution": []
+    },
+    {
+      "@type": "Dataset",
+      "name": "Yago 2s",
+      "description": "YAGO 2s is an improved version of YAGO 2, with the following main characteristics:\n* YAGO2s is stored natively in Turtle, making it completely RDF/OWL compliant while still maintaining the fact identifiers that are unique to YAGO.\n* The YAGO2s architecture enables cooperation of several contributors, facilitates debugging and maintenance. The data is divided into themes, so that users can download only particular pieces of YAGO (“YAGO à la carte”).\n* YAGO2s contains thematic domains such as “music” or “science” from WordNet Domains, which gives a topic structure to YAGO.\nAs all major releases, the accuracy of YAGO2s has been manually evaluated, proving an accuracy of 95% with respect to Wikipedia.",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Joanna Biega",
+          "givenName": "Joanna",
+          "familyName": "Biega"
+        },
+        {
+          "@type": "Person",
+          "name": "Erdal Kuzey",
+          "givenName": "Erdal",
+          "familyName": "Kuzey"
+        },
+        {
+          "@type": "Person",
+          "name": "Fabian Suchanek",
+          "givenName": "Fabian",
+          "familyName": "Suchanek"
+        }
+      ],
+      "citation": "https://doi.org/10.1145/2487788.2487935",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "version": 2.5,
+      "url": "https://yago-knowledge.org/downloads/yago-2s",
+      "distribution": []
+    },
+    {
+      "@type": "Dataset",
+      "name": "Yago 2",
+      "description": "YAGO 2 is an improved version of the original YAGO knowledge base:\n* YAGO 2 is anchored in time and space. YAGO 2 attaches a temporal dimension and a spacial dimension to many of its facts and entities.\n* YAGO 2 is particularly suited for disambiguation purposes, as it contains a large number of names for entities. It also knows the gender of people.\n* As all major releases, the accuracy of YAGO 2 has been manually evaluated, proving an accuracy of 95% with respect to Wikipedia. Every relation is annotated with its confidence value.",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Johannes Hoffart",
+          "givenName": "Johannes",
+          "familyName": "Hoffart"
+        },
+        {
+          "@type": "Person",
+          "name": "Fabian Suchanek",
+          "givenName": "Fabian",
+          "familyName": "Suchanek"
+        },
+        {
+          "@type": "Person",
+          "name": "Klaus Berberich",
+          "givenName": "Klaus",
+          "familyName": "Berberich"
+        },
+        {
+          "@type": "Person",
+          "name": "Gerhard Weikum",
+          "givenName": "Gerhard",
+          "familyName": "Weikum"
+        }
+      ],
+      "citation": "https://doi.org/10.1016/j.artint.2012.06.001",
+      "license": "https://creativecommons.org/licenses/by/3.0/",
+      "version": 2,
+      "url": "https://yago-knowledge.org/downloads/yago-2",
+      "distribution": []
+    },
+    {
+      "@type": "Dataset",
+      "name": "Yago 1",
+      "description": "This is the 2008 version of YAGO. It knows more than 2 million entities (like persons, organizations, cities, etc.). It knows 20 million facts about these entities. This version of YAGO includes the data extracted from the categories and infoboxes of Wikipedia, combined with the taxonomy of WordNet. YAGO 1 was manually evaluated, and found to have an accuracy of 95% with respect to the extraction source.",
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Fabian Suchanek",
+          "givenName": "Fabian",
+          "familyName": "Suchanek"
+        },
+        {
+          "@type": "Person",
+          "name": " Gjergji Kasneci",
+          "givenName": "Gjergji",
+          "familyName": "Kasneci"
+        },
+        {
+          "@type": "Person",
+          "name": "Gerhard Weikum",
+          "givenName": "Gerhard",
+          "familyName": "Weikum"
+        }
+      ],
+      "citation": "https://doi.org/10.1145/1242572.1242667",
+      "license": "https://www.gnu.org/copyleft/fdl.html",
+      "version": 1,
+      "url": "https://yago-knowledge.org/downloads/yago-1",
+      "distribution": []
+    }
+  ]
+}

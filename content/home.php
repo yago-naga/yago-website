@@ -1,3 +1,4 @@
+<script type="application/ld+json"><?php include(dirname(__FILE__) . '/dataset.json'); ?></script>
 <h1>YAGO: A High-Quality Knowledge Base</h1>
 
 <p>
