@@ -41,7 +41,7 @@ function config($key = '')
         'template_path' => 'template',
         'content_path' => 'content',
         'version' => 'v0.1',
-        'sparql_endpoint' => 'http://yago-knowledge.org/sparql/query'
+        'sparql_endpoint' => 'https://yago-knowledge.org/sparql/query'
     ];
 
     return isset($config[$key]) ? $config[$key] : null;
