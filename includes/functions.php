@@ -96,7 +96,15 @@ function page_content() {
         $path = getcwd() . '/' . config('content_path') . '/404.php';
     }
 
-    include($path);
+    try {
+        include($path);
+    } catch( Exception $e ) {
+        ob_end_clean(); # try to purge content sent so far
+        header('HTTP/1.1 500 Internal Server Error');
+        echo '<h1>Internal error</h1>';
+        echo $e;
+        debug_print_backtrace();
+    }
 }
 
 /**
