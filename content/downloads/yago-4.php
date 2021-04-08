@@ -55,7 +55,7 @@
     <li><b>Full-types:</b>  All <code>rdf:type</code> relations.
     <li><b>Labels:</b>  All entity labels (<code>rdfs:label</code>, <code>rdfs:comment</code> and <code>schema:alternateName</code>).
     <li><b>Facts:</b>  The facts that are not labels.
-    <li><b>Annotations:</b>  The fact annotations (“facts about facts”) in RDF*. 
+    <li><b>Annotations:</b>  The fact annotations (“facts about facts”) in RDF*.
     <li><b>SameAs:</b>  The <code>owl:sameAs</code> links to Wikidata, DBpedia, and Freebase. 
     <li><b>Schema:</b>  The schema.org classes and properties, in OWL 2 DL.
     <li><b>Shapes:</b>  The SHACL constraints used to generate YAGO 4.
@@ -69,6 +69,19 @@
         <li><a href="/data/yago4/wiki/">Wikipedia</a>: We offer a smaller flavor of YAGO 4 that contains only the instances that have a Wikipedia article (in any language).</li>
         <li><a href="/data/yago4/en/">English Wikipedia</a>: This is a restriction of the Wikipedia flavor to instances that have an English Wikipedia article.</li>
     </ul>
+
+    <p>
+        The <code>.ntx</code> files are using RDF* (a.k.a. RDF star) N-Triples syntax.
+        It could be parsed using
+            <a href="https://jena.apache.org/documentation/rdfstar/">Jena</a>,
+            <a href="https://rdf4j.org/documentation/programming/rdfstar/">RDF4J</a>,
+            <a href="https://github.com/rdfjs/N3.js/">N3.js</a>
+            <a href="http://rdf.greggkellogg.net/yard/file.rdf-README.html#rdf-rdfstar">RDF.rb</a>,
+            <a href="https://wiki.blazegraph.com/wiki/index.php/Reification_Done_Right">Blazegraph</a>,
+            <a href="https://docs.cambridgesemantics.com/anzograph/v2.2/userdoc/lpgs.htm">AnzoGraph</a>,
+            <a href="https://www.stardog.com/blog/property-graphs-meet-stardog/">Stardog</a>, or
+            <a href="http://graphdb.ontotext.com/documentation/9.2/free/devhub/rdf-sparql-star.html">GraphDB</a>.
+    </p>
 </div>
 
 <div class="code-container">
