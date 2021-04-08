@@ -32,7 +32,7 @@ YAGO also defines which relations can hold between which entities: birthPlace, e
     </li>
 </ol>
 <p>
-YAGO combines these two resources, thus getting the best from both worlds: a huge repository of facts, together with an ontology that is simple and used as a standard by a large community. In addition, all identifiers in YAGO are human-readable, all entities belong to at least one class, and only classes and properties with enough instances are kept. To this, YAGO adds a system of logical constraints. These do not just keep the data clean, but also allow for reasoning on the data.
+YAGO combines these two resources, thus getting the best from both worlds: a huge repository of facts, together with an ontology that is simple and used as a standard by a large community. In addition, all identifiers in YAGO are human-readable, all entities belong to at least one class, and only classes and properties with enough instances are kept. To this, YAGO adds a system of logical constraints. These do not just keep the data clean, but also allow for reasoning on the data. YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata.
 </p>
 
 <h2 id="constraints">What are the logical constraints of YAGO?</h2>

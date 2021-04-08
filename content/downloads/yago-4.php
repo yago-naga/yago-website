@@ -9,7 +9,7 @@
         <li>The properties come from schema.org.
         <li>YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
-    <p>YAGO contains more than 50 million entities and 2 billion facts.</p>
+    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains more than 50 million entities and 2 billion facts.</p>
     <p>If you use YAGO 4 for scientific purposes, please cite our paper:</p>
     <blockquote>
 	<a href="https://thomas.pellissier-tanon.fr/">Thomas Pellissier Tanon</a>, 
