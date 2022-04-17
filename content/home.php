@@ -12,6 +12,13 @@
 <h2>News</h2>
 
 <div class="news_item">
+    <div class="news_time">April, 2022</div>
+    <div class="news_text">
+        We're building a new version of YAGO! If you have any suggestions, <a href=https://yago-knowledge.org/contributors>contact us</a>!
+    </div>
+</div>
+
+<div class="news_item">
     <div class="news_time">February, 2022</div>
     <div class="news_text">
         YAGO is now available at <a href=https://zenodo.org/record/6022140>Zenodo</a>!
