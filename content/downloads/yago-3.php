@@ -160,6 +160,29 @@
                 Turtle format</a>
             is an export of the TSV format in the <a href=http://www.w3.org/TR/turtle/>W3C standard Turtle</a>. It replicates the themes of the TSV format. It does not contain the textual facts from Wikipedia (anchor texts, Infobox templates, etc.; Theme “Other”) and the facts about extraction provenance (which fact was extracted from where and how; themes labeled “*Sources*”). It does, however, contain all other facts, as well as the meta-facts (the “facts about facts”) concerning the location and the duration of facts. For this purpose, the file stores the fact identifiers in a comment line before the actual fact. This means that they are not visible (and not an obstacle) to systems that do not support this type of comments.
     </ul>
+
+</div>
+
+<div class="code-container">
+    <h1>2022 Revival Data</h1>
+    <p>
+        YAGO 3.0.3 is a non-official updated version of YAGO from 2022. It is licensed under a <a href=https://creativecommons.org/licenses/by/3.0/>Creative Commons Attribution 3.0 License</a> by the YAGO team at Télécom Paris and INRIA Saclay. The data was extracted from the English and French Wikipedia as of 2022, and has not been evaluated manually.
+    </p>
+    <p>
+        The data is structured as for the standard release, and is available in two formats:
+    </p>
+    <ul  class="browser-default">
+        <li>The <a rel="noreferrer noopener" target="_blank"
+                   href=/data/yago3/yago-3.0.3-native.7z>
+                TSV format</a>
+            contains 5 columns: fact identifier, subject, predicate, object, numerical value of the object (if applicable). This file contains the entire YAGO3, split into “Themes”, i.e., into files that group facts of a certain topic (taxonomy, labels, dates, etc.).
+        <li>
+            The <a rel="noreferrer noopener" target="_blank"
+                   href=/data/yago3/yago-3.0.3-parquet.7z>
+                Parquet format</a>
+            is an export of the TSV format into the <a href="https://parquet.apache.org/">Apache Parquet file format</a>, which is a column-oriented data compression file format.
+    </ul>
+
 </div>
 
 <div class="code-container">

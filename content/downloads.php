@@ -12,7 +12,7 @@
         <a href="<?php site_url(); ?>/downloads/yago-3" class="item right">
             <div>
                 <h2>YAGO 3</h2>
-                <p>This is the multilingual version of YAGO, which draws from Wikipedias in 10 languages.</p>
+                <p>This is the multilingual version of YAGO, which draws from WordNet and Wikipedias in 10 languages. A 2022 version is available.</p>
             </div>
         </a>
     </div>
