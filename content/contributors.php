@@ -7,7 +7,7 @@
         <p class="caption">
             <a href="https://suchanek.name" rel="noreferrer noopener" target="_blank">Fabian Suchanek</a>
             <br/>
-            Télécom Paris
+            Télécom Paris / Institut Polytechnique de Paris
         </p>
     </div>
 
@@ -28,7 +28,7 @@
             <a href="https://thomas.pellissier-tanon.fr/" rel="noreferrer noopener" target="_blank">Thomas Pellissier
                 Tanon</a>
             <br/>
-            Télécom Paris
+            Télécom Paris, now at Lexistems
         </p>
     </div>
 </div>
@@ -50,7 +50,7 @@
         <p class="caption">
             <a href="http://www.hoffart.ai/" rel="noreferrer noopener" target="_blank">Johannes Hoffart</a>
             <br/>
-            Max Planck Institute for Informatics, now Goldman Sachs
+            Max Planck Institute for Informatics, now at SAP
         </p>
     </div>
 
@@ -58,10 +58,10 @@
         <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/joanna-biega.jpg' ?>"
              alt="Joanna Biega">
         <p class="caption">
-            <a href="http://people.mpi-inf.mpg.de/~jbiega/" rel="noreferrer noopener" target="_blank">Joanna “Asia”
+            <a href="https://asiabiega.github.io/" rel="noreferrer noopener" target="_blank">Joanna “Asia”
                 Biega</a>
             <br/>
-            Max Planck Institute for Informatics, now Microsoft Research Montreal
+            Max Planck Institute for Informatics, now at the Max Planck Institute for Security and Privacy
         </p>
     </div>
 </div>
@@ -71,7 +71,7 @@
         <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/erdal-kuzey.jpg' ?>"
              alt="Erdal Kuzey">
         <p class="caption">
-            <a href="https://www.xing.com/profile/BenErdal_Kuzey" rel="noreferrer noopener" target="_blank">Erdal
+            <a href="https://nl.linkedin.com/in/benkuzey" rel="noreferrer noopener" target="_blank">Erdal
                 Kuzey</a>
             <br/>
             Max Planck Institute for Informatics
@@ -92,13 +92,13 @@
 
     <div class="contributor">
         <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/gjergji-kasneci.jpg' ?>"
-             alt="Joanna Biega">
+             alt="Gjergji Kasneci">
         <p class="caption">
-            <a href="https://scholar.google.de/citations?user=Zbc8GK4AAAAJ&hl=en" rel="noreferrer noopener"
+            <a href="https://uni-tuebingen.de/en/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/informatik/lehrstuehle/data-science-analytics/team/prof-dr-gjergji-kasneci/#c1724416" rel="noreferrer noopener"
                target="_blank">Gjergji
                 Kasneci</a>
             <br/>
-            Max Planck Institute for Informatics, now Schufa
+            Max Planck Institute for Informatics, now at Uni Tuebingen
         </p>
     </div>
 </div>
