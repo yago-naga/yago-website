@@ -62,7 +62,7 @@
     </ul>
 
     <p>
-        The current Yago version has been created from the November 25th Wikidata dumps. It is provided in three flavors:
+        YAGO4 is provided in three flavors:
     </p>
     <ul   class="browser-default">
         <li><a href="/data/yago4/full/">Full</a>: This flavor uses all data from Wikidata. Hence, it is an extremely large KB.</li>
@@ -72,7 +72,7 @@
 
     <p>
         The <code>.ntx</code> files are using RDF* (a.k.a. RDF star) N-Triples syntax.
-        It could be parsed using
+        It can be parsed using
             <a href="https://jena.apache.org/documentation/rdfstar/">Jena</a>,
             <a href="https://rdf4j.org/documentation/programming/rdfstar/">RDF4J</a>,
             <a href="https://github.com/rdfjs/N3.js/">N3.js</a>
