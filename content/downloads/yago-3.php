@@ -166,7 +166,7 @@
 <div class="code-container">
     <h1>2022 Revival Data</h1>
     <p>
-        YAGO 3.0.3 is a non-official updated version of YAGO from 2022. It is licensed under a <a href=https://creativecommons.org/licenses/by/3.0/>Creative Commons Attribution 3.0 License</a> by the YAGO team at Télécom Paris and INRIA Saclay. The data was extracted from the English and French Wikipedia as of 2022, and has not been evaluated manually.
+        YAGO 3.0.3 is a non-official updated version of YAGO from 2022. It is licensed under a <a href=https://creativecommons.org/licenses/by/3.0/>Creative Commons Attribution 3.0 License</a> by the YAGO team. We are very grateful to Jovan Stojanovic from INRIA Saclay for this work! The data was extracted from the English and French Wikipedia as of 2022, and has not been evaluated manually.
     </p>
     <p>
         The data is structured as for the standard release, and is available in two formats:
