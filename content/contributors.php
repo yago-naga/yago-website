@@ -103,4 +103,17 @@
     </div>
 </div>
 
+<div class="contributors-row">
+    <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/jovan.jpg' ?>"
+             alt="Jovan Stojanovic">
+        <p class="caption">
+            <a href="https://fr.linkedin.com/in/stojanovic-jovan" rel="noreferrer noopener" target="_blank">Jovan Stojanovic</a>
+            <br/>
+            INRIA Saclay
+        </p>
+    </div>
+
+</div>
+
 
