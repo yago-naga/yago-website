@@ -18,6 +18,7 @@ function config($key = '')
             'downloads' => [
                 'title' => 'Downloads',
                 'children' => [
+				    "downloads/yago-4-5" => "Yago 4.5",
                     "downloads/yago-4" => "Yago 4",
                     "downloads/yago-3" => "Yago 3",
                     "downloads/yago-2s" => "Yago 2s",

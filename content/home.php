@@ -12,6 +12,13 @@
 <h2>News</h2>
 
 <div class="news_item">
+    <div class="news_time">May, 2023</div>
+    <div class="news_text">
+        A <a href="https://yago-knowledge.org/downloads/yago-4-5">new version of YAGO, YAGO 4.5</a> is now available, which has a much richer taxonomy!
+    </div>
+</div>
+
+<div class="news_item">
     <div class="news_time">February, 2023</div>
     <div class="news_text">
         A 2022 revival version of <a href="https://yago-knowledge.org/downloads/yago-3">YAGO 3</a> is now available, with updated data from the French and English Wikipedia!

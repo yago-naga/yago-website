@@ -12,7 +12,7 @@
 
 <h2 id="what-is-yago">What is YAGO?</h2>
 <p>
-    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 2 billion facts.
+    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 90 million facts.
 </p>
 <p>
 YAGO arranges its entities into classes: Elvis Presley belongs to the class of people, Paris belongs to the class of cities, and so on. These classes are arranged in a taxonomy: The class of cities is a subclass of the class of populated places, this class is a subclass of geographical locations, etc.
@@ -28,7 +28,7 @@ YAGO also defines which relations can hold between which entities: birthPlace, e
         <a href=https://www.wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
     </li>
     <li>
-        <a href=https://schema.org>schema.org</a> (and its cousin <a href=https://bioschemas.org/>BioSchemas</a>) is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
+        <a href=https://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
     </li>
 </ol>
 <p>
@@ -61,7 +61,7 @@ For “facts about facts” (such as time stamps for facts or other types of ann
 
 <h2 id="taxonomy">What is the taxonomy of YAGO?</h2>
 <p>
-The top-level taxonomy of YAGO is taken from schema.org. In this way, we have a simple hierarchy of classes that has proven to work well in practice. However, these classes are not fine-grained enough. for example, they do not know “electric cars”. Therefore, we use the lower classes from Wikidata. However, since these classes are very deeply stacked in Wikidata (and not always intuitive), we filter these classes. For example, we use only classes that have a corresponding Wikipedia article. This leads to a very concise and legible taxonomy, which nevertheless has the required level of detail.
+The top-level taxonomy of YAGO is taken from schema.org. In this way, we have a simple hierarchy of classes that has proven to work well in practice. However, these classes are not fine-grained enough. For example, they do not know “electric cars”. Therefore, we have carefully integrated selected parts of the Wikidata taxonomy into YAGO. 
 </p>
 
 <h2 id="access">How can I access YAGO?</h2>

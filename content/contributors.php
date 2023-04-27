@@ -35,6 +35,36 @@
 
 <div class="contributors-row">
     <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/mehwish.jpg' ?>"
+             alt="Mehwish Alam">
+        <p class="caption">
+            <a href="https://sites.google.com/view/mehwish-alam/home" rel="noreferrer noopener" target="_blank">Mehwish Alam</a>
+            <br/>
+            Télécom Paris / Institut Polytechnique de Paris
+        </p>
+    </div>
+    <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/thomas-bonald.jpg' ?>"
+             alt="Thomas Bonald">
+        <p class="caption">
+            <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html" rel="noreferrer noopener" target="_blank">Thomas Bonald</a>
+            <br/>
+            Télécom Paris / Institut Polytechnique de Paris
+        </p>
+    </div>
+    <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/php.jpg' ?>"
+             alt="Pierre-Henri Paris">
+        <p class="caption">
+            <a href="https://phparis.net/" rel="noreferrer noopener" target="_blank">Pierre-Henri Paris</a>
+            <br/>
+            Télécom Paris / Institut Polytechnique de Paris
+        </p>
+    </div>
+</div>
+
+<div class="contributors-row">
+    <div class="contributor">
         <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/thomas-rebele.jpg' ?>"
              alt="Thomas Rebele">
         <p class="caption">

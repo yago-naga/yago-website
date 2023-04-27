@@ -81,7 +81,7 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
 
 ?>
     <h1 style="text-align: center;">Graph visualization</h1>
-
+    <p style="color:red"> LOADING EXPERIMENTAL DATA, INTERFACE MAY BE BRITTLE!</p>
     <form id="search" class="row">
         <div class="col s5 input-field">
             <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
