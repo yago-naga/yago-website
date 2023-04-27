@@ -43,7 +43,7 @@
 <div class="code-container">
     <h1>Data</h1>
 	
-	<p style="color:red">THIS IS AN EXPERIMENTAL VERSION THAT IS NOT YET STABLE!</p> 
+	<p style="color:red">THIS IS AN EXPERIMENTAL VERSION THAT IS NOT YET STABLE AND MAY BE UNAVAILABLE! Use <a href="https://yago-knowledge.org/downloads/yago-4">YAGO 4</a>!</p> 
     <p>
         YAGO 4.5 licensed under a <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike</a> by the YAGO team of Télécom Paris.
         Some facts are imported from schema.org that releases its data <a href="https://schema.org/docs/terms.html">under the same license</a>.
@@ -84,7 +84,7 @@
         download data of YAGO above.
     </p>
     <p>
-        The source code of YAGO is a Rust project that ingests facts from Wikidata, and transforms them into YAGO. If you run the code yourself, you can add other sources or modify the generation of the knowledge base. The YAGO 4.5 source code is
+        The source code of YAGO is a Python project that ingests facts from Wikidata, and transforms them into YAGO. If you run the code yourself, you can add other sources or modify the generation of the knowledge base. The YAGO 4.5 source code is
         available at <a rel="noreferrer noopener" target="_blank" href=https://github.com/yago-naga/yago-4.5>Github</a>. It
         is licensed under the <a href=http://creativecommons.org/licenses/by/4.0/>Creative Commons Attribution License</a>.
     </p>
