@@ -28,7 +28,7 @@ YAGO also defines which relations can hold between which entities: birthPlace, e
         <a href=https://www.wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
     </li>
     <li>
-        <a href=https://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
+        <a href=http://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
     </li>
 </ol>
 <p>

@@ -8,7 +8,7 @@
     {
       "@type": "Dataset",
       "name": "Yago 4.5",
-      "description": "YAGO 4.5 is the latest version of the YAGO knowledge base, which is based on Wikidata — the largest public general-purpose knowledge base. YAGO refines the data as follows:\\n* All entity identifiers and property identifiers are human-readable.\\n* The top-level classes come from schema.org — a standard repertoire of classes and properties maintained by Google and others, combined with bioschemas.org. The lower level classes are a selection of Wikidata classes (larger than for YAGO 4).\\n* The properties come from schema.org.\\n* YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for logical reasoning on YAGO.\\nYAGO contains more than 50 million entities and 90 million facts.",
+      "description": "YAGO 4.5 is the latest version of the YAGO knowledge base, which is based on Wikidata — the largest public general-purpose knowledge base. YAGO refines the data as follows:\\n* All entity identifiers and property identifiers are human-readable.\\n* The top-level classes come from schema.org — a standard repertoire of classes and properties maintained by Google and others. The lower level classes are a selection of Wikidata classes (larger than for YAGO 4).\\n* The properties come from schema.org.\\n* YAGO 4 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for logical reasoning on YAGO.\\nYAGO contains more than 50 million entities and 90 million facts.",
       "creator": [
         {
           "@type": "Person",
