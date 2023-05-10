@@ -17,6 +17,7 @@ $PREFIXES = [
     'rdf' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
     'schema' => 'http://schema.org/',
+	'geo' => 'http://www.opengis.net/ont/geosparql#',
     'sh' => 'http://www.w3.org/ns/shacl#',
     'yago-shape-prop' => 'http://yago-knowledge.org/value/shape-prop-',
     'yago-value' => 'http://yago-knowledge.org/value/',
@@ -27,7 +28,6 @@ $PREFIXES = [
 
 global $DISPLAYED_PREFIXES;
 $DISPLAYED_PREFIXES = [
-    'bioschemas' => 'http://bioschemas.org/',
     'schema' => 'http://schema.org/',
     null => 'http://yago-knowledge.org/resource/',
 ];
