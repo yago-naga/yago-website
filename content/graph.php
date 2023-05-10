@@ -81,47 +81,24 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
 
 ?>
     <h1 style="text-align: center;">Graph visualization</h1>
-    <!--p style="color:red"> LOADING EXPERIMENTAL DATA, INTERFACE MAY BE BRITTLE!</p-->
+    <p style="color:red">CLASS HIERARCHY IS STILL BEING LOADED</p-->
     <form id="search" class="row">
         <div class="col s5 input-field">
             <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
             <label for="search-text">Search Yago</label>
         </div>
-        <div class="col s2 input-field">
-            <select id="search-lang">
-                <?php
-                $languages = array_unique(array_map(function ($locale) {
-                    return Locale::getPrimaryLanguage($locale);
-                }, ResourceBundle::getLocales('')));
-                foreach ($languages as $language) {
-                    if ($language === $searchLang) {
-                        print '<option value="' . $language . '" selected>' . Locale::getDisplayLanguage($language, $language) . '</option>';
-                    } else {
-                        print '<option value="' . $language . '">' . Locale::getDisplayLanguage($language, $language) . '</option>';
-                    }
-                }
-                ?>
-            </select>
-        </div>
         <div class="col s3" style="margin-top: 1.5rem;">
             <button type="submit" class="waves-effect waves-light btn">search</button>
-            <button id="random" class="waves-effect waves-light btn">random</button>
         </div>
     </form>
     <script>
         window.onload = function () {
-            //$('#search-lang').formSelect();
 
             $('#search').submit(function () {
-                window.location.href = '/graph/"' + $('#search-text').val() + '"@' + $('#search-lang').val() + '?relation=all&inverse=1';
-				//window.location.href = '/graph/"' + $('#search-text').val() + '"@en?relation=all&inverse=1';
+				window.location.href = '/graph/"' + $('#search-text').val() + '"@en?relation=all&inverse=1';
                 return false;
             });
 
-            //$('#random').click(function () {
-            //    window.location.href = '/graph/';
-            //    return false;
-            //});
         };
     </script>
 
