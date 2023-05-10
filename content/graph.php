@@ -1,165 +1,169 @@
-<?php
+<?php require 'includes/sparql.php'; ?>
+<h1>Graph visualization</h1>
 
-require_once 'includes/sparql.php';
+<div class="alchemy" id="alchemy"></div>
+<div id="cytoscape" style="width: 100%; height: 1000px;"></div>
+<script type="text/javascript"
+        src="//tools-static.wmflabs.org/cdnjs/ajax/libs/cytoscape/3.9.2/cytoscape.min.js"></script>
+<script>
+    window.onload = function () {
+        var start = "http://yago-knowledge.org/resource/Elvis_Presley";
+        var userLang = 'en'; //(navigator.language || navigator.userLanguage || 'en').split("-")[0];
+        var displayedNodes = [];
+        var prefixes = <?php echo json_encode($PREFIXES); ?>;
 
-function getSparqlQueryXmlDocument(string $query)
-{
-    global $PREFIXES;
+        function doSparqlQuery(query) {
+            return $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "<?php echo config('sparql_endpoint'); ?>",
+                headers: {
+                    "Content-Type": "application/sparql-query"
+                },
+                data: query
+            });
+        }
 
-    // We do the SPARQL query: custom code to get XML results
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                'Accept: application/sparql-results+xml',
-                'User-Agent: YagoWebsite/1.0'
-            ],
-        ]
-    ]);
-    $url = config('sparql_endpoint') . '?query=' . urlencode($query);
-    $response = file_get_contents($url, false, $context);
-    if (!$response) {
-        throw new Exception("HTTP error for SPARQL query:\n" . $query);
-    }
+        function encodeId(id) {
+            var newId = '';
+            for (var i in id) {
+                var c = id[i];
+                if (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')) {
+                    newId += c;
+                }
+            }
+            return newId;
+        }
 
-    // We replace expended URIs by their prefix (very hacky):
-    foreach ($PREFIXES as $prefix => $base) {
-        $response = str_replace($base, $prefix . ':', $response);
-    }
+        function encodeUri(uri) {
+            for (var prefix in prefixes) {
+                if (uri.startsWith(prefixes[prefix])) {
+                    return uri.replace(prefixes[prefix], prefix + ':');
+                }
+            }
+            return uri;
+        }
 
+        function getRootNode(uri) {
+            return doSparqlQuery('SELECT ?id ?label WHERE { BIND(<' + uri + '> AS ?id) OPTIONAL { ?id <http://www.w3.org/2000/01/rdf-schema#label>|<http://schema.org/name> ?label FILTER(LANG(?label) = "' + userLang + '") } }')
+                .then(function (sparql) {
+                    for (var i in sparql.results.bindings) {
+                        var binding = sparql.results.bindings[i];
+                        return [{
+                            group: 'nodes',
+                            data: {
+                                id: encodeId(binding.id.value),
+                                uri: binding.id.value,
+                                label: encodeUri(binding.id.value),
+                                level: 0
+                            }
+                        }]
+                    }
+                })
+        }
 
-    $document = new DOMDocument();
-    $document->loadXML($response);
-    return $document;
-}
+        function getNeighbours(uri, level) {
+            displayedNodes.push(uri);
+            return doSparqlQuery('SELECT ?edge ?node ?edgeLabel ?nodeLabel WHERE { <' + uri + '> ?edge ?node FILTER(isIRI(?node) && EXISTS { ?node ?p ?o }) OPTIONAL { ?edge <http://www.w3.org/2000/01/rdf-schema#label>|<http://schema.org/name> ?edgeLabel FILTER(LANG(?edgeLabel) = "' + userLang + '") } OPTIONAL { ?node <http://www.w3.org/2000/01/rdf-schema#label>|<http://schema.org/name> ?nodeLabel FILTER(LANG(?nodeLabel) = "' + userLang + '") } }')
+                .then(function (sparql) {
+                    var results = [];
+                    for (var i in sparql.results.bindings) {
+                        var binding = sparql.results.bindings[i];
+                        results.push({
+                            group: 'nodes',
+                            data: {
+                                id: encodeId(binding.node.value),
+                                uri: binding.node.value,
+                                label: encodeUri(binding.node.value),
+                                level: level
+                            }
+                        });
+                        results.push({
+                            group: 'edges',
+                            data: {
+                                id: encodeId(uri) + ':' + encodeId(binding.edge.value) + ':' + encodeId(binding.node.value),
+                                uri: binding.edge.value,
+                                source: encodeId(uri),
+                                target: encodeId(binding.node.value),
+                                label: encodeUri(binding.edge.value)
+                            }
+                        });
+                    }
+                    return results;
+                })
+        }
 
-function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
-{
-    $xslt = new XSLTProcessor();
-    $stylesheet = new DOMDocument();
-    $stylesheet->load($xsltFile);
-    $xslt->importStyleSheet($stylesheet);
-    return $xslt->transformToXML($inputDocument);
-}
-
-if ( !isset( $_GET['resource'] ) || !$_GET['resource'] ) {
-    // We pick something randomly
-    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?c a <http://schema.org/Thing> }')['value']);
-    $offset = random_int(0, $resourcesCount - 1);
-    $resource = doSingleResultQuery('SELECT ?r WHERE { ?r a <http://schema.org/Thing> } OFFSET ' . $offset . ' LIMIT 1')['value'];
-    header('Location: /graph/' . uriToPrefixedName($resource), true, 302);
-    exit();
-}
-
-$resource = isset($_GET['resource']) ? $_GET['resource'] : '';
-$searchText = '';
-$searchLang = 'en';
-if (preg_match('/^"(.*)"$/', $resource, $m)) {
-    // Plain literal ok
-    $searchText = $m[1];
-} else if (preg_match('/^"(.*)"@([a-zA-Z\-]+)$/', $resource, $m)) {
-    // Plain lang literal ok
-    $searchText = $m[1];
-    $searchLang = $m[2];
-} else if (preg_match('/^"(.*)"\^\^<.+>$/', $resource, $m)) {
-    //Literal with full datatype URI ok
-    $searchText = $m[1];
-} else if (preg_match('/^"(.*)"\^\^(.+)$/', $resource, $m)) {
-    //Literal with relative datatype URI
-    $resource = '"' . $m[1] . '"^^<' . resolvePrefixedUri($m[2]) . '>';
-    $searchText = $m[1];
-} elseif (preg_match('/^<.+>$/', $resource)) {
-    // URI
-    $resource = '<' . resolvePrefixedUri(substr($resource, 1, -1)) . '>';
-} else {
-    $resource = '<' . resolvePrefixedUri($resource) . '>';
-}
-
-$relation = isset($_GET['relation']) ? resolvePrefixedUri($_GET['relation']) : null;
-$inverse = isset($_GET['inverse']) && $_GET['inverse'];
-$cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['cursor']) : 0;
-
-?>
-    <h1 style="text-align: center;">Graph visualization</h1>
-    <!--p style="color:red"> LOADING EXPERIMENTAL DATA, INTERFACE MAY BE BRITTLE!</p-->
-    <form id="search" class="row">
-        <div class="col s5 input-field">
-            <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
-            <label for="search-text">Search Yago</label>
-        </div>
-        <!--div class="col s2 input-field">
-            <select id="search-lang">
-                <?php
-                $languages = array_unique(array_map(function ($locale) {
-                    return Locale::getPrimaryLanguage($locale);
-                }, ResourceBundle::getLocales('')));
-                foreach ($languages as $language) {
-                    if ($language === $searchLang) {
-                        print '<option value="' . $language . '" selected>' . Locale::getDisplayLanguage($language, $language) . '</option>';
-                    } else {
-                        print '<option value="' . $language . '">' . Locale::getDisplayLanguage($language, $language) . '</option>';
+        var cy = cytoscape({
+            container: document.getElementById('cytoscape'),
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'label': 'data(label)',
+                        'text-background-color': 'white',
+                        'text-background-opacity': 1,
+                        'text-background-shape': 'roundrectangle'
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'curve-style': 'bezier',
+                        'label': 'data(label)',
+                        'text-background-color': 'white',
+                        'text-background-opacity': 1,
+                        'text-background-shape': 'roundrectangle',
+                        'text-rotation': 'autorotate',
+                        'target-arrow-shape': 'triangle'
                     }
                 }
-                ?>
-            </select>
-        </div-->
-        <div class="col s3" style="margin-top: 1.5rem;">
-            <button type="submit" class="waves-effect waves-light btn">search</button>
-            <!--button id="random" class="waves-effect waves-light btn">random</button-->
-        </div>
-    </form>
-    <script>
-        window.onload = function () {
-            //$('#search-lang').formSelect();
+            ]
+        });
 
-            $('#search').submit(function () {
-                //window.location.href = '/graph/"' + $('#search-text').val() + '"@' + $('#search-lang').val() + '?relation=all&inverse=1';
-				window.location.href = '/graph/"' + $('#search-text').val() + '"@en?relation=all&inverse=1';
-                return false;
+        function addElements(elements, level) {
+            cy.add(elements);
+            /*cy.layout({
+                name: 'concentric',
+                animate: true,
+                minNodeSpacing: 60,
+                concentric: function( node ) {
+                    return 100 - node.data('level');
+                },
+                levelWidth: function(nodes) {
+                    return 1;
+                },
+                fit: true
+            }).run();*/
+            cy.layout({
+                name: 'cose',
+                animate: true,
+                numIter: 10000,
+                fit: true,
+                nodeRepulsion: 400000,
+                nodeOverlap: 10,
+                idealEdgeLength: function (edge) {
+                    return 10 * edge.data('label').length;
+                },
+                edgeElasticity: 100,
+                nestingFactor: 5,
+                gravity: 80,
+                initialTemp: 200,
+                coolingFactor: 0.99
+            }).run();
+            cy.nodes().on('click', function (e) {
+                var uri = e.target.data('uri');
+                if (displayedNodes.indexOf(uri) === -1) {
+                    getNeighbours(e.target.data('uri'), level + 1).then(function (elements) {
+                        addElements(elements, level + 1);
+                    });
+                }
             });
+        }
 
-            //$('#random').click(function () {
-            //    window.location.href = '/graph/';
-            //    return false;
-            //});
-        };
-    </script>
-
-<?php
-if ($resource === '') {
-    return;
-}
-
-if ($relation !== null) {
-    $sparqlQuery = '
-SELECT ?s ?p ?o (' . $cursor . ' AS ?page) (' . ($inverse ? '1' : '0') . ' AS ?inverse) (\'' . $relation . '\' AS ?relation) WHERE {
- BIND(' . $resource . ' AS ?s)' . ($relation == 'http://yago-knowledge.org/resource/all' ? '' : 'BIND(<' . $relation . '> AS ?p)') .
-        ($inverse ? '?o ?p ?s' : '?s ?p ?o') . '} LIMIT 20 OFFSET ' . $cursor * 20;
-    print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/relation_builder.xslt');
-} else {
-    $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT ?s ?p ?o ?count WHERE {
- {SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-1 AS ?count) WHERE {
-   ' . $resource . ' rdf:type ?c .
-   ?c rdfs:subClassOf* ?s .
-   ?s rdfs:subClassOf ?o .
- }}
- UNION
- {SELECT ?s ?p (SAMPLE(?o) AS ?o) (COUNT(?o) AS ?count) WHERE {
-   BIND(' . $resource . ' AS ?s)
-   ?s ?p ?o .
-   FILTER(?p != rdf:type)
-   FILTER(?p != rdfs:subClassOf)
- } GROUP BY ?s ?p }
- UNION
- {SELECT DISTINCT ?s (rdfs:subClassOf AS ?p) ?o (-2 AS ?count) WHERE {
-   ' . $resource . ' rdfs:subClassOf+ ?s .
-   ?s rdfs:subClassOf ?o .
- }}
-}
-';
-    print processDocumentWithXslt(getSparqlQueryXmlDocument($sparqlQuery), __DIR__ . '/../includes/graph_builder.xslt');
-}
-?>
+        getRootNode(start).then(function (elements1) {
+            getNeighbours(start, 1).then(function (elements2) {
+                addElements(elements1.concat(elements2), 1);
+            });
+        });
+    };
+</script>

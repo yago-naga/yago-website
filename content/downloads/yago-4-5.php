@@ -36,7 +36,7 @@
     The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. For the entities and classes, these come from the corresponding English Wikipedia article. If no such article exists, the name comes from the English label of Wikidata, concatenated with the Wikidata identifier. If no such label exists, we use the Wikidata identifier. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata and DBpedia.
     </p>
     <p>
-    YAGO comes with SHACL constraints that specify the disjointness of certain classes, as well as the domains, ranges, and cardinalities of relations. Please find a detailed description of the upper taxonomy as well as our design document <a href="content/schema.php">here</a>.
+    YAGO comes with SHACL constraints that specify the disjointness of certain classes, as well as the domains, ranges, and cardinalities of relations. Please find a detailed description of the upper taxonomy as well as our design document <a href="https://yago-knowledge.org/schema">here</a>.
     </p>
 </div>
 
