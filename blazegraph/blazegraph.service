@@ -5,9 +5,10 @@ Description=Blazegraph
 Type=simple
 User=yago
 WorkingDirectory=/home/yago/website/blazegraph
-ExecStart=/usr/lib/jvm/java-8-openjdk-amd64/bin/java -Djetty.port=9999 -Dbigdata.propertyFile=RWStore.properties -server -jar blazegraph.jar
+ExecStart=/usr/lib/jvm/java-8-openjdk-amd64/bin/java -Xmx10g -Xms10g -Djetty.port=9999 -Dbigdata.propertyFile=RWStore.properties -server -jar blazegraph.jar
 Restart=on-failure
 RestartSec=10
+LimitNOFile=8192
 
 [Install]
 WantedBy=multi-user.target
