@@ -1,7 +1,8 @@
 echo "Stop blazegraph with:        sudo systemctl stop blazegraph"
 mkdir /data/temp
+rm /data/temp/*.*
 echo Unzipping $1
-#unzip $1 -d /data/temp
+unzip $1 -d /data/temp
 rm /data/yago.jnl
 for f in /data/temp/*.ttl
 do
