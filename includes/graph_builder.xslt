@@ -86,7 +86,7 @@ AS ?count) WHERE {
 					</xsl:choose>
 				</xsl:variable>
 				<!-- Print the class name, in red for schemas -->
-				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or starts-with($currentClassName,'bioschemas:'))" />
+				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or $currentClassName='yago:Award' or $currentClassName='yago:BeliefSystem' or $currentClassName='yago:Gender' or $currentClassName='yago:FictionalEntity' or $currentClassName='yago:AstronomicalObject' or $currentClassName='yago:HumanMadeGeographicalEntity' or $currentClassName='yago:Way' or $currentClassName='yago:Worker' or $currentClassName='yago:Creator' or $currentClassName='yago:Academic' or $currentClassName='yago:SportsPerson' or $currentClassName='yago:Politician')" />
 				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="{substring('blue red  ',$isShape*5+1,4)}">
 					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of select="$currentClassName"/></a>
 				</text>
