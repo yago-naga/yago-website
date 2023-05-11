@@ -16,7 +16,7 @@ $PREFIXES = [
     'owl' => 'http://www.w3.org/2002/07/owl#',
     'rdf' => 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
-    'schema' => 'http://schema.org/',
+    'schema' => 'https://schema.org/',
 	'geo' => 'http://www.opengis.net/ont/geosparql#',
     'sh' => 'http://www.w3.org/ns/shacl#',
     'yago-shape-prop' => 'http://yago-knowledge.org/value/shape-prop-',
@@ -28,7 +28,7 @@ $PREFIXES = [
 
 global $DISPLAYED_PREFIXES;
 $DISPLAYED_PREFIXES = [
-    'schema' => 'http://schema.org/',
+    'schema' => 'https://schema.org/',
     null => 'http://yago-knowledge.org/resource/',
 ];
 
