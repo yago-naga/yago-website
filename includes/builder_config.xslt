@@ -33,7 +33,7 @@
 			<xsl:value-of select="substring($object,1,$length - 1)"/>&#x2026;
 		</xsl:if>
 		<xsl:if test="not(string-length($object)&gt;$length)">
-			<xsl:value-of select="$object"/>
+			<xsl:value-of select="replace($object,'_u([0-9]{4})_','&#38;#x$1;')" disable-output-escaping="yes"/>
 		</xsl:if>
 	</xsl:template>
 
@@ -48,16 +48,7 @@
 		<xsl:variable name="isUrl" select="$stringObject/@datatype='xsd:anyURI'" />				
 		<xsl:variable name="isForeign" select="starts-with($entityObject/text(),'rdf:') or starts-with($entityObject/text(),'rdfs:') or starts-with($entityObject/text(),'wd:') or starts-with($entityObject/text(),'owl:') or starts-with($entityObject/text(),'dbpedia:') or starts-with($entityObject/text(),'geo:')" />				
 		<xsl:variable name="isUrlEntity" select="starts-with($entityObject/text(),'http')" />						
-		<xsl:variable name="isShapeProperty" select="starts-with($entityObject/text(),'yago-shape-prop:')" />						
 		<xsl:choose>
-		<xsl:when test="$isShapeProperty" >
-			<a href="{concat($yagoUrl,$object)}"  style="fill:blue">
-				<xsl:call-template name="printString">
-					<xsl:with-param  name="object" select="concat('*',substring-after(substring-after(substring-after(substring-after($entityObject,':'),'-'),'-'),'-'),'*')"/>
-					<xsl:with-param name="length" select="$length"/>
-				</xsl:call-template>
-			</a>
-		</xsl:when>
 		<xsl:when test="$isUrlEntity" >
 			<a href="{$entityObject/text()}"  style="fill:blue">
 				<xsl:call-template name="printString">
