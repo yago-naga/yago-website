@@ -33,7 +33,7 @@
 			<xsl:value-of select="substring($object,1,$length - 1)"/>&#x2026;
 		</xsl:if>
 		<xsl:if test="not(string-length($object)&gt;$length)">
-			<xsl:value-of select="replace($object,'_u([0-9]{4})_','&#38;#x$1;')" disable-output-escaping="yes"/>
+			<xsl:value-of select="$object"/>
 		</xsl:if>
 	</xsl:template>
 
