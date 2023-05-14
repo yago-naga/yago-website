@@ -1,10 +1,11 @@
+# call: nohupnsudon/bin/bash load-zip.sh
 echo "----------------- Loading YAGO into Blazegraph ---------------------"
 date +"Current time: %F %T"
 systemctl stop blazegraph
 mkdir /data/temp
 rm /data/temp/*.*
-echo Unzipping $1
-unzip $1 -d /data/temp
+echo Unzipping
+unzip /data/public/yago4.5/yago-4.5.0.zip -d /data/temp
 rm /data/temp/yago-beyond-wikipedia.ttl
 rm /data/yago.jnl
 for f in /data/temp/*.ttl
