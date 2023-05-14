@@ -14,8 +14,6 @@ sudo systemctl start blazegraph
 ```
 To load a new YAGO version:
 ```
-sudo systemctl stop blazegraph
-nohup ./load-zip.sh ZIP-FILE &  # This will take a few hours
-sudo systemctl start blazegraph
-~/restart-nginx.sh
+./load-zip.sh
 ```
+See instructions inside the file. The loading will take a few hours.
