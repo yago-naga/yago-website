@@ -1,4 +1,4 @@
-# call: nohupnsudon/bin/bash load-zip.sh
+# call: nohup sudo /bin/bash load-zip.sh
 echo "----------------- Loading YAGO into Blazegraph ---------------------"
 date +"Current time: %F %T"
 systemctl stop blazegraph
