@@ -38,5 +38,4 @@
 				"Elvis Presley"@ig</a><a href="https://yago-knowledge.org/graph/yago:Elvis_Presley?relation=rdfs:label" style="fill:blue">  (+				
 				190)				
 			</a></text><text x="515" y="534" transform="rotate(-9.473684210526315 1000 540)" font-size="30" fill="black">rdfs:label</text><line x1="1240" y1="540" x2="1500" y2="540" transform="rotate(180 1000 540)" marker-end="url(#mblack)" stroke-width="3" stroke="black"/><text text-anchor="end" x="470" y="546" transform="rotate(0 1000 540)" font-size="30" fill="black">wd:Q303</text><text x="515" y="534" transform="rotate(0 1000 540)" font-size="30" fill="black">owl:sameAs</text></svg>
-    </div>
-</div>
+    
