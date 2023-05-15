@@ -199,7 +199,7 @@ AS ?count) WHERE {
 				</xsl:if>
 				<xsl:if test="$numberOfObjects - number($isClass)*2=0">
 					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="gray">Non-Wikipedia entities</text>
-					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.5}" font-size="{$fontSize}" fill="gray">have not been loaded.</text>
+					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 1.5}" font-size="{$fontSize}" fill="gray">have not been loaded.</text>
 				</xsl:if>
 				
 				<!-- Link the name to all classes that have no subclasses -->
