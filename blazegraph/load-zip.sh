@@ -18,6 +18,7 @@ do
   echo Loading $f
   java -cp blazegraph.jar com.bigdata.rdf.store.DataLoader -namespace kb  RWStore.properties $f
 done
+chown yago:yago /data/yago.jnl
 systemctl start blazegraph
 ~/restart-nginx.sh
 date +"Current time: %F %T"
