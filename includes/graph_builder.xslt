@@ -189,7 +189,7 @@ AS ?count) WHERE {
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
 			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
-				<xsl:if test="$numberOfObjects-number($isClass)*2&gt;0">
+				<xsl:if test="$numberOfObjects - number($isClass)*2&gt;0">
 					<a href="{concat($yagoViewerUrl,$entity)}"><text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="{substring('blue red    ', $subjectIsShape*5+1,4)}">
 										<xsl:call-template name="printString">
 											<xsl:with-param name="object" select="$entity" />						
@@ -197,7 +197,7 @@ AS ?count) WHERE {
 										</xsl:call-template>					
 					</text></a>
 				</xsl:if>
-				<xsl:if test="$numberOfObjects-number($isClass)*2=0">
+				<xsl:if test="$numberOfObjects - number($isClass)*2=0">
 					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="gray">Non-Wikipedia entities</text>
 					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.5}" font-size="{$fontSize}" fill="gray">have not been loaded.</text>
 				</xsl:if>
