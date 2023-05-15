@@ -184,6 +184,8 @@ AS ?count) WHERE {
 				<use href="#taxonomy" x="{$shift div $scale}" y="0" transform="scale({$scale})" />
 
 				<!-- Print the entity name -->
+				<xsl:variable name="facts" select="/s:sparql/s:results/s:result[s:binding[@name='count' and number(s:literal/text())&gt;0]]" />
+				<xsl:variable name="numberOfObjects" select="count($facts)+number($isClass)*2" />				
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
 			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
@@ -211,8 +213,6 @@ AS ?count) WHERE {
 				</xsl:for-each>
 
 				<!-- Print the facts -->
-				<xsl:variable name="facts" select="/s:sparql/s:results/s:result[s:binding[@name='count' and number(s:literal/text())&gt;0]]" />
-				<xsl:variable name="numberOfObjects" select="count($facts)+number($isClass)*2" />
 				<xsl:for-each select="$facts">
 					<xsl:variable name="object" select="s:binding[@name='o']" />
 					<xsl:variable name="predicate" select="s:binding[@name='p']" />
