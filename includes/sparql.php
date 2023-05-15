@@ -21,6 +21,7 @@ $PREFIXES = [
     'sh' => 'http://www.w3.org/ns/shacl#',
     'yago-shape-prop' => 'http://yago-knowledge.org/value/shape-prop-',
     'yago-value' => 'http://yago-knowledge.org/value/',
+	'ys' => 'http://yago-knowledge.org/schema#',
     'wd' => 'http://www.wikidata.org/entity/',
     'xsd' => 'http://www.w3.org/2001/XMLSchema#',
     'yago' => 'http://yago-knowledge.org/resource/',
