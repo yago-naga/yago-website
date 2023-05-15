@@ -189,7 +189,7 @@ AS ?count) WHERE {
 				<xsl:variable name="x" select="$width div 2" />
 				<xsl:variable name="y" select="$maxY * $scale + $fontSize" />
 			    <xsl:variable name="subjectIsShape" select="(starts-with($entity,'schema:') or starts-with($entity,'bioschemas:'))" />
-				<xsl:if test="$numberOfObjects&gt;0">
+				<xsl:if test="$numberOfObjects-number($isClass)*2&gt;0">
 					<a href="{concat($yagoViewerUrl,$entity)}"><text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="{substring('blue red    ', $subjectIsShape*5+1,4)}">
 										<xsl:call-template name="printString">
 											<xsl:with-param name="object" select="$entity" />						
@@ -197,7 +197,7 @@ AS ?count) WHERE {
 										</xsl:call-template>					
 					</text></a>
 				</xsl:if>
-				<xsl:if test="$numberOfObjects=0">
+				<xsl:if test="$numberOfObjects-number($isClass)*2=0">
 					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.2}" font-size="{$fontSize}" fill="gray">Non-Wikipedia entities</text>
 					<text text-anchor="middle" x="{$x}" y="{$y + $fontSize* 0.5}" font-size="{$fontSize}" fill="gray">have not been loaded.</text>
 				</xsl:if>
@@ -258,7 +258,7 @@ AS ?count) WHERE {
 				</xsl:for-each>
 
 				<!-- Print the type and subclass relationships for classes -->
-				<xsl:if test="$isClass and $numberOfObjects&gt;0">
+				<xsl:if test="$isClass and $numberOfObjects&gt;2">
 					<line x1="{$x - $radius}" y1="{$y}" x2="{$x - $maxSubjectDisplayLength div 2 * $fontSize div 2}" y2="{$y}" marker-end="url(#mblack)" stroke-width="{$fontSize*0.1}" stroke="black" />
 					<text x="{$x - $radius + $fontSize*0.5}" y="{$y - $fontSize*0.2}" font-size="{$fontSize}" >rdf:type</text>
 					<a href="{concat($yagoUrl,$entity,'?relation=rdf:type&amp;inverse=1')}"><text x="{$x - $radius - $fontSize*2}" y="{$y}" font-size="{$fontSize}"  fill="blue">...</text></a>
