@@ -9,7 +9,7 @@
         <li>The properties come from schema.org.
         <li>YAGO 4.5 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
-    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 50 million entities and 90 million facts.</p>
+    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts.</p>
     <p>If you use YAGO 4.5 for scientific purposes, please cite our paper for YAGO 4:</p>
     <blockquote>
 	<a href="https://thomas.pellissier-tanon.fr/">Thomas Pellissier Tanon</a>, 
@@ -33,7 +33,7 @@
     YAGO puts each entity into at least one class. The classes form a taxonomy, where the higher classes are taken from <a href="http://schema.org">schema.org</a>, and the lower classes from <a href="https://www.wikidata.org">Wikidata</a>.  The highest class is <code>schema:Thing</code>.
     </p>
     <p>
-    The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. For the entities and classes, these come from the corresponding English Wikipedia article. If no such article exists, the name comes from the English label of Wikidata, concatenated with the Wikidata identifier. If no such label exists, we use the Wikidata identifier. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata and DBpedia.
+    The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata.
     </p>
     <p>
     YAGO comes with SHACL constraints that specify the disjointness of certain classes, as well as the domains, ranges, and cardinalities of relations. Please find a detailed description of the upper taxonomy as well as our design document <a href="https://yago-knowledge.org/schema">here</a>.
