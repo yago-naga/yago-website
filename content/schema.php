@@ -1,3 +1,4 @@
+
 <h1>Schema</h1>
 
 This is the top-level taxonomy of classes of YAGO. Please find detailed descriptions in our <a href="https://yago-knowledge.org/data/yago4.5/design-document.pdf">Design Document</a>.
