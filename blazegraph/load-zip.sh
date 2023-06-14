@@ -5,13 +5,13 @@
 # Execute: bg
 echo "----------------- Loading YAGO into Blazegraph ---------------------"
 date +"Current time: %F %T"
-systemctl stop blazegraph
 mkdir /data/temp
 rm /data/temp/*.*
 echo Unzipping
 #################### YAGO ZIP FILE GOES IN LINE BELOW
-unzip /data/public/yago4.5/yago-4.5.0.zip -d /data/temp
+unzip /data/public/yago4.5/yago-4.5.0.1.zip -d /data/temp
 rm /data/temp/yago-beyond-wikipedia.ttl
+systemctl stop blazegraph
 rm /data/yago.jnl
 for f in /data/temp/*.ttl
 do
