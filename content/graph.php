@@ -33,8 +33,8 @@ function getSparqlQueryXmlDocument(string $query)
     return $document;
 }
 
-function replaceRegex(string s, string search, string replace) {
-	return preg_replace("/"+search+"/i", replace, s)
+function replaceRegex(string $s, string $search, string $replace) {
+	return preg_replace("/"+$search+"/i", $replace, $s)
 }
 	
 function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
