@@ -5,7 +5,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ex_="urn:schemas-microsoft-com:xslt"
 	xmlns:s="http://www.w3.org/2005/sparql-results#"
-	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:php="http://php.net/xsl"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:ex="http://exslt.org/common" version="1.0" exclude-result-prefixes="xsl s svg ex ex_">
 	<xsl:output method="xml" encoding="UTF-8" omit-xml-declaration="yes"/>
@@ -27,15 +27,15 @@
 	<xsl:template name="printString">
 		<xsl:param name="object" />
 		<xsl:param name="length" select="$maxPredicateDisplayLength"/>
-		<xsl:variable name="objectnice" select="fn:replace($object,'_U([0-9A-F]{4})_','&amp;#x$1;')"/>
+		<xsl:variable name="objectnice" select="php:function('replaceRegex',$object,'_U([0-9A-F]{4})_','&amp;#x$1;')"/>
 		<xsl:if test="string-length($objectnice)&gt;$length">
 			<title>
 				<xsl:value-of disable-output-escaping="yes" select="$objectnice" />
 			</title>
 			<xsl:value-of disable-output-escaping="yes" select="substring($objectnice,1,$length - 1)" />&#x2026;
 		</xsl:if>
-		<xsl:if test="not(string-length($object)&gt;$length)">
-			<xsl:value-of select="$object"/>
+		<xsl:if test="not(string-length($objectnice)&gt;$length)">
+			<xsl:value-of select="$objectnice"/>
 		</xsl:if>
 	</xsl:template>
 

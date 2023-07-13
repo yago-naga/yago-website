@@ -33,11 +33,16 @@ function getSparqlQueryXmlDocument(string $query)
     return $document;
 }
 
+function replaceRegex(string s, string search, string replace) {
+	return preg_replace("/"+search+"/i", replace, s)
+}
+	
 function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
 {
     $xslt = new XSLTProcessor();
     $stylesheet = new DOMDocument();
     $stylesheet->load($xsltFile);
+    $xslt->registerPHPFunctions();
     $xslt->importStyleSheet($stylesheet);
     return $xslt->transformToXML($inputDocument);
 }
