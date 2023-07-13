@@ -87,8 +87,9 @@ AS ?count) WHERE {
 				</xsl:variable>
 				<!-- Print the class name, in red for schemas -->
 				<xsl:variable name="isShape" select="(starts-with($currentClassName,'schema:') or $currentClassName='yago:Award' or $currentClassName='yago:BeliefSystem' or $currentClassName='yago:Gender' or $currentClassName='yago:FictionalEntity' or $currentClassName='yago:AstronomicalObject' or $currentClassName='yago:HumanMadeGeographicalEntity' or $currentClassName='yago:Way' or $currentClassName='yago:Worker' or $currentClassName='yago:Creator' or $currentClassName='yago:Academic' or $currentClassName='yago:SportsPerson' or $currentClassName='yago:Politician')" />
+				<xsl:variable name="classnice" select="php:function('replaceRegex',string($currentClassName),'_U([0-9A-F]{4})_','&amp;#x$1;')"/>
 				<text x="{$x}" y="{$y}" font-size="{$fontSize}" fill="{substring('blue red  ',$isShape*5+1,4)}">
-					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of select="$currentClassName"/></a>
+					<a href="{concat($yagoUrl,$currentClassName)}"><xsl:value-of disable-output-escaping="yes" select="$classnice"/></a>
 				</text>
 				<!-- Link the class name to all superclasses by arrows -->
 				<xsl:for-each select="$superClasses">
