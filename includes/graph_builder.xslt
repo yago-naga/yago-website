@@ -45,6 +45,7 @@ AS ?count) WHERE {
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:ex_="urn:schemas-microsoft-com:xslt"
 	xmlns:s="http://www.w3.org/2005/sparql-results#"
+	xmlns:php="http://php.net/xsl"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:math="http://www.w3.org/2005/xpath-functions/math"
 	xmlns:ex="http://exslt.org/common" version="1.0" exclude-result-prefixes="xsl s svg ex ex_">
