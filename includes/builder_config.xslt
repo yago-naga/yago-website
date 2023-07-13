@@ -27,7 +27,7 @@
 	<xsl:template name="printString">
 		<xsl:param name="object" />
 		<xsl:param name="length" select="$maxPredicateDisplayLength"/>
-		<xsl:variable name="objectnice" select="php:function('replaceRegex',string($object),'_U([0-9A-F]{4})_','&amp;#x$1;')"/>
+		<xsl:variable name="objectnice" select="php:function('replaceRegex',$object,'_U([0-9A-F]{4})_','&amp;#x$1;')"/>
 		<xsl:if test="string-length($objectnice)&gt;$length">
 			<title>
 				<xsl:value-of disable-output-escaping="yes" select="$objectnice" />
