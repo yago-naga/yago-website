@@ -1,5 +1,18 @@
 <h1>Publications</h1>
 
+<h2>Yago 4.5</h2>
+<div class="publications-list">
+	<p>
+       <a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
+			    		<br/>                        			    		
+		    			<b><a href="https://arxiv.org/abs/2308.11884">Integrating the Wikidata Taxonomy into YAGO</a></b>            
+        <br/>
+		Arxiv 2308.11884, 2023
+    </blockquote>
+	</p>
+</div>
+
+
 <h2>Yago 4</h2>
 <div class="publications-list">
 	<p>

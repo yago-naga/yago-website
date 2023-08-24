@@ -10,17 +10,13 @@
         <li>YAGO 4.5 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
     <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts.</p>
-    <p>If you use YAGO 4.5 for scientific purposes, please cite our paper for YAGO 4:</p>
+    <p>If you use YAGO 4.5 for scientific purposes, please cite our paper:</p>
     <blockquote>
-	<a href="https://thomas.pellissier-tanon.fr/">Thomas Pellissier Tanon</a>, 
-		<a href="http://www.mpii.mpg.de/~weikum">Gerhard Weikum</a>, 
-		<a href="https://suchanek.name">Fabian M. Suchanek</a>:
-        <br /> <b>“YAGO 4: A Reason-able Knowledge Base”</b>
-        <a class="pdf-download-icon" href="https://suchanek.name/work/publications/eswc-2020-yago.pdf">
-            <img src="<?php site_url(); ?>/assets/images/pdf.png" width="15" />
-        </a>
+	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
+			    		<br/>                        			    		
+		    			<b><a href="https://arxiv.org/abs/2308.11884">Integrating the Wikidata Taxonomy into YAGO</a></b>            
         <br/>
-		Resource paper at the <a href="https://2020.eswc-conferences.org/">Extended Semantic Web Conference</a>  (ESWC), 2020	
+		Arxiv 2308.11884, 2023
     </blockquote>
 </div>
 
