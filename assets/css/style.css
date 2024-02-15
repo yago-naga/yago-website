@@ -95,7 +95,10 @@ nav {
     background-color: #ccecf3;
     height: 40px;
     line-height: 40px;
-    overflow: hidden;
+}
+
+.dropdown-content {
+        overflow-x: hidden;
 }
 
 nav .nav-wrapper i, nav a.sidenav-trigger i {
