@@ -19,6 +19,13 @@
 </div>
 
 <div class="news_item">
+    <div class="news_time">April, 2023</div>
+    <div class="news_text">
+        YAGO receives the <a href="https://www.ouvrirlascience.fr/prix-science-ouverte-des-donnees-de-la-recherche/">French Open Research Award</a>!
+    </div>
+</div>
+
+<div class="news_item">
     <div class="news_time">February, 2023</div>
     <div class="news_text">
         A 2022 revival version of <a href="https://yago-knowledge.org/downloads/yago-3">YAGO 3</a> is now available, with updated data from the French and English Wikipedia!

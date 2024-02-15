@@ -90,7 +90,7 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
     <form id="search" class="row">
         <div class="col s5 input-field">
             <input name="search" id="search-text" type="text" value="<?php echo $searchText; ?>">
-            <label for="search-text">Search Yago</label>
+            <label for="search-text">Search (use correct uppercase for named entities)</label>
         </div>
         <div class="col s3" style="margin-top: 1.5rem;">
             <button type="submit" class="waves-effect waves-light btn">search</button>

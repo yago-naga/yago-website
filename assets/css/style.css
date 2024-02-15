@@ -95,6 +95,7 @@ nav {
     background-color: #ccecf3;
     height: 40px;
     line-height: 40px;
+    overflow: hidden;
 }
 
 nav .nav-wrapper i, nav a.sidenav-trigger i {

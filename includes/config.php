@@ -31,7 +31,8 @@ function config($key = '')
             'graph/Elvis_Presley' => [
                 'title' => 'Browse/Query',
                 'children' => [
-                    "graph/Elvis_Presley" => "Browse",
+                    "resource/Elvis_Presley" => "Browse",
+                    "graph/Elvis_Presley" => "Graph",
                     "schema" => "Schema",					
                     "sparql" => "SPARQL",
                 ],
