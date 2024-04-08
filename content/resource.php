@@ -72,6 +72,29 @@ if (in_array('http://www.w3.org/2002/07/owl#ObjectProperty', $shapes) || in_arra
     $usagesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $resource . '> ?o }')['value']);
 }
 
+?>
+    <form id="search" class="row">
+        <div class="col s5 input-field">
+            yago:<input name="search" id="search-text" type="text">
+            <label for="search-text">YAGO identifier (e.g., Elvis_Presley)</label>
+        </div>
+        <div class="col s3" style="margin-top: 1.5rem;">
+            <button type="submit" class="waves-effect waves-light btn">Look up</button>
+        </div>
+    </form>
+    <script>
+        window.onload = function () {
+
+            $('#search').submit(function () {
+				window.location.href = '/resource/"' + $('#search-text').val();
+                return false;
+            });
+
+        };
+    </script>
+<?php
+
+
 print '<div class="card horizontal">';
 print '<div class="card-stacked">';
 print '<div class="card-content">';
