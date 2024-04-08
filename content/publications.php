@@ -5,10 +5,9 @@
 	<p>
        <a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
 			    		<br/>                        			    		
-		    			<b><a href="https://arxiv.org/abs/2308.11884">Integrating the Wikidata Taxonomy into YAGO</a></b>            
+		    			<b><a href="https://suchanek.name/work/publications/sigir-2024.pdf">YAGO 4.5: A Large and Clean Knowledge Base with a Rich Taxonomy</a>
         <br/>
-		Arxiv 2308.11884, 2023
-    </blockquote>
+		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
 	</p>
 </div>
 
