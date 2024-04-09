@@ -18,12 +18,12 @@ if (!isset($_GET['search']) || !$_GET['search']) {
 
 $entityname = $_GET['search'];
 
-print "Entities called " . $entityname . ":\n<ul>";
+print "Entities called " . $entityname . ":\n<ul>\n";
 
 $sparql = doSparqlQuery('SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '"@en } LIMIT 100');
     foreach ($sparql['results']['bindings'] as $binding) {
         $entity = $binding['s']['value'];
-        print "<li><a href='https://yago-knowledge.org/resource/" . $entity .">" . $entity ."</a>";
+        print "<li><a href='" . $entity ."'>" . uriToPrefixedName($entity) ."</a>\n";
     }
 
 print "</ul>";
