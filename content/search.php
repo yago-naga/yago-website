@@ -13,18 +13,19 @@
 require_once 'includes/sparql.php';
 
 if (!isset($_GET['entityname']) || !$_GET['entityname']) {
-    return;
-}
+    // do nothing
+} else {
 
 $entityname = $_GET['entityname'];
 
 print "Entities called " . $entityname . ":\n<ul>";
 
-$sparql = doSparqlQuery('SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '" } LIMIT 100');
+$sparql = doSparqlQuery('SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '"@en } LIMIT 100');
     foreach ($sparql['results']['bindings'] as $binding) {
         $entity = $binding['s']['value'];
         print "<li><a href='https://yago-knowledge.org/resource/" . $entity .">" . $entity ."</a>";
     }
 
 print "</ul>";
+}
 ?>
