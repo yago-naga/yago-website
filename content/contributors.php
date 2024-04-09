@@ -143,7 +143,15 @@
             INRIA Saclay
         </p>
     </div>
-
+ <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/lihu.jpg' ?>"
+             alt="Lihu Chen">
+        <p class="caption">
+            <a href="https://chenlihu.com/" rel="noreferrer noopener" target="_blank">Lihu Chen</a>
+            <br/>
+            INRIA Saclay
+        </p>
+    </div>
 </div>
 
 
