@@ -79,7 +79,7 @@ if (in_array('http://www.w3.org/2002/07/owl#ObjectProperty', $shapes) || in_arra
             <label for="my-search-text">YAGO identifier (e.g., Elvis_Presley)</label>
         </div>
         <div class="col s3" style="margin-top: 1.5rem;">
-            <button onclick="location.assign('/resource/' + document.getElementById('my-search-text').value)" class="waves-effect waves-light btn">Look up</button>
+            <button onclick="location.assign('/search/?search=' + encodeURIComponent(document.getElementById('my-search-text').value))" class="waves-effect waves-light btn">Search</button>
         </div>
     </form>
 
