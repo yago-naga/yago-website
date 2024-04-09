@@ -12,6 +12,8 @@
 
 require_once 'includes/sparql.php';
 
+print $_GET['entityname'];
+
 if (!isset($_GET['entityname']) || !$_GET['entityname']) {
     // do nothing
 } else {
