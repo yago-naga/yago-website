@@ -14,10 +14,17 @@
 <div class="news_item">
     <div class="news_time">April, 2024</div>
     <div class="news_text">
-        Our <a href="https://suchanek.name/work/publications/sigir-2024.pdf">paper</a> about the <a href="https://yago-knowledge.org/downloads/yago-4-5">new version of YAGO, YAGO 4.5</a> got accepted at SIGIR 2024!
+        Our <a href="https://suchanek.name/work/publications/sigir-2024.pdf">paper</a> about <a href="https://yago-knowledge.org/downloads/yago-4-5">YAGO 4.5</a> got accepted at SIGIR 2024!
     </div>
 </div>
 
+
+<div class="news_item">
+    <div class="news_time">April, 2024</div>
+    <div class="news_text">
+        We fixed several <a href="https://github.com/yago-naga/yago-4.5/issues">small bugs</a> in <a href="https://yago-knowledge.org/downloads/yago-4-5">YAGO 4.5</a> that were reported by our users.
+    </div>
+</div>
 
 <div class="news_item">
     <div class="news_time">May, 2023</div>

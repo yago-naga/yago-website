@@ -29,7 +29,7 @@
     YAGO puts each entity into at least one class. The classes form a taxonomy, where the higher classes are taken from <a href="http://schema.org">schema.org</a>, and the lower classes from <a href="https://www.wikidata.org">Wikidata</a>.  The highest class is <code>schema:Thing</code>.
     </p>
     <p>
-    The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata.
+    The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata and with <code>schema:sameAs</code> to WordNet and other sources.
     </p>
     <p>
     YAGO comes with SHACL constraints that specify the disjointness of certain classes, as well as the domains, ranges, and cardinalities of relations. Please find a detailed description of the upper taxonomy as well as our design document <a href="https://yago-knowledge.org/schema">here</a>.

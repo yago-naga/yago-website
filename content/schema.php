@@ -4,7 +4,7 @@
 This is the top-level taxonomy of classes of YAGO. Please find detailed descriptions in our <a href="https://yago-knowledge.org/data/yago4.5/design-document.pdf">Design Document</a>.
 
  <ul style='list-style-type: none'>
-        <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:Thing</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
+        <li><details style='margin-left: 2em' open><summary style='font-weight:bold; margin-left: -2em'>schema:Thing</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- rdfs:comment &rarr;<sup>1 per language</sup> rdf:langString
 <li>- rdfs:label &rarr;<sup>1 per language</sup> rdf:langString
 <li>- schema:alternateName &rarr; rdf:langString
@@ -14,7 +14,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- schema:url &rarr; xsd:anyURI
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
-<li>- (schema:CreativeWork) schema:about<li>- (yago:Creator) schema:influencedBy<li>- (schema:Event) schema:about<li>- (schema:MusicGroup) schema:influencedBy<li>- (schema:Person) schema:owns</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
+<li>- (schema:CreativeWork) schema:about<li>- (yago:Creator) schema:influencedBy<li>- (schema:Event) schema:about<li>- (schema:MusicGroup) schema:influencedBy<li>- (schema:Person) schema:owns</ul></details><details style='margin-left: 2em' open><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:CreativeWork</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- schema:about &rarr; schema:Thing
 <li>- schema:author &rarr; schema:Organization, schema:Person
