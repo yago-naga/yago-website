@@ -38,9 +38,9 @@ YAGO combines these two resources, thus getting the best from both worlds: a hug
 
 <h2 id="yago-cmp">How does YAGO compare to other knowledge bases?</h2>
 <p>
-YAGO positions itself as a large general knowledge base for facts about instances, with a taxonomy, manually defined properties, and logical constraints. Its key property is that it is a centrally controlled data source, which allows it to establish certain guarantees for the quality of its data. 
+YAGO positions itself as a large general knowledge base for facts about instances, with a taxonomy, manually defined properties, and logical constraints. Its key property is that it is a centrally controlled data source, which allows it to establish certain guarantees for the quality of its data.
+<ul> 
 <li>YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 4 million instances. YAGO contains 50 million.
-<ul>
 <li>YAGO differs from <a href=https://conceptnet.io/>ConceptNet</a> by being about instances, and not about common sense knowledge.
 <li> YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by having a taxonomy and a schema.
 <li> YAGO differs from <a href=https://en.wikipedia.org/wiki/Freebase_(database)>Freebase</a> by being an actively maintained project.
