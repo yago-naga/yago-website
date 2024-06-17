@@ -3,6 +3,7 @@
 <ul class="browser-default">
     <li><a href="#what-is-yago">What is YAGO?</a></li>
     <li><a href="#yago-special">What is so special about YAGO?</a></li>
+	<li><a href="#yago-cmp">How does YAGO compare to other knowledge bases?</a></li>
 	<li><a href="#constraints">What are the logical constraints of YAGO?</a></li>
     <li><a href="#data-model">What is the data model of YAGO?</a></li>
     <li><a href="#relations">What are the relations in YAGO?</a></li>
@@ -33,6 +34,18 @@ YAGO also defines which relations can hold between which entities: birthPlace, e
 </ol>
 <p>
 YAGO combines these two resources, thus getting the best from both worlds: a huge repository of facts, together with an ontology that is simple and used as a standard by a large community. In addition, all identifiers in YAGO are human-readable, all entities belong to at least one class, and only classes and properties with enough instances are kept. To this, YAGO adds a system of logical constraints. These do not just keep the data clean, but also allow for reasoning on the data. YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata.
+</p>
+
+<h2 id="yago-cmp">How does YAGO compare to other knowledge bases?</h2>
+<p>
+YAGO positions itself as a large general knowledge base for facts about instances, with a taxonomy, manually defined properties, and logical constraints. Its key property is that it is a centrally controlled data source, which allows it to establish certain guarantees for the quality of its data. 
+<li>YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 4 million instances. YAGO contains 50 million.
+<ul>
+<li>YAGO differs from <a href=https://conceptnet.io/>ConceptNet</a> by being about instances, and not about common sense knowledge.
+<li> YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by having a taxonomy and a schema.
+<li> YAGO differs from <a href=https://en.wikipedia.org/wiki/Freebase_(database)>Freebase</a> by being an actively maintained project.
+<li>YAGO differs from <a href=https://wikidata.org>Wikidata</a> by having human-readable identifiers, a clean top-level taxonomy, and enforced logical constraints.
+</ul>
 </p>
 
 <h2 id="constraints">What are the logical constraints of YAGO?</h2>

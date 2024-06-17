@@ -54,8 +54,8 @@
     <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*.
     </ul>
 
-    <p>
-        YAGO 4.5 can be downloaded <a href="/data/yago4.5/">here</a>
+<p>
+        ------&gt; <u>YAGO 4.5 can be downloaded <a href="/data/yago4.5/">here</a></u>.
     </p>
 
     <p>
