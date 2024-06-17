@@ -37,16 +37,24 @@ YAGO combines these two resources, thus getting the best from both worlds: a hug
 </p>
 
 <h2 id="yago-cmp">How does YAGO compare to other knowledge bases?</h2>
-<p>
+<div>
 YAGO positions itself as a large general knowledge base for facts about instances, with a taxonomy, manually defined properties, and logical constraints. Its key property is that it is a centrally controlled data source, which allows it to establish certain guarantees for the quality of its data.
 <ul> 
-<li>YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 4 million instances. YAGO contains 50 million.
-<li>YAGO differs from <a href=https://conceptnet.io/>ConceptNet</a> by being about instances, and not about common sense knowledge.
-<li> YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by having a taxonomy and a schema.
-<li> YAGO differs from <a href=https://en.wikipedia.org/wiki/Freebase_(database)>Freebase</a> by being an actively maintained project.
-<li>YAGO differs from <a href=https://wikidata.org>Wikidata</a> by having human-readable identifiers, a clean top-level taxonomy, and enforced logical constraints.
+<li>- YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 4 million instances. YAGO contains 50 million.
+<li>- YAGO differs from <a href=https://conceptnet.io/>ConceptNet</a> by being about instances, and not about common sense knowledge.
+<li>- YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by having a taxonomy and a schema.
+<li>- YAGO differs from <a href=https://en.wikipedia.org/wiki/Freebase_(database)>Freebase</a> by being an actively maintained project.
+<li>- YAGO differs from <a href=https://wikidata.org>Wikidata</a> by having human-readable identifiers, a clean top-level taxonomy, and enforced logical constraints.
 </ul>
-</p>
+For a more detailed discussion, see our scientific paper:
+<blockquote>
+	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://chenlihu.com/">Lihu Chen</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
+			    		<br/>                        			    		
+		    			<b><a href="https://suchanek.name/work/publications/sigir-2024.pdf">YAGO 4.5: A Large and Clean Knowledge Base with a Rich Taxonomy</a></b>
+        <br/>
+		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
+    </blockquote>
+</div>
 
 <h2 id="constraints">What are the logical constraints of YAGO?</h2>
 <p>
