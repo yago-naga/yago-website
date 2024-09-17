@@ -18,6 +18,7 @@
         <br/>
 		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
     </blockquote>
+	<a class=button href="/data/yago4.5/">Download</a>
 </div>
 
 <div class="code-container">
@@ -54,9 +55,7 @@
     <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*.
     </ul>
 
-<p>
-        <u>YAGO 4.5 can be downloaded <a href="/data/yago4.5/">here</a></u>.
-    </p>
+<a class=button href="/data/yago4.5/">Download</a>
 
     <p>
         The <code>.ntx</code> files are using RDF* (a.k.a. RDF star) N-Triples syntax.
