@@ -301,18 +301,3 @@ nav .nav-wrapper {
     max-width: 500px;
     word-break: break-all;
 }
-
-.butt {
-	background-color: rgb(2, 174, 215);
-	border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 8px;  
-}
-
-.buttaround {
-   text-align: center;
-}
