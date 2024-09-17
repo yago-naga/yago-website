@@ -312,3 +312,7 @@ nav .nav-wrapper {
     display: inline-block;
     border-radius: 8px;  
 }
+
+.buttaround {
+   text-align: center;
+}
