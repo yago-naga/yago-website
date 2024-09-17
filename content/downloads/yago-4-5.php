@@ -18,8 +18,8 @@
         <br/>
 		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
     </blockquote>
-	<div class=buttaround>
-	<a class=butt href="/data/yago4.5/">Download</a>
+	<div class=fmsbuttaround>
+	<a class=fmsbutt href="/data/yago4.5/">Download</a>
 	</div>
 </div>
 
@@ -56,8 +56,8 @@
 	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page.
     <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*.
     </ul>
-<div class=buttaround>
-	<a class=butt href="/data/yago4.5/">Download</a>
+<div class=fmsbuttaround>
+	<a class=fmsbutt href="/data/yago4.5/">Download</a>
 	</div>
     <p>
         The <code>.ntx</code> files are using RDF* (a.k.a. RDF star) N-Triples syntax.
