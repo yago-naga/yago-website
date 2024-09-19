@@ -9,7 +9,7 @@
         <li>The properties come from schema.org.
         <li>YAGO 4.5 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
-    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts. See above for <a href="../geting-started.php">getting started</a>!</p>
+    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts. See above for <a href="/getting-started">getting started</a>!</p>
     <p>If you use YAGO 4.5 for scientific purposes, please cite our paper:</p>
     <blockquote>
 	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://chenlihu.com/">Lihu Chen</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
@@ -31,7 +31,7 @@
         The YAGO 4.5 knowledge base consists of the following set of Turtle files:
     </p>
     <ul   class="browser-default">
-    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=sample/schema.txt>sample</a>). The schema is explained <a href="../schema.php">here</a>.
+    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=sample/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
     <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=sample/taxonomy.txt>sample</a>)
     <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=sample/facts.txt>sample</a>)
 	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=sample/beyond-wikipedia.txt>sample</a>)
