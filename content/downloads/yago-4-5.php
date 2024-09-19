@@ -31,11 +31,11 @@
         The YAGO 4.5 knowledge base consists of the following set of Turtle files:
     </p>
     <ul   class="browser-default">
-    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=sample/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
-    <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=sample/taxonomy.txt>sample</a>)
-    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=sample/facts.txt>sample</a>)
-	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=sample/beyond-wikipedia.txt>sample</a>)
-    <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*. (<a href=sample/meta.txt>sample</a>)
+    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=/data/yago4.5/samples/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
+    <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=/data/yago4.5/samples/taxonomy.txt>sample</a>)
+    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=/data/yago4.5/samples/facts.txt>sample</a>)
+	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=/data/yago4.5/samples/beyond-wikipedia.txt>sample</a>)
+    <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*. (<a href=/data/yago4.5/samples/meta.txt>sample</a>)
     </ul>
     <div class=fmsbuttaround>
 	<a class=fmsbutt href="/data/yago4.5/">Download</a>
