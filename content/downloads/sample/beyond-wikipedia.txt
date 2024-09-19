@@ -1,0 +1,55 @@
+
+# This is a sample of the YAGO facts that go beyond Wikipedia
+
+@prefix yago: <http://yago-knowledge.org/resource/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix data: <https://www.wikidata.org/wiki/Special:EntityData/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix s: <http://www.wikidata.org/entity/statement/> .
+@prefix ref: <http://www.wikidata.org/reference/> .
+@prefix v: <http://www.wikidata.org/value/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix wpq: <http://www.wikidata.org/prop/quant/> .
+@prefix wdtn: <http://www.wikidata.org/prop/direct-normalized/> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix ps: <http://www.wikidata.org/prop/statement/> .
+@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix psn: <http://www.wikidata.org/prop/statement/value-normalized/> .
+@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
+@prefix pqv: <http://www.wikidata.org/prop/qualifier/value/> .
+@prefix pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/> .
+@prefix pr: <http://www.wikidata.org/prop/reference/> .
+@prefix prv: <http://www.wikidata.org/prop/reference/value/> .
+@prefix prn: <http://www.wikidata.org/prop/reference/value-normalized/> .
+@prefix wdno: <http://www.wikidata.org/prop/novalue/> .
+@prefix ys: <http://yago-knowledge.org/schema#> .
+yago:Belgium    yago:lowestPoint        yago:De_Moeren_Q2417076 .
+yago:George_Washington  schema:memberOf yago:Société_D_U0027_Agriculture_De_Paris_Q26721351     .
+yago:Jack_Bauer schema:worksFor yago:Counter_Terrorist_Unit_Q2944031    .
+yago:Douglas_Adams      yago:notableWork        yago:Dirk_Gently_Series_Q20736364       .
+yago:Douglas_Adams      schema:children yago:Polly_Adams_Q14623683      .
+yago:Douglas_Adams      schema:spouse   yago:Jane_Belson_Q14623681      .
+yago:Diego_Velázquez    schema:spouse   yago:Juana_Pacheco_Q22340307    .
+yago:Diego_Velázquez    schema:children yago:Francisca_De_Silva_Velázquez_Y_Pacheco_Q105748660  .
+yago:Augusto_Pinochet   schema:children yago:Augusto_Pinochet_Hiriart_Q5711719  .
+yago:Augusto_Pinochet   schema:alumniOf yago:Colegio_De_Los_Sagrados_Corazones_De_Valparaíso_Q5777303   .
+yago:Augusto_Pinochet   schema:alumniOf yago:Bernardo_O_U0027_Higgins_Military_School_Q5402022  .
+yago:Augusto_Pinochet   schema:worksFor yago:Chilean_Army_War_Academy_Q5399127  .
+yago:Encyclopédie       schema:author   yago:Jean_Jodin_Q18222353       .
+yago:Rhône-Alpes        yago:replaces   yago:Alpes_Q43311297    .
+yago:Charles_Baudelaire yago:notableWork        yago:Le_Peintre_De_La_Vie_Moderne_Q3225375      .
+yago:Charles_Baudelaire schema:homeLocation     yago:Rue_D_U0027_Amsterdam_Q3450470     .
+
+# ...
