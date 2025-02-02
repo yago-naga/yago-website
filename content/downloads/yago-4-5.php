@@ -9,7 +9,7 @@
         <li>The properties come from schema.org.
         <li>YAGO 4.5 contains semantic constraints in the form of SHACL. These constraints keep the data clean, and allow for  logical reasoning on YAGO.
     </ol>
-    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts.</p>
+    <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 49 million entities and 109 million facts. See above for <a href="/getting-started">getting started</a>!</p>
     <p>If you use YAGO 4.5 for scientific purposes, please cite our paper:</p>
     <blockquote>
 	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://chenlihu.com/">Lihu Chen</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
@@ -18,25 +18,6 @@
         <br/>
 		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
     </blockquote>
-	<div class=fmsbuttaround>
-	<a class=fmsbutt href="/data/yago4.5/">Download</a>
-	</div>
-</div>
-
-<div class="code-container">
-    <h1>How to use YAGO</h1>
-    <p>
-        YAGO is an RDFS knowledge base. It is a collection of facts, each of which consists of a subject, a predicate, and an object &mdash; as in <code>yago:Elvis_Presley rdf:type schema:Person</code>.
-    </p>
-    <p>
-    YAGO puts each entity into at least one class. The classes form a taxonomy, where the higher classes are taken from <a href="http://schema.org">schema.org</a>, and the lower classes from <a href="https://www.wikidata.org">Wikidata</a>.  The highest class is <code>schema:Thing</code>.
-    </p>
-    <p>
-    The facts come from <a href="https://wikidata.org">Wikidata</a>, and the predicates have been mapped manually to the predicates of <a href=http://schema.org>schema.org</a>. Facts whose predicates could not be mapped were omitted. All predicates, all classes, and most entities have human-readable names. YAGO entities are mapped with <code>owl:sameAs</code> to Wikidata and with <code>schema:sameAs</code> to WordNet and other sources.
-    </p>
-    <p>
-    YAGO comes with SHACL constraints that specify the disjointness of certain classes, as well as the domains, ranges, and cardinalities of relations. Please find a detailed description of the upper taxonomy as well as our design document <a href="https://yago-knowledge.org/schema">here</a>.
-    </p>
 </div>
 
 <div class="code-container">
@@ -50,26 +31,25 @@
         The YAGO 4.5 knowledge base consists of the following set of Turtle files:
     </p>
     <ul   class="browser-default">
-    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL.
-    <li><b>Taxonomy:</b>  The full taxonomy of classes.
-    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page.
-	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page.
-    <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*.
+    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=/data/yago4.5/samples/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
+    <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=/data/yago4.5/samples/taxonomy.txt>sample</a>)
+    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=/data/yago4.5/samples/facts.txt>sample</a>)
+	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=/data/yago4.5/samples/beyond-wikipedia.txt>sample</a>)
+    <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*. (<a href=/data/yago4.5/samples/meta.txt>sample</a>)
     </ul>
-<div class=fmsbuttaround>
+    <div class=fmsbuttaround>
 	<a class=fmsbutt href="/data/yago4.5/">Download</a>
 	</div>
     <p>
-        The <code>.ntx</code> files are using RDF* (a.k.a. RDF star) N-Triples syntax.
-        It can be parsed using
+    YAGO can then be loaded into any triple store, such as
             <a href="https://jena.apache.org/documentation/rdfstar/">Jena</a>,
             <a href="https://rdf4j.org/documentation/programming/rdfstar/">RDF4J</a>,
             <a href="https://github.com/rdfjs/N3.js/">N3.js</a>
             <a href="http://rdf.greggkellogg.net/yard/file.rdf-README.html#rdf-rdfstar">RDF.rb</a>,
             <a href="https://wiki.blazegraph.com/wiki/index.php/Reification_Done_Right">Blazegraph</a>,
             <a href="https://docs.cambridgesemantics.com/anzograph/v2.2/userdoc/lpgs.htm">AnzoGraph</a>,
-            <a href="https://www.stardog.com/blog/property-graphs-meet-stardog/">Stardog</a>, or
-            <a href="http://graphdb.ontotext.com/documentation/9.2/free/devhub/rdf-sparql-star.html">GraphDB</a>.
+            <a href="https://www.stardog.com/blog/property-graphs-meet-stardog/">Stardog</a>,
+            <a href="http://graphdb.ontotext.com/documentation/9.2/free/devhub/rdf-sparql-star.html">GraphDB</a>, or <a href="https://github.com/ad-freiburg/qlever/">Qlever</a>.
     </p>
 </div>
 

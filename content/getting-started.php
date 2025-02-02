@@ -88,9 +88,9 @@ The top-level taxonomy of YAGO is taken from schema.org. In this way, we have a 
 <h2 id="access">How can I access YAGO?</h2>
 <p>There are several ways to access YAGO:</p>
 <ol>
-    <li>You can browse yourself through the knowledge base in our <a href=graph>Web Interface</a></li>
+    <li>You can browse yourself through the knowledge base in our <a href=https://yago-knowledge.org/graph/Elvis_Presley>Web Interface</a></li>
     <li>You can launch SPARQL queries in our <a href=sparql>SPARQL endpoint</a></li>
 	<li>You can programmatically send queries to our <a href=sparql>SPARQL endpoint</a></li>
-    <li>You can <a href=downloads>download</a> data and load it into an RDF triple store (e.g., BlazeGraph or Jena). <br><i>This is the preferred method if you plan to launch a larger number of queries.</i>
+    <li>You can <a href=downloads>download</a> data and load it into an RDF triple store. (e.g., BlazeGraph or Jena). <br><i>This is the preferred method if you plan to launch a larger number of queries!</i>
     </li>
 </ol>
