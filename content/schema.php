@@ -14,7 +14,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- schema:url &rarr; xsd:anyURI
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
-<li>- (schema:CreativeWork) schema:about<li>- (yago:Creator) schema:influencedBy<li>- (schema:Event) schema:about<li>- (schema:MusicGroup) schema:influencedBy<li>- (schema:Person) schema:owns</ul></details><details style='margin-left: 2em' open><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
+<li>- (schema:CreativeWork) schema:about<li>- (yago:Creator) yago:influencedBy<li>- (schema:Event) schema:about<li>- (schema:MusicGroup) yago:influencedBy<li>- (schema:Person) schema:owns</ul></details><details style='margin-left: 2em' open><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:CreativeWork</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- schema:about &rarr; schema:Thing
 <li>- schema:author &rarr; schema:Organization, schema:Person
@@ -100,7 +100,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:Language</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
-<li>- (schema:Country) schema:officialLanguage<li>- (schema:CreativeWork) schema:inLanguage<li>- (schema:PerformingGroup) schema:knowsLanguage<li>- (schema:Person) schema:knowsLanguage</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
+<li>- (schema:Country) yago:officialLanguage<li>- (schema:CreativeWork) schema:inLanguage<li>- (schema:PerformingGroup) schema:knowsLanguage<li>- (schema:Person) schema:knowsLanguage</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 </ul></details></details>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>yago:Award</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- yago:conferredBy &rarr; schema:Organization, schema:Person
@@ -126,7 +126,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- schema:dissolutionDate &rarr;<sup>1</sup> xsd:dateTime, xsd:date, xsd:gYearMonth, xsd:gYear
 <li>- schema:duns &rarr;<sup>1</sup> xsd:string
 <li>- schema:founder &rarr; schema:Person
-<li>- schema:leader &rarr; schema:Person
+<li>- yago:leader &rarr; schema:Person
 <li>- schema:leiCode &rarr;<sup>1</sup> xsd:string
 <li>- schema:location &rarr; schema:Place
 <li>- schema:locationCreated &rarr; schema:Place
@@ -134,7 +134,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- schema:memberOf &rarr; schema:Organization
 <li>- schema:motto &rarr; xsd:string
 <li>- schema:numberOfEmployees &rarr; xsd:decimal
-<li>- schema:ownedBy &rarr; schema:Organization, schema:Person
+<li>- yago:ownedBy &rarr; schema:Organization, schema:Person
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
 <li>- (schema:AdministrativeArea) schema:memberOf<li>- (schema:Movie) schema:productionCompany<li>- (schema:MusicGroup) schema:recordLabel<li>- (schema:Organization) schema:memberOf<li>- (schema:Person) schema:affiliation<li>- (schema:Person) schema:worksFor<li>- (schema:Person) schema:alumniOf<li>- (schema:Person) schema:memberOf<li>- (schema:TVSeries) schema:productionCompany</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
@@ -164,7 +164,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
 </ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:MusicGroup</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
-<li>- schema:influencedBy &rarr; schema:Thing
+<li>- yago:influencedBy &rarr; schema:Thing
 <li>- schema:recordLabel &rarr; schema:Organization
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
@@ -193,7 +193,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- yago:beliefSystem &rarr; yago:BeliefSystem
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
-<li>- (yago:Academic) yago:studentOf<li>- (yago:Academic) yago:doctoralAdvisor<li>- (schema:AdministrativeArea) schema:leader<li>- (schema:Book) schema:illustrator<li>- (schema:Book) schema:editor<li>- (yago:FictionalEntity) schema:performer<li>- (schema:Movie) schema:actor<li>- (schema:Movie) schema:director<li>- (schema:Organization) schema:founder<li>- (schema:Organization) schema:leader<li>- (schema:PerformingGroup) yago:director<li>- (schema:Person) schema:children<li>- (schema:Person) schema:spouse<li>- (schema:TVSeries) schema:actor<li>- (schema:TVSeries) schema:director</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
+<li>- (yago:Academic) yago:studentOf<li>- (yago:Academic) yago:doctoralAdvisor<li>- (schema:AdministrativeArea) yago:leader<li>- (schema:Book) schema:illustrator<li>- (schema:Book) schema:editor<li>- (yago:FictionalEntity) schema:performer<li>- (schema:Movie) schema:actor<li>- (schema:Movie) schema:director<li>- (schema:Organization) schema:founder<li>- (schema:Organization) yago:leader<li>- (schema:PerformingGroup) yago:director<li>- (schema:Person) schema:children<li>- (schema:Person) schema:spouse<li>- (schema:TVSeries) schema:actor<li>- (schema:TVSeries) schema:director</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>yago:Worker</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
@@ -206,7 +206,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 </ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 </ul></details></details>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>yago:Creator</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
-<li>- schema:influencedBy &rarr; schema:Thing
+<li>- yago:influencedBy &rarr; schema:Thing
 <li>- yago:notableWork &rarr; schema:CreativeWork
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
@@ -231,18 +231,17 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 <li>- schema:area &rarr; xsd:decimal
 <li>- schema:elevation &rarr; xsd:decimal
 <li>- schema:geo &rarr;<sup>1</sup> geo:wktLiteral
-<li>- schema:highestPoint &rarr; schema:Place
+<li>- yago:highestPoint &rarr; schema:Place
 <li>- schema:location &rarr; schema:Place
-<li>- schema:lowestPoint &rarr; schema:Place
-<li>- schema:neighbors &rarr; schema:Place
+<li>- yago:lowestPoint &rarr; schema:Place
+<li>- yago:neighbors &rarr; schema:Place
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
-<li>- (schema:AdministrativeArea) schema:administrates<li>- (schema:CreativeWork) schema:contentLocation<li>- (schema:Event) schema:location<li>- (schema:Movie) schema:locationCreated<li>- (schema:Organization) schema:locationCreated<li>- (schema:Organization) schema:location<li>- (schema:Person) schema:birthPlace<li>- (schema:Person) schema:deathPlace<li>- (schema:Person) schema:homeLocation<li>- (schema:Place) schema:location<li>- (schema:Place) schema:highestPoint<li>- (schema:Place) schema:lowestPoint<li>- (schema:Place) schema:neighbors<li>- (schema:TVSeries) schema:locationCreated<li>- (yago:Way) yago:terminus</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
+<li>- (schema:CreativeWork) schema:contentLocation<li>- (schema:Event) schema:location<li>- (schema:Movie) schema:locationCreated<li>- (schema:Organization) schema:locationCreated<li>- (schema:Organization) schema:location<li>- (schema:Person) schema:birthPlace<li>- (schema:Person) schema:deathPlace<li>- (schema:Person) schema:homeLocation<li>- (schema:Place) schema:location<li>- (schema:Place) yago:highestPoint<li>- (schema:Place) yago:lowestPoint<li>- (schema:Place) yago:neighbors<li>- (schema:TVSeries) schema:locationCreated<li>- (yago:Way) yago:terminus</ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:AdministrativeArea</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
-<li>- schema:administrates &rarr; schema:Place
 <li>- schema:dateCreated &rarr;<sup>1</sup> xsd:dateTime
 <li>- schema:demonym &rarr; xsd:string
-<li>- schema:leader &rarr; schema:Person
+<li>- yago:leader &rarr; schema:Person
 <li>- schema:memberOf &rarr; schema:Organization
 <li>- schema:motto &rarr; xsd:string
 <li>- schema:populationNumber &rarr; xsd:decimal
@@ -259,7 +258,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 </ul></details></details>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>schema:Country</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- schema:humanDevelopmentIndex &rarr; xsd:decimal
-<li>- schema:officialLanguage &rarr; schema:Language
+<li>- yago:officialLanguage &rarr; schema:Language
 <li>- schema:unemploymentRate &rarr; xsd:decimal
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
@@ -295,7 +294,7 @@ This is the top-level taxonomy of classes of YAGO. Please find detailed descript
 </ul></details></details>
 <li><details style='margin-left: 2em'><summary style='font-weight:bold; margin-left: -2em'>yago:HumanMadeGeographicalEntity</summary><details style='margin-left: 2em'><summary style='margin-left: -2em'>Outgoing properties</summary><ul style='list-style-type: none'>
 <li>- schema:dateCreated &rarr;<sup>1</sup> xsd:dateTime
-<li>- schema:ownedBy &rarr; schema:Organization, schema:Person
+<li>- yago:ownedBy &rarr; schema:Organization, schema:Person
 </ul></details>
 <details style='margin-left: 2em'><summary style='margin-left: -2em'>Incoming properties</summary><ul style='list-style-type: none'>
 </ul></details><details style='margin-left: 2em'><summary style='margin-left: -2em'>Subclasses</summary><ul style='list-style-type: none'>
