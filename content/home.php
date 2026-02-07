@@ -12,6 +12,14 @@
 <h2>News</h2>
 
 <div class="news_item">
+    <div class="news_time">February, 2026</div>
+    <div class="news_text">
+        A new version of YAGO is in preparation! (And an overhaul to the Web page as well...)
+    </div>
+</div>
+
+
+<div class="news_item">
     <div class="news_time">April, 2024</div>
     <div class="news_text">
         Our <a href="https://suchanek.name/work/publications/sigir-2024.pdf">paper</a> about <a href="https://yago-knowledge.org/downloads/yago-4-5">YAGO 4.5</a> got accepted at SIGIR 2024!
