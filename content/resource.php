@@ -168,15 +168,17 @@ if ($shapeDesc) {
 }
 
 print '<div class="card"><div class="card-content"><span class="card-title">Properties</span>';
-displayPropertyValuesTable($propertyValues);
+displayPropertyValuesTable($propertyValues, 'Predicate', 'Object', 'out', $resource);
 print '</div></div>';
 
 $reversePropertyValues = describeEntity($resource, true);
 if ($reversePropertyValues) {
     print '<div class="card"><div class="card-content"><span class="card-title">Incoming properties</span>';
-    displayPropertyValuesTable($reversePropertyValues, 'Predicate', 'Subject');
+    displayPropertyValuesTable($reversePropertyValues, 'Predicate', 'Subject', 'in', $resource);
     print '</div></div>';
 }
+
+printPropertyValuesModal();
 
 if ($childrenClasses['children'] && next($childrenClasses['children'])['children']) {
     print '<div class="card"><div class="card-content"><span class="card-title">Child classes</span><ul class="tree-node">';
