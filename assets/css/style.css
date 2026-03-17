@@ -302,6 +302,77 @@ nav .nav-wrapper {
     word-break: break-all;
 }
 
+/*
+Property values modal
+ */
+.property-values-modal {
+    max-width: 1000px;
+    border-radius: 2px;
+}
+
+.property-values-modal h5 {
+    font-size: 1.7em;
+    margin-top: 0;
+    color: #000000;
+}
+
+.property-values-modal h5 small {
+    font-size: 0.6em;
+    color: #9e9e9e;
+}
+
+.property-values-list {
+    margin: 1rem 0 0;
+}
+
+.property-values-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    word-break: break-all;
+}
+
+.property-values-list li:last-of-type {
+    border-bottom: none;
+}
+
+.property-values-modal .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.property-values-modal .pagination {
+    margin: 0;
+}
+
+.property-values-modal .modal-footer .modal-close {
+    position: absolute;
+    right: 0;
+    color: #02aed7;
+}
+
+.property-values-modal .pagination li.active {
+    background-color: #02aed7;
+}
+
+.property-values-modal .pagination li span {
+    padding: 0 0.3rem;
+    color: #999;
+    cursor: default;
+}
+
+.more-values-link {
+    font-style: italic;
+    color: #02aed7 !important;
+}
+
+@media screen and (max-width: 600px) {
+    .property-values-modal {
+        width: 90% !important;
+    }
+}
+
 .fmsbutt {
 	background-color: rgb(2, 174, 215);
 	border: none;

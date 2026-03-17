@@ -2,7 +2,8 @@
 
 global $locale;
 $locale = isset($_GET['lang']) ? $_GET['lang'] : 'en';
-const VALUES_LIMIT = 20;
+const INLINE_DISPLAY_LIMIT = 4;
+const PAGE_LIMIT = 10;
 $locale = Locale::canonicalize($locale);
 global $numberFormatter;
 $numberFormatter = new NumberFormatter($locale, NumberFormatter::DEFAULT_STYLE);
@@ -197,39 +198,69 @@ function doSingleResultQuery($query)
     return null;
 }
 
-function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicate', $objectLabel = 'Object')
+function renderPropertyValue($value)
 {
+    $html = '';
+    if ($value['type'] === 'uri') {
+        $html .= uriToLink($value['value'], isset($value['label']) ? $value['label']['value'] : '');
+    } elseif ($value['type'] === 'bnode') {
+        $html .= '_:' . htmlspecialchars($value['value']);
+    } elseif ($value['type'] === 'literal') {
+        $label = htmlspecialchars($value['value']);
+        if (isset($value['xml:lang'])) {
+            $lang = htmlspecialchars($value['xml:lang']);
+            $html .= '"<span lang="' . $lang . '">' . $label . '</span>"@' . $lang;
+        } elseif (isset($value['datatype'])) {
+            $html .= '"' . $label . '"^^' . uriToLink($value['datatype']);
+        } else {
+            $html .= '"' . $label . '"';
+        }
+    }
+    return $html;
+}
+
+function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicate', $objectLabel = 'Object', $tableId = 'tbl', $resource = '')
+{
+    $reverse = ($tableId === 'in') ? 1 : 0;
+
     print '<table><thead><tr><th scope="col" style="min-width: 40%;">' . $predicateLabel . '</th><th scope="col">' . $objectLabel . '</th></tr></thead><tbody>';
     foreach ($propertyValues as $property => $values) {
+        $valuesArray = array_values($values);
+        $totalValues = count($valuesArray);
+
         print '<tr><th scope="row">' . uriToLink($property) . '</th><td><ul>';
-        $i = 0;
-        foreach ($values as $value) {
-            print '<li>';
-            if ($value['type'] === 'uri') {
-                print uriToLink($value['value'], isset($value['label']) ? $value['label']['value'] : '');
-            } elseif ($value['type'] === 'bnode') {
-                print '_:' . htmlspecialchars($value['value']);
-            } elseif ($value['type'] === 'literal') {
-                $label = htmlspecialchars($value['value']);
-                if (isset($value['xml:lang'])) {
-                    $lang = htmlspecialchars($value['xml:lang']);
-                    print '"<span lang="' . $lang . '">' . $label . '</span>"@' . $lang . '';
-                } elseif (isset($value['datatype'])) {
-                    print '"' . $label . '"^^' . uriToLink($value['datatype']) . '</a>';
-                } else {
-                    print '"' . $label . '"';
-                }
-            }
-            print '</li>';
-            if ($i === VALUES_LIMIT) {
-                print '<li>...</li>';
-                break;
-            }
-            $i++;
+
+        $limit = min($totalValues, INLINE_DISPLAY_LIMIT);
+        for ($i = 0; $i < $limit; $i++) {
+            print '<li>' . renderPropertyValue($valuesArray[$i]) . '</li>';
         }
+
+        if ($totalValues > INLINE_DISPLAY_LIMIT) {
+            print '<li><a href="#!" class="more-values-link"'
+                . ' data-resource="' . htmlspecialchars($resource) . '"'
+                . ' data-property="' . htmlspecialchars($property) . '"'
+                . ' data-reverse="' . $reverse . '"'
+                . '>more&hellip;</a></li>';
+        }
+
         print '</ul></td></tr>';
     }
     print '</tbody></table>';
+}
+
+function printPropertyValuesModal()
+{
+    $apiUrl = config('site_url') . '/api_properties.php';
+    print '<div id="property-values-modal" class="modal property-values-modal" data-api-url="' . htmlspecialchars($apiUrl) . '">';
+    print '<div class="modal-content">';
+    print '<h5 id="modal-property-title"></h5>';
+    print '<ul id="modal-values-list" class="property-values-list"></ul>';
+    print '</div>';
+    print '<div class="modal-footer">';
+    print '<ul id="modal-pagination" class="pagination"></ul>';
+    print '<a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>';
+    print '</div>';
+    print '</div>';
 }
 
 
