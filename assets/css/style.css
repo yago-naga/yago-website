@@ -373,6 +373,63 @@ Property values modal
     }
 }
 
+/*
+Taxonomy DAG
+*/
+
+#taxonomy-dag {
+    overflow: auto;
+    text-align: center;
+}
+
+#taxonomy-card .card-content.collapsed #taxonomy-dag {
+    display: none;
+}
+
+#taxonomy-card .collapse-toggle {
+    cursor: pointer;
+    float: right;
+    font-size: 2rem;
+    color: #9e9e9e;
+    transition: transform 0.2s, color 0.2s, background-color 0.2s;
+    user-select: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+}
+
+#taxonomy-card .collapse-toggle:hover {
+    color: #616161;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+#taxonomy-card .collapse-toggle.collapsed {
+    transform: rotate(-90deg);
+}
+
+#taxonomy-dag svg {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#taxonomy-dag .dag-node text {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#taxonomy-dag .dag-node a:hover rect {
+    stroke-width: 2.5;
+    filter: brightness(0.95);
+}
+
+#taxonomy-dag .dag-edge path {
+    fill: none;
+    stroke: #9e9e9e;
+    stroke-width: 1.2;
+    opacity: 0.5;
+}
+
 .fmsbutt {
 	background-color: rgb(2, 174, 215);
 	border: none;

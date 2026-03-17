@@ -88,6 +88,15 @@ sort($shapes);
 $childrenClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 3, false);
 $parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 4, true);
 
+$isClass = in_array('http://www.w3.org/2002/07/owl#Class', $shapes) || in_array('http://www.w3.org/2000/01/rdf-schema#Class', $shapes);
+$taxonomyData = getTaxonomyEdges($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), $isClass);
+$directTypes = [];
+if (isset($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])) {
+    foreach ($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] as $val) {
+        if ($val['type'] === 'uri') $directTypes[] = $val['value'];
+    }
+}
+
 $shapeDesc = null;
 $instancesCount = null;
 if (in_array('http://www.w3.org/2002/07/owl#Class', $shapes)) {
@@ -132,20 +141,130 @@ if ($resourceImage !== null) {
 }
 print '</div>';
 
-if ($parentClasses['children']) {
-    print '';
-    foreach ($parentClasses['children'] as $rootValues) {
-        foreach ($rootValues['children'] as $childName => $childValues) {
-            foreach (treeToPaths($childName, $childValues) as $path) {
-                print '<nav><div class="nav-wrapper"><div class="col s12">';
-                foreach ($path as $element) {
-                    print '<span class="breadcrumb">' . $element . '</span>';
-                }
-                print '<span class="breadcrumb"></span></div></div></nav>';
+if (!empty($taxonomyData['edges'])):
+?>
+<div class="card" id="taxonomy-card">
+  <div class="card-content">
+    <span class="card-title">Class Hierarchy <i class="material-icons collapse-toggle" id="taxonomy-toggle">expand_less</i></span>
+    <div id="taxonomy-dag"></div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof dagre === 'undefined') return;
+
+    var taxonomyNodes = <?php echo json_encode($taxonomyData['nodes']); ?>;
+    var taxonomyEdges = <?php echo json_encode($taxonomyData['edges']); ?>;
+    var entityUri = <?php echo json_encode($resource); ?>;
+    var entityLabel = <?php echo json_encode(strip_tags($resourceLabel)); ?>;
+    var directTypes = <?php echo json_encode($directTypes); ?>;
+    var isClass = <?php echo json_encode($isClass); ?>;
+
+    var g = new dagre.graphlib.Graph();
+    g.setGraph({ rankdir: 'BT', nodesep: 20, ranksep: 40, marginx: 15, marginy: 15 });
+    g.setDefaultEdgeLabel(function() { return {}; });
+
+    // Measure text widths using a temporary SVG
+    var tmpSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    tmpSvg.style.position = 'absolute';
+    tmpSvg.style.visibility = 'hidden';
+    document.body.appendChild(tmpSvg);
+    var tmpText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tmpText.setAttribute('font-family', 'Open Sans, sans-serif');
+    tmpText.setAttribute('font-size', '12');
+    tmpSvg.appendChild(tmpText);
+
+    function measureText(label) {
+        tmpText.textContent = label;
+        return tmpText.getBBox().width;
+    }
+
+    for (var uri in taxonomyNodes) {
+        var node = taxonomyNodes[uri];
+        var w = measureText(node.label) + 24;
+        g.setNode(uri, { label: node.label, width: Math.max(w, 50), height: 28, url: node.url, isSchema: node.isSchema });
+    }
+
+    if (!isClass) {
+        var ew = measureText(entityLabel) + 24;
+        g.setNode(entityUri, { label: entityLabel, width: Math.max(ew, 50), height: 28, url: null, isEntity: true });
+        for (var i = 0; i < directTypes.length; i++) {
+            if (g.hasNode(directTypes[i])) {
+                g.setEdge(entityUri, directTypes[i]);
             }
         }
     }
-}
+
+    for (var i = 0; i < taxonomyEdges.length; i++) {
+        g.setEdge(taxonomyEdges[i].child, taxonomyEdges[i].parent);
+    }
+
+    document.body.removeChild(tmpSvg);
+
+    dagre.layout(g);
+
+    var graph = g.graph();
+    var svgWidth = graph.width;
+    var svgHeight = graph.height;
+
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + svgWidth + '" height="' + svgHeight + '">';
+    svg += '<defs><marker id="dag-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">';
+    svg += '<path d="M 0 0 L 10 5 L 0 10 z" fill="#9e9e9e" opacity="0.5"/></marker></defs>';
+
+    // Render edges
+    g.edges().forEach(function(e) {
+        var edge = g.edge(e);
+        var points = edge.points;
+        if (points && points.length >= 2) {
+            var d = 'M ' + points[0].x + ' ' + points[0].y;
+            for (var j = 1; j < points.length; j++) {
+                d += ' L ' + points[j].x + ' ' + points[j].y;
+            }
+            svg += '<g class="dag-edge"><path d="' + d + '" marker-end="url(#dag-arrow)"/></g>';
+        }
+    });
+
+    // Render nodes
+    g.nodes().forEach(function(v) {
+        var node = g.node(v);
+        var x = node.x - node.width / 2;
+        var y = node.y - node.height / 2;
+        var fill, stroke, textFill;
+
+        if (node.isEntity) {
+            fill = '#02aed7'; stroke = '#0288a7'; textFill = '#ffffff';
+        } else if (directTypes.indexOf(v) !== -1) {
+            fill = '#e8f5e9'; stroke = '#43a047'; textFill = '#2e7d32';
+        } else if (node.isSchema) {
+            fill = '#fff3e0'; stroke = '#ef6c00'; textFill = '#e65100';
+        } else {
+            fill = '#e3f2fd'; stroke = '#1565c0'; textFill = '#0d47a1';
+        }
+
+        var hasLink = !!node.url;
+
+        svg += '<g class="dag-node">';
+        if (hasLink) svg += '<a href="' + node.url + '">';
+        svg += '<rect x="' + x + '" y="' + y + '" width="' + node.width + '" height="' + node.height + '" rx="4" ry="4" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
+        svg += '<text x="' + node.x + '" y="' + (node.y + 4) + '" text-anchor="middle" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
+        if (hasLink) svg += '</a>';
+        svg += '</g>';
+    });
+
+    svg += '</svg>';
+    document.getElementById('taxonomy-dag').innerHTML = svg;
+
+    var toggle = document.getElementById('taxonomy-toggle');
+    var cardContent = toggle.closest('.card-content');
+    toggle.addEventListener('click', function() {
+        cardContent.classList.toggle('collapsed');
+        toggle.classList.toggle('collapsed');
+        toggle.textContent = cardContent.classList.contains('collapsed') ? 'expand_more' : 'expand_less';
+    });
+});
+</script>
+<?php
+endif;
 
 if ($shapeDesc) {
     print '<div class="card"><div class="card-content"><span class="card-title">Possible properties</span>';
@@ -180,7 +299,8 @@ if ($reversePropertyValues) {
 
 printPropertyValuesModal();
 
-if ($childrenClasses['children'] && next($childrenClasses['children'])['children']) {
+$nextChild = $childrenClasses['children'] ? next($childrenClasses['children']) : false;
+if ($nextChild && $nextChild['children']) {
     print '<div class="card"><div class="card-content"><span class="card-title">Child classes</span><ul class="tree-node">';
     foreach ($childrenClasses['children'] as $childName => $childValues) {
         printTreeNode($childName, $childValues);
