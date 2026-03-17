@@ -387,6 +387,65 @@ function printTreeNode($name, $values)
     print '</li>';
 }
 
+function cleanClassName($name)
+{
+    // Decode _UXXXX_ unicode escapes
+    $name = preg_replace_callback('/_U([0-9A-Fa-f]{4,6})_/', function ($m) {
+        return mb_chr(hexdec($m[1]), 'UTF-8');
+    }, $name);
+    // Strip _Qnnn Wikidata ID suffixes
+    $name = preg_replace('/_Q\d+$/', '', $name);
+    return str_replace('_', ' ', $name);
+}
+
+function getTaxonomyEdges($resource, $language, $isClass = false)
+{
+    $matchClause = $isClass
+        ? '<' . $resource . '> rdfs:subClassOf* ?s .'
+        : '<' . $resource . '> rdf:type ?c . ?c rdfs:subClassOf* ?s .';
+
+    $sparql = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        SELECT DISTINCT ?s ?o ?sLabel ?oLabel WHERE {
+            ' . $matchClause . '
+            ?s rdfs:subClassOf ?o .
+            OPTIONAL { ?s rdfs:label ?sLabel FILTER(LANG(?sLabel) = "' . $language . '") }
+            OPTIONAL { ?o rdfs:label ?oLabel FILTER(LANG(?oLabel) = "' . $language . '") }
+        } LIMIT 200');
+
+    $nodes = [];
+    $edges = [];
+
+    foreach ($sparql['results']['bindings'] as $binding) {
+        $child = $binding['s']['value'];
+        $parent = $binding['o']['value'];
+
+        $edges[] = ['child' => $child, 'parent' => $parent];
+
+        foreach ([['uri' => $child, 'labelKey' => 'sLabel'], ['uri' => $parent, 'labelKey' => 'oLabel']] as $item) {
+            $uri = $item['uri'];
+            if (!isset($nodes[$uri])) {
+                // Prefer rdfs:label from SPARQL, fallback to cleaned local name
+                $hasLabel = isset($binding[$item['labelKey']]);
+                $label = $hasLabel
+                    ? $binding[$item['labelKey']]['value']
+                    : cleanClassName(preg_replace('`^.*/|^.*#`', '', $uri));
+                $isSchema = strpos($uri, 'http://schema.org/') === 0 || strpos($uri, 'http://bioschemas.org/') === 0;
+                $nodes[$uri] = ['label' => $label, 'url' => uriToUrl($uri), 'isSchema' => $isSchema, 'hasLabel' => $hasLabel];
+            } elseif (isset($binding[$item['labelKey']]) && empty($nodes[$uri]['hasLabel'])) {
+                $nodes[$uri]['label'] = $binding[$item['labelKey']]['value'];
+                $nodes[$uri]['hasLabel'] = true;
+            }
+        }
+    }
+
+    foreach ($nodes as &$node) {
+        unset($node['hasLabel']);
+    }
+
+    return ['edges' => $edges, 'nodes' => $nodes];
+}
+
 function treeToPaths($name, $values)
 {
     $current = uriToLink($name, $values['label'], $values['comment']);

@@ -14,5 +14,6 @@
 <script
     src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dagrejs/dagre@1.1.4/dist/dagre.min.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/scripts.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/property-modal.js"></script>
