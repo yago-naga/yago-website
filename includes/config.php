@@ -43,8 +43,13 @@ function config($key = '')
         'template_path' => 'template',
         'content_path' => 'content',
         'version' => 'v0.1',
-        'sparql_endpoint' => 'https://yago-knowledge.org/sparql/query'
+        'sparql_endpoint' => 'https://yago-knowledge.org/sparql/qlever',
+        'sparql_endpoint_blazegraph' => 'https://yago-knowledge.org/sparql/query',
     ];
+
+    if ($key === 'sparql_endpoint' && isset($_GET['engine']) && $_GET['engine'] === 'blazegraph') {
+        return $config['sparql_endpoint_blazegraph'];
+    }
 
     return isset($config[$key]) ? $config[$key] : null;
 }

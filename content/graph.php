@@ -49,7 +49,7 @@ function processDocumentWithXslt(DOMDocument $inputDocument, string $xsltFile)
 
 if ( !isset( $_GET['resource'] ) || !$_GET['resource'] ) {
     // We pick something randomly
-    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?c a <http://schema.org/Thing> }')['value']);
+    $resourcesCount = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?cnt) WHERE { ?r a <http://schema.org/Thing> }')['value']);
     $offset = random_int(0, $resourcesCount - 1);
     $resource = doSingleResultQuery('SELECT ?r WHERE { ?r a <http://schema.org/Thing> } OFFSET ' . $offset . ' LIMIT 1')['value'];
     header('Location: /graph/' . uriToPrefixedName($resource), true, 302);
@@ -100,7 +100,10 @@ $cursor = isset($_GET['cursor']) && is_numeric($_GET['cursor']) ? intval($_GET['
         window.onload = function () {
 
             $('#search').submit(function () {
-				window.location.href = '/graph/"' + $('#search-text').val() + '"@en?relation=all&inverse=1';
+				var url = '/graph/"' + $('#search-text').val() + '"@en?relation=all&inverse=1';
+				var engine = new URLSearchParams(window.location.search).get('engine');
+				if (engine) url += '&engine=' + encodeURIComponent(engine);
+				window.location.href = url;
                 return false;
             });
 
@@ -129,9 +132,9 @@ SELECT ?s ?p ?o ?count WHERE {
    ?s rdfs:subClassOf ?o .
  }}
  UNION
- {SELECT ?s ?p (SAMPLE(?o) AS ?o) (COUNT(?o) AS ?count) WHERE {
+ {SELECT ?s ?p (SAMPLE(?val) AS ?o) (COUNT(?val) AS ?count) WHERE {
    BIND(' . $resource . ' AS ?s)
-   ?s ?p ?o .
+   ?s ?p ?val .
    FILTER(?p != rdf:type)
    FILTER(?p != rdfs:subClassOf)
  } GROUP BY ?s ?p }

@@ -17,3 +17,31 @@
 <script src="https://cdn.jsdelivr.net/npm/@dagrejs/dagre@1.1.4/dist/dagre.min.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/scripts.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/property-modal.js"></script>
+<?php if (isset($_GET['engine']) && $_GET['engine'] === 'blazegraph'): ?>
+<script>
+// Propagate ?engine=blazegraph across all internal links and forms
+(function() {
+    function addEngine(url) {
+        try {
+            var u = new URL(url, location.origin);
+            if (u.origin === location.origin && !u.searchParams.has('engine')) {
+                u.searchParams.set('engine', 'blazegraph');
+                return u.toString();
+            }
+        } catch(e) {}
+        return url;
+    }
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a[href]');
+        if (a && a.href) a.href = addEngine(a.href);
+    }, true);
+    document.querySelectorAll('form').forEach(function(f) {
+        if (!f.querySelector('input[name="engine"]')) {
+            var inp = document.createElement('input');
+            inp.type = 'hidden'; inp.name = 'engine'; inp.value = 'blazegraph';
+            f.appendChild(inp);
+        }
+    });
+})();
+</script>
+<?php endif; ?>
