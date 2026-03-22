@@ -72,13 +72,17 @@ $(document).ready(function () {
             $pagination.html(buildPagination(page, currentState.totalPages)).show();
         }
 
-        $.getJSON(apiUrl, {
+        var params = {
             resource: currentState.resource,
             property: currentState.property,
             reverse: currentState.reverse,
             page: page,
             lang: new URLSearchParams(window.location.search).get('lang') || 'en'
-        }).done(function (data) {
+        };
+        var engine = new URLSearchParams(window.location.search).get('engine');
+        if (engine) params.engine = engine;
+
+        $.getJSON(apiUrl, params).done(function (data) {
             $('#modal-property-title').html(
                 data.propertyLabel + ' <small>(' + data.total + ' values)</small>'
             );

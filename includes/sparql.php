@@ -276,9 +276,9 @@ function getShapeDescription($shape, $language)
             OPTIONAL { ?prop rdfs:label ?label FILTER(LANG(?label) = "' . $language . '") }
             OPTIONAL { ?prop rdfs:comment ?comment FILTER(LANG(?comment) = "' . $language . '") }
             OPTIONAL { ?p sh:datatype ?datatype }
-            OPTIONAL { ?p sh:or/rdf:rest*/rdf:first/sh:datatype  ?datatype }
+            OPTIONAL { ?p sh:or ?orList . ?orList rdf:rest* ?rest . ?rest rdf:first ?orEntry . ?orEntry sh:datatype ?datatype }
             OPTIONAL { ?p sh:node ?node }
-            OPTIONAL { ?p sh:or/rdf:rest*/rdf:first/sh:node  ?node }
+            OPTIONAL { ?p sh:or ?orList2 . ?orList2 rdf:rest* ?rest2 . ?rest2 rdf:first ?orEntry2 . ?orEntry2 sh:node ?node }
             OPTIONAL { ?p sh:maxCount ?maxCount }
             OPTIONAL { ?p sh:pattern ?pattern }
         } ORDER BY ?prop';

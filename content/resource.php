@@ -19,7 +19,7 @@ if (isset($_GET['search']) && $_GET['search']) {
 
 	print "Entities called " . $entityname . ":\n<ul>\n";
 
-	$sparql = doSparqlQuery('SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '"@en } LIMIT 100');
+	$sparql = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '"@en } LIMIT 100');
 		foreach ($sparql['results']['bindings'] as $binding) {
 			$entity = $binding['s']['value'];
 			print "<li><a href='" . $entity ."'>" . uriToPrefixedName($entity) ."</a>\n";
@@ -100,7 +100,7 @@ if (isset($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])) {
 $shapeDesc = null;
 $instancesCount = null;
 if (in_array('http://www.w3.org/2002/07/owl#Class', $shapes)) {
-    $instancesCount = intval(doSingleResultQuery('SELECT (COUNT(DISTINCT ?i) AS ?c) WHERE { ?i a/<http://www.w3.org/2000/01/rdf-schema#subClassOf>* <' . $resource . '> }')['value']);
+    $instancesCount = intval(doSingleResultQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT (COUNT(DISTINCT ?i) AS ?c) WHERE { ?i rdf:type ?t . ?t rdfs:subClassOf* <' . $resource . '> }')['value']);
     $shapeDesc = getShapeDescription($resource, Locale::getPrimaryLanguage($GLOBALS['locale']));
 }
 

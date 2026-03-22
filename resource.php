@@ -19,7 +19,16 @@ if (!isset($_GET['resource']) || !$_GET['resource']) {
 $resource = resolvePrefixedUri($_GET['resource']);
 
 // Content negotiation
-$typeMap = [ // Customized for Blazegraph
+$isQlever = !isset($_GET['engine']) || $_GET['engine'] !== 'blazegraph';
+$typeMap = $isQlever ? [ // QLever only supports text/turtle and application/n-triples for CONSTRUCT
+    '*/*' => 'text/html',
+    'text/*' => 'text/html',
+    'text/html' => 'text/html',
+    'text/turtle' => 'text/turtle',
+    'text/n3' => 'text/turtle',
+    'application/n-triples' => 'application/n-triples',
+    'application/xhtml+xml' => 'text/html'
+] : [ // Blazegraph-specific MIME types
     '*/*' => 'text/html',
     'text/*' => 'text/html',
     'text/html' => 'text/html',
@@ -58,7 +67,8 @@ foreach (parse_accept_header($accept) as $type) {
             ]
         ]);
 
-        $url = config('sparql_endpoint') . '?query=' . urlencode('DESCRIBE <' . $resource . '>');
+        $query = 'CONSTRUCT { <' . $resource . '> ?p ?o . ?s ?p2 <' . $resource . '> } WHERE { { <' . $resource . '> ?p ?o } UNION { ?s ?p2 <' . $resource . '> } }';
+        $url = config('sparql_endpoint') . '?query=' . urlencode($query);
         echo file_get_contents($url, false, $context);
         return;
     }
