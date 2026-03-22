@@ -44,7 +44,7 @@ $typeMap = $isQlever ? [ // QLever only supports text/turtle and application/n-t
     'application/xhtml+xml' => 'text/html'
 ];
 
-$accept = $_SERVER['HTTP_ACCEPT'] ?: '*/*';
+$accept = $_SERVER['HTTP_ACCEPT'] ?? '*/*';
 foreach (parse_accept_header($accept) as $type) {
     if (!array_key_exists($type, $typeMap)) {
         continue;
