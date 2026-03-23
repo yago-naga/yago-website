@@ -88,7 +88,8 @@ sort($shapes);
 $childrenClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 3, false);
 $parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 4, true);
 
-$isClass = in_array('http://www.w3.org/2002/07/owl#Class', $shapes) || in_array('http://www.w3.org/2000/01/rdf-schema#Class', $shapes);
+$isClass = in_array('http://www.w3.org/2002/07/owl#Class', $shapes) || in_array('http://www.w3.org/2000/01/rdf-schema#Class', $shapes)
+    || isset($propertyValues['http://www.w3.org/2000/01/rdf-schema#subClassOf']);
 $taxonomyData = getTaxonomyEdges($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), $isClass);
 $directTypes = [];
 if (isset($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])) {
