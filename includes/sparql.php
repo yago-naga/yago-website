@@ -144,29 +144,23 @@ function getValueInDisplayLanguage(array $propertyValues, $propertyUri)
 function describeEntity($resource, $reverse = false)
 {
     global $PROPERTIES_BLACKLIST, $locale;
+    $lang = Locale::getPrimaryLanguage($locale);
 
     $filter = $reverse ? '?o ?p <' . $resource . '>' : ' <' . $resource . '> ?p ?o';
 
-    $properties = [];
-    $sparql = doSparqlQuery('SELECT DISTINCT ?p WHERE { ' . $filter . ' } LIMIT 100');
-    foreach ($sparql['results']['bindings'] as $binding) {
-        $property = $binding['p']['value'];
-        if (!in_array($property, $PROPERTIES_BLACKLIST)) {
-            $properties[] = $property;
-        }
-    }
-
+    $sparql = doSparqlQuery('SELECT ?p ?o ?label WHERE { ' . $filter
+        . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . $lang . '") } } LIMIT 10000');
 
     $propertyValues = [];
-    foreach ($properties as $property) {
-        $sparql = doSparqlQuery('SELECT DISTINCT ?o ?label WHERE { BIND(<' . $property . '> AS ?p) ' . $filter . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . Locale::getPrimaryLanguage($locale) . '") } } LIMIT 100');
+    foreach ($sparql['results']['bindings'] as $binding) {
+        $property = $binding['p']['value'];
+        if (in_array($property, $PROPERTIES_BLACKLIST)) continue;
+        if (isset($propertyValues[$property]) && count($propertyValues[$property]) >= 100) continue;
 
-        foreach ($sparql['results']['bindings'] as $binding) {
-            $valueKey = json_encode($binding['o']);
-            $propertyValues[$property][$valueKey] = $binding['o'];
-            if (isset($binding['label'])) {
-                $propertyValues[$property][$valueKey]['label'] = $binding['label'];
-            }
+        $valueKey = json_encode($binding['o']);
+        $propertyValues[$property][$valueKey] = $binding['o'];
+        if (isset($binding['label'])) {
+            $propertyValues[$property][$valueKey]['label'] = $binding['label'];
         }
     }
 

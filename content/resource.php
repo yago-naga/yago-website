@@ -181,13 +181,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     for (var uri in taxonomyNodes) {
         var node = taxonomyNodes[uri];
-        var w = measureText(node.label) + 24;
-        g.setNode(uri, { label: node.label, width: Math.max(w, 50), height: 28, url: node.url, isSchema: node.isSchema });
+        var w = measureText(node.label) + 30;
+        g.setNode(uri, { label: node.label, width: Math.max(w, 50), height: 30, url: node.url, isSchema: node.isSchema });
     }
 
     if (!isClass) {
-        var ew = measureText(entityLabel) + 24;
-        g.setNode(entityUri, { label: entityLabel, width: Math.max(ew, 50), height: 28, url: null, isEntity: true });
+        var ew = measureText(entityLabel) + 30;
+        g.setNode(entityUri, { label: entityLabel, width: Math.max(ew, 50), height: 30, url: null, isEntity: true });
         for (var i = 0; i < directTypes.length; i++) {
             if (g.hasNode(directTypes[i])) {
                 g.setEdge(entityUri, directTypes[i]);
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
             for (var j = 1; j < points.length; j++) {
                 d += ' L ' + points[j].x + ' ' + points[j].y;
             }
-            svg += '<g class="dag-edge"><path d="' + d + '" marker-end="url(#dag-arrow)"/></g>';
+            svg += '<g class="dag-edge"><path d="' + d + '" fill="none" stroke="#9e9e9e" stroke-width="1.2" marker-end="url(#dag-arrow)"/></g>';
         }
     });
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         svg += '<g class="dag-node">';
         if (hasLink) svg += '<a href="' + node.url + '">';
         svg += '<rect x="' + x + '" y="' + y + '" width="' + node.width + '" height="' + node.height + '" rx="4" ry="4" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
-        svg += '<text x="' + node.x + '" y="' + (node.y + 4) + '" text-anchor="middle" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
+        svg += '<text x="' + node.x + '" y="' + (node.y + 5) + '" text-anchor="middle" dominant-baseline="middle" font-family="Open Sans, sans-serif" font-size="12" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
         if (hasLink) svg += '</a>';
         svg += '</g>';
     });
@@ -267,6 +267,15 @@ document.addEventListener('DOMContentLoaded', function() {
 endif;
 
 if ($shapeDesc) {
+    // Batch-fetch usage counts for all properties in one query
+    $propUris = array_keys($shapeDesc);
+    $valuesClause = implode(' ', array_map(function($u) { return '<' . $u . '>'; }, $propUris));
+    $countResults = doSparqlQuery('SELECT ?p (COUNT(*) AS ?c) WHERE { VALUES ?p { ' . $valuesClause . ' } ?s ?p ?o } GROUP BY ?p');
+    $propertyCounts = [];
+    foreach ($countResults['results']['bindings'] as $binding) {
+        $propertyCounts[$binding['p']['value']] = intval($binding['c']['value']);
+    }
+
     print '<div class="card"><div class="card-content"><span class="card-title">Possible properties</span>';
     print '<table><thead><tr><th scope="col">Property</th><th scope="col">Range</th><th scope="col">Cardinality</th><th scope="col">All usages</th></tr></thead><tbody>';
     foreach ($shapeDesc as $property => $values) {
@@ -275,7 +284,7 @@ if ($shapeDesc) {
         if ($values['pattern']) {
             print ' matching ' . $values['pattern'];
         }
-        $count = intval(doSingleResultQuery('SELECT (COUNT(*) AS ?c) WHERE { ?s <' . $property . '> ?o }')['value']);
+        $count = $propertyCounts[$property] ?? 0;
         print '</ul></td><td>';
         if ($values['maxCount']) {
             print '≤ ' . $GLOBALS['numberFormatter']->format($values['maxCount']);
