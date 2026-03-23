@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /sparql/
 Disallow: /resource/
 Disallow: /graph/
+Crawl-delay: 10
