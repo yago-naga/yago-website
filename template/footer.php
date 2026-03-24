@@ -17,6 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@dagrejs/dagre@1.1.4/dist/dagre.min.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/scripts.js"></script>
 <script type="text/javascript" src="<?php site_url(); ?>/js/property-modal.js"></script>
+<script type="text/javascript" src="<?php site_url(); ?>/js/autocomplete.js"></script>
 <?php if (isset($_GET['engine']) && $_GET['engine'] === 'blazegraph'): ?>
 <script>
 // Propagate ?engine=blazegraph across all internal links and forms

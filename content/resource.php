@@ -1,8 +1,8 @@
 
     <form id="my-search" class="row">
         <div class="col s5 input-field">
-            <input name="search" id="my-search-text" type="text">
-            <label for="my-search-text">Search (use correct uppercase for named entities)</label>
+            <input name="search" id="my-search-text" type="text" autocomplete="off" data-autocomplete-url="<?php echo config('site_url'); ?>/api_autocomplete.php">
+            <label for="my-search-text">Search for entities by name</label>
         </div>
         <div class="col s3" style="margin-top: 1.5rem;">
             <button class="waves-effect waves-light btn">Search</button>
@@ -15,17 +15,73 @@ require_once 'includes/sparql.php';
 
 if (isset($_GET['search']) && $_GET['search']) {
 
-	$entityname = $_GET['search'];
+	$entityname = trim($_GET['search']);
+	// Title-case before escaping so escape sequences aren't mangled
+	$escaped = mb_convert_case($entityname, MB_CASE_TITLE);
+	$escaped = str_replace(['\\', '"', "\n", "\r", "\t"], ['\\\\', '\\"', '\\n', '\\r', '\\t'], $escaped);
+	$lang = Locale::getPrimaryLanguage($GLOBALS['locale']);
 
-	print "Entities called " . $entityname . ":\n<ul>\n";
+	// TODO: When YAGO with reference counts is released, add:
+	//   ORDER BY DESC(?refcount) and select the reference count property
+	$sparql = doSparqlQuery(
+		'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+		. 'PREFIX schema: <http://schema.org/> '
+		. 'SELECT ?entity ?label ?comment ?image WHERE { '
+		. '{ SELECT DISTINCT ?entity ?label WHERE { '
+		. '?entity rdfs:label ?label . '
+		. 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $escaped . '")) '
+		. '} LIMIT 30 } '
+		. 'OPTIONAL { ?entity rdfs:comment ?comment . FILTER(LANG(?comment) = "' . $lang . '") } '
+		. 'OPTIONAL { ?entity schema:image ?image } '
+		. '}'
+	);
 
-	$sparql = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?s WHERE { ?s rdfs:label "' . $entityname . '"@en } LIMIT 100');
-		foreach ($sparql['results']['bindings'] as $binding) {
-			$entity = $binding['s']['value'];
-			print "<li><a href='" . $entity ."'>" . uriToPrefixedName($entity) ."</a>\n";
+	$entities = [];
+	foreach ($sparql['results']['bindings'] as $binding) {
+		$uri = $binding['entity']['value'];
+		if (!isset($entities[$uri])) {
+			$entities[$uri] = [
+				'label' => $binding['label']['value'],
+				'comment' => isset($binding['comment']) ? $binding['comment']['value'] : null,
+				'image' => isset($binding['image']) ? $binding['image']['value'] : null,
+			];
+		} elseif (!$entities[$uri]['image'] && isset($binding['image'])) {
+			$entities[$uri]['image'] = $binding['image']['value'];
 		}
+	}
 
-	print "</ul>";
+	$count = count($entities);
+	print '<div class="card"><div class="card-content">';
+	print '<span class="card-title">Search results for "' . htmlspecialchars($entityname) . '"</span>';
+
+	if ($count === 0) {
+		print '<p>No entities found matching "' . htmlspecialchars($entityname) . '".</p>';
+	} else {
+		print '<p>' . $count . ' result' . ($count !== 1 ? 's' : '') . ' found</p>';
+		print '<ul class="search-results">';
+		foreach ($entities as $uri => $entity) {
+			$url = uriToUrl($uri);
+			print '<li class="search-result-item">';
+			if ($entity['image']) {
+				print '<div class="search-result-image"><img src="' . htmlspecialchars($entity['image']) . '" alt=""></div>';
+			}
+			print '<div class="search-result-content">';
+			print '<a href="' . $url . '" class="search-result-label">' . htmlspecialchars($entity['label']) . '</a>';
+			print '<span class="search-result-uri">' . uriToPrefixedName($uri) . '</span>';
+			if ($entity['comment']) {
+				$desc = $entity['comment'];
+				if (mb_strlen($desc) > 200) {
+					$desc = mb_substr($desc, 0, 200) . '…';
+				}
+				print '<p class="search-result-description">' . htmlspecialchars($desc) . '</p>';
+			}
+			print '</div>';
+			print '</li>';
+		}
+		print '</ul>';
+	}
+
+	print '</div></div>';
 	return;
 }
 
