@@ -200,14 +200,18 @@ function renderPropertyValue($value)
     } elseif ($value['type'] === 'bnode') {
         $html .= '_:' . htmlspecialchars($value['value']);
     } elseif ($value['type'] === 'literal') {
-        $label = htmlspecialchars($value['value']);
+        $raw = $value['value'];
+        $label = htmlspecialchars($raw);
+        $isUrl = preg_match('#^https?://#', $raw);
         if (isset($value['xml:lang'])) {
             $lang = htmlspecialchars($value['xml:lang']);
-            $html .= '"<span lang="' . $lang . '">' . $label . '</span>"@' . $lang;
+            $text = $isUrl ? '<a href="' . $label . '" target="_blank" rel="noopener">' . $label . '</a>' : $label;
+            $html .= '"<span lang="' . $lang . '">' . $text . '</span>"@' . $lang;
         } elseif (isset($value['datatype'])) {
-            $html .= '"' . $label . '"^^' . uriToLink($value['datatype']);
+            $text = $isUrl ? '<a href="' . $label . '" target="_blank" rel="noopener">' . $label . '</a>' : $label;
+            $html .= '"' . $text . '"^^' . uriToLink($value['datatype']);
         } else {
-            $html .= '"' . $label . '"';
+            $html .= $isUrl ? '<a href="' . $label . '" target="_blank" rel="noopener">' . $label . '</a>' : '"' . $label . '"';
         }
     }
     return $html;
