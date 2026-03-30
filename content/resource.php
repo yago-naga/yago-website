@@ -21,6 +21,10 @@ if (isset($_GET['search']) && $_GET['search']) {
 	$escaped = str_replace(['\\', '"', "\n", "\r", "\t"], ['\\\\', '\\"', '\\n', '\\r', '\\t'], $escaped);
 	$lang = Locale::getPrimaryLanguage($GLOBALS['locale']);
 
+	$perPage = SEARCH_RESULTS_PER_PAGE;
+	$page = max(1, intval($_GET['p'] ?? 1));
+	$offset = ($page - 1) * $perPage;
+
 	// TODO: When YAGO with reference counts is released, add:
 	//   ORDER BY DESC(?refcount) and select the reference count property
 	$sparql = doSparqlQuery(
@@ -30,7 +34,7 @@ if (isset($_GET['search']) && $_GET['search']) {
 		. '{ SELECT DISTINCT ?entity ?label WHERE { '
 		. '?entity rdfs:label ?label . '
 		. 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $escaped . '")) '
-		. '} LIMIT 30 } '
+		. '} LIMIT ' . ($perPage + 1) . ' OFFSET ' . $offset . ' } '
 		. 'OPTIONAL { ?entity rdfs:comment ?comment . FILTER(LANG(?comment) = "' . $lang . '") } '
 		. 'OPTIONAL { ?entity schema:image ?image } '
 		. '}'
@@ -50,14 +54,21 @@ if (isset($_GET['search']) && $_GET['search']) {
 		}
 	}
 
+	$hasMore = count($entities) > $perPage;
+	if ($hasMore) {
+		array_pop($entities);
+	}
 	$count = count($entities);
+
 	print '<div class="card"><div class="card-content">';
 	print '<span class="card-title">Search results for "' . htmlspecialchars($entityname) . '"</span>';
 
-	if ($count === 0) {
+	if ($count === 0 && $page === 1) {
 		print '<p>No entities found matching "' . htmlspecialchars($entityname) . '".</p>';
 	} else {
-		print '<p>' . $count . ' result' . ($count !== 1 ? 's' : '') . ' found</p>';
+		$first = $offset + 1;
+		$last = $offset + $count;
+		print '<p>Showing results ' . $first . '–' . $last . '</p>';
 		print '<ul class="search-results">';
 		foreach ($entities as $uri => $entity) {
 			$url = uriToUrl($uri);
@@ -79,6 +90,18 @@ if (isset($_GET['search']) && $_GET['search']) {
 			print '</li>';
 		}
 		print '</ul>';
+
+		$searchParam = urlencode($entityname);
+		print '<div class="pagination-nav" style="display: flex; justify-content: space-between; margin-top: 1rem;">';
+		if ($page > 1) {
+			print '<a class="btn waves-effect waves-light" href="' . config('site_url') . '/resource?search=' . $searchParam . '&p=' . ($page - 1) . '">&laquo; Previous</a>';
+		} else {
+			print '<span></span>';
+		}
+		if ($hasMore) {
+			print '<a class="btn waves-effect waves-light" href="' . config('site_url') . '/resource?search=' . $searchParam . '&p=' . ($page + 1) . '">Next &raquo;</a>';
+		}
+		print '</div>';
 	}
 
 	print '</div></div>';
