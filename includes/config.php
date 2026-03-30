@@ -49,10 +49,14 @@ function config($key = '')
         // 'sparql_endpoint' => 'https://yago-knowledge.org/sparql/qlever',
         'sparql_endpoint_blazegraph' => 'http://localhost:9999/blazegraph/namespace/kb/sparql',
         // 'sparql_endpoint_blazegraph' => 'https://yago-knowledge.org/sparql/query',
+        // Public-facing endpoint URLs (for YASQE editor and display)
+        'sparql_endpoint_public' => 'https://yago-knowledge.org/sparql/qlever',
+        'sparql_endpoint_blazegraph_public' => 'https://yago-knowledge.org/sparql/query',
     ];
 
-    if ($key === 'sparql_endpoint' && isset($_GET['engine']) && $_GET['engine'] === 'blazegraph') {
-        return $config['sparql_endpoint_blazegraph'];
+    if (isset($_GET['engine']) && $_GET['engine'] === 'blazegraph') {
+        if ($key === 'sparql_endpoint') return $config['sparql_endpoint_blazegraph'];
+        if ($key === 'sparql_endpoint_public') return $config['sparql_endpoint_blazegraph_public'];
     }
 
     return isset($config[$key]) ? $config[$key] : null;
