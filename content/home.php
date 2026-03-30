@@ -5,9 +5,113 @@
     YAGO is a large knowledge base with general knowledge about people, cities, countries, movies, and organizations.
 </p>
 
-<a href="/graph/Elvis_Presley" rel="noopener">
-    <img src="<?php site_url(); ?>/assets/images/demo.svg" alt="Demo" class="demo"/>
-</a>
+<?php
+require_once 'includes/sparql.php';
+$demoResource = 'http://yago-knowledge.org/resource/Elvis_Presley';
+$demoLabel = 'Elvis Presley';
+$demoLang = Locale::getPrimaryLanguage($GLOBALS['locale']);
+$demoTaxonomy = getTaxonomyEdges($demoResource, $demoLang, false);
+$demoTypes = [];
+$typeResults = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?t WHERE { <' . $demoResource . '> rdf:type ?t }');
+foreach ($typeResults['results']['bindings'] as $b) {
+    $demoTypes[] = $b['t']['value'];
+}
+if (!empty($demoTaxonomy['edges'])):
+?>
+<a href="<?php site_url(); ?>/resource/Elvis_Presley" id="home-dag" style="display: block; text-align: center;"></a>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof dagre === 'undefined') return;
+
+    var taxonomyNodes = <?php echo json_encode($demoTaxonomy['nodes']); ?>;
+    var taxonomyEdges = <?php echo json_encode($demoTaxonomy['edges']); ?>;
+    var entityUri = <?php echo json_encode($demoResource); ?>;
+    var entityLabel = <?php echo json_encode($demoLabel); ?>;
+    var directTypes = <?php echo json_encode($demoTypes); ?>;
+
+    var g = new dagre.graphlib.Graph();
+    g.setGraph({ rankdir: 'BT', nodesep: 20, ranksep: 40, marginx: 15, marginy: 15 });
+    g.setDefaultEdgeLabel(function() { return {}; });
+
+    var tmpSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    tmpSvg.style.position = 'absolute';
+    tmpSvg.style.visibility = 'hidden';
+    document.body.appendChild(tmpSvg);
+    var tmpText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tmpText.setAttribute('font-family', 'Open Sans, sans-serif');
+    tmpText.setAttribute('font-size', '12');
+    tmpSvg.appendChild(tmpText);
+
+    function measureText(label) {
+        tmpText.textContent = label;
+        return tmpText.getBBox().width;
+    }
+
+    for (var uri in taxonomyNodes) {
+        var node = taxonomyNodes[uri];
+        var w = measureText(node.label) + 30;
+        g.setNode(uri, { label: node.label, width: Math.max(w, 50), height: 30, url: node.url, isSchema: node.isSchema });
+    }
+
+    var ew = measureText(entityLabel) + 30;
+    g.setNode(entityUri, { label: entityLabel, width: Math.max(ew, 50), height: 30, url: '/resource/Elvis_Presley', isEntity: true });
+    for (var i = 0; i < directTypes.length; i++) {
+        if (g.hasNode(directTypes[i])) {
+            g.setEdge(entityUri, directTypes[i]);
+        }
+    }
+
+    for (var i = 0; i < taxonomyEdges.length; i++) {
+        g.setEdge(taxonomyEdges[i].child, taxonomyEdges[i].parent);
+    }
+
+    document.body.removeChild(tmpSvg);
+    dagre.layout(g);
+
+    var graph = g.graph();
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + graph.width + '" height="' + graph.height + '">';
+    svg += '<defs><marker id="home-dag-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">';
+    svg += '<path d="M 0 0 L 10 5 L 0 10 z" fill="#9e9e9e" opacity="0.5"/></marker></defs>';
+
+    g.edges().forEach(function(e) {
+        var edge = g.edge(e);
+        var points = edge.points;
+        if (points && points.length >= 2) {
+            var d = 'M ' + points[0].x + ' ' + points[0].y;
+            for (var j = 1; j < points.length; j++) {
+                d += ' L ' + points[j].x + ' ' + points[j].y;
+            }
+            svg += '<path d="' + d + '" fill="none" stroke="#9e9e9e" stroke-width="1.2" marker-end="url(#home-dag-arrow)"/>';
+        }
+    });
+
+    g.nodes().forEach(function(v) {
+        var node = g.node(v);
+        var x = node.x - node.width / 2;
+        var y = node.y - node.height / 2;
+        var fill, stroke, textFill;
+
+        if (node.isEntity) {
+            fill = '#02aed7'; stroke = '#0288a7'; textFill = '#ffffff';
+        } else if (directTypes.indexOf(v) !== -1) {
+            fill = '#e8f5e9'; stroke = '#43a047'; textFill = '#2e7d32';
+        } else if (node.isSchema) {
+            fill = '#fff3e0'; stroke = '#ef6c00'; textFill = '#e65100';
+        } else {
+            fill = '#e3f2fd'; stroke = '#1565c0'; textFill = '#0d47a1';
+        }
+
+        svg += '<g>';
+        svg += '<rect x="' + x + '" y="' + y + '" width="' + node.width + '" height="' + node.height + '" rx="4" ry="4" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
+        svg += '<text x="' + node.x + '" y="' + (node.y + 5) + '" text-anchor="middle" dominant-baseline="middle" font-family="Open Sans, sans-serif" font-size="12" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
+        svg += '</g>';
+    });
+
+    svg += '</svg>';
+    document.getElementById('home-dag').innerHTML = svg;
+});
+</script>
+<?php endif; ?>
 
 <h2>News</h2>
 
