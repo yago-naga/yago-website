@@ -19,14 +19,13 @@ $q = mb_convert_case($q, MB_CASE_TITLE);
 $q = str_replace(['\\', '"', "\n", "\r", "\t"], ['\\\\', '\\"', '\\n', '\\r', '\\t'], $q);
 $lang = Locale::getPrimaryLanguage($locale);
 
-// TODO: When YAGO with reference counts is released, add:
-//   ORDER BY DESC(?refcount) and select the reference count property
 $sparql = doSparqlQuery(
     'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
-    . 'SELECT ?entity ?label WHERE { '
+    . 'SELECT ?entity ?label ?siteLinks WHERE { '
     . '?entity rdfs:label ?label . '
     . 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $q . '")) '
-    . '} LIMIT 10'
+    . 'OPTIONAL { ?entity <http://yago-knowledge.org/resource/siteLinks> ?siteLinks } '
+    . '} ORDER BY DESC(?siteLinks) LIMIT 10'
 );
 
 $results = [];
