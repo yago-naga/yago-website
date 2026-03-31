@@ -68,6 +68,9 @@ function nav_menu_mobile() {
 
 
 function get_page_title() {
+    if (!empty($GLOBALS['page_title'])) {
+        return htmlspecialchars($GLOBALS['page_title']);
+    }
     return ucwords(str_replace('-', ' ', htmlspecialchars(get_page_id())));
 }
 
