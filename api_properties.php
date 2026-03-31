@@ -32,6 +32,7 @@ $total = intval($countSparql['results']['bindings'][0]['c']['value'] ?? 0);
 $valuesSparql = doSparqlQuery(
     'SELECT DISTINCT ?o ?label WHERE { ' . $filter .
     ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . $lang . '") } }' .
+    ' ORDER BY DESC(LANG(?o) = "' . $lang . '" || STRSTARTS(LANG(?o), "' . $lang . '-") || LANG(?o) = "mul") ?o' .
     ' LIMIT ' . $limit . ' OFFSET ' . $offset
 );
 

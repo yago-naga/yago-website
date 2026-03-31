@@ -242,6 +242,15 @@ function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicat
     print '<table><thead><tr><th scope="col" style="min-width: 40%;">' . $predicateLabel . '</th><th scope="col">' . $objectLabel . '</th></tr></thead><tbody>';
     foreach ($propertyValues as $property => $values) {
         $valuesArray = array_values($values);
+        $lang = Locale::getPrimaryLanguage($GLOBALS['locale']);
+        usort($valuesArray, function($a, $b) use ($lang) {
+            $aLang = $a['xml:lang'] ?? '';
+            $bLang = $b['xml:lang'] ?? '';
+            $aMatch = ($aLang === $lang || strpos($aLang, $lang . '-') === 0 || $aLang === 'mul');
+            $bMatch = ($bLang === $lang || strpos($bLang, $lang . '-') === 0 || $bLang === 'mul');
+            if ($aMatch === $bMatch) return 0;
+            return $aMatch ? -1 : 1;
+        });
         $totalValues = count($valuesArray);
 
         print '<tr><th scope="row">' . uriToLink($property) . '</th><td><ul>';
