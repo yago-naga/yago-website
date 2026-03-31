@@ -200,6 +200,29 @@ function getResourceShapes($resource)
     return $shapes;
 }
 
+/**
+ * Extract shapes (schema.org/bioschemas/W3C types) from already-fetched propertyValues,
+ * avoiding a separate SPARQL query. Also returns all type URIs.
+ */
+function extractShapesFromPropertyValues($propertyValues)
+{
+    $rdfType = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
+    $shapes = [];
+    $allTypes = [];
+    if (isset($propertyValues[$rdfType])) {
+        foreach ($propertyValues[$rdfType] as $val) {
+            if ($val['type'] === 'uri') {
+                $allTypes[] = $val['value'];
+                $c = $val['value'];
+                if (strpos($c, 'http://schema.org/') === 0 || strpos($c, 'http://bioschemas.org/') === 0 || strpos($c, 'http://www.w3.org/') === 0) {
+                    $shapes[] = $c;
+                }
+            }
+        }
+    }
+    return ['shapes' => $shapes, 'allTypes' => $allTypes];
+}
+
 function doSingleResultQuery($query)
 {
     $sparql = doSparqlQuery($query);
@@ -433,7 +456,7 @@ function cleanClassName($name)
     return str_replace('_', ' ', $name);
 }
 
-function getTaxonomyEdges($resource, $language, $isClass = false)
+function getTaxonomyEdges($resource, $language, $isClass = false, $knownTypes = null)
 {
     // Iterative upward traversal instead of rdfs:subClassOf* transitive closure
     // Start from the entity's types (or the class itself), walk up level by level
@@ -442,6 +465,9 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
 
     if ($isClass) {
         $frontier = [$resource];
+    } elseif ($knownTypes !== null) {
+        // Use pre-known types to skip the rdf:type query
+        $frontier = $knownTypes;
     } else {
         // Get direct types first
         $sparql = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -452,6 +478,7 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
         }
     }
 
+    $initialTypes = $frontier;
     $visited = [];
     $maxLevels = 15; // Safety limit to prevent infinite loops
     $totalEdges = 0;
@@ -509,7 +536,7 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
         unset($node['hasLabel']);
     }
 
-    return ['edges' => $edges, 'nodes' => $nodes];
+    return ['edges' => $edges, 'nodes' => $nodes, 'types' => $initialTypes];
 }
 
 function treeToPaths($name, $values)

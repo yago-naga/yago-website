@@ -178,25 +178,19 @@ if (isset($propertyValues['http://schema.org/image'])) {
     }
 }
 
-$shapes = getResourceShapes($resource);
+$extracted = extractShapesFromPropertyValues($propertyValues);
+$shapes = $extracted['shapes'];
+$directTypes = $extracted['allTypes'];
 sort($shapes);
 
 $parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 4, false);
 
 $isClass = in_array('http://www.w3.org/2002/07/owl#Class', $shapes) || in_array('http://www.w3.org/2000/01/rdf-schema#Class', $shapes)
     || isset($propertyValues['http://www.w3.org/2000/01/rdf-schema#subClassOf']);
-$taxonomyData = getTaxonomyEdges($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), $isClass);
-$directTypes = [];
-if (isset($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])) {
-    foreach ($propertyValues['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] as $val) {
-        if ($val['type'] === 'uri') $directTypes[] = $val['value'];
-    }
-}
+$taxonomyData = getTaxonomyEdges($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), $isClass, $isClass ? null : $directTypes);
 
 $shapeDesc = null;
-$instancesCount = null;
-if (in_array('http://www.w3.org/2002/07/owl#Class', $shapes)) {
-    $instancesCount = intval(doSingleResultQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT (COUNT(DISTINCT ?i) AS ?c) WHERE { ?i rdf:type ?t . ?t rdfs:subClassOf* <' . $resource . '> }')['value']);
+if ($isClass) {
     $shapeDesc = getShapeDescription($resource, Locale::getPrimaryLanguage($GLOBALS['locale']));
 }
 
@@ -217,9 +211,6 @@ if (strpos($resource, 'http://yago-knowledge.org/') === 0) {
 print '<p>URI: <a href="' . uriToUrl($resource) . '">' . htmlspecialchars($resource) . '</a></p>';
 print '<p>' . $resourceDescription . '</p>';
 if ($shapes) print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
-if ($instancesCount !== null) {
-    print '<p>Number of instances: ' . $GLOBALS['numberFormatter']->format($instancesCount) . '</a></p>';
-}
 if ($usagesCount !== null) {
     print '<p>Number of usages: ' . $GLOBALS['numberFormatter']->format($usagesCount) . '</a></p>';
 }

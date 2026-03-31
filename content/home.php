@@ -11,11 +11,7 @@ $demoResource = 'http://yago-knowledge.org/resource/Elvis_Presley';
 $demoLabel = 'Elvis Presley';
 $demoLang = Locale::getPrimaryLanguage($GLOBALS['locale']);
 $demoTaxonomy = getTaxonomyEdges($demoResource, $demoLang, false);
-$demoTypes = [];
-$typeResults = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?t WHERE { <' . $demoResource . '> rdf:type ?t }');
-foreach ($typeResults['results']['bindings'] as $b) {
-    $demoTypes[] = $b['t']['value'];
-}
+$demoTypes = $demoTaxonomy['types'];
 if (!empty($demoTaxonomy['edges'])):
 ?>
 <a href="<?php site_url(); ?>/resource/Elvis_Presley" id="home-dag" style="display: block; text-align: center;"></a>
