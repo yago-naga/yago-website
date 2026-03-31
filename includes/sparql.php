@@ -31,6 +31,7 @@ $PREFIXES = [
 global $DISPLAYED_PREFIXES;
 $DISPLAYED_PREFIXES = [
     'schema' => 'http://schema.org/',
+    'ys' => 'http://yago-knowledge.org/schema#',
     null => 'http://yago-knowledge.org/resource/',
 ];
 
