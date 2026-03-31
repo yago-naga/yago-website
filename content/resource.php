@@ -214,7 +214,7 @@ if (strpos($resource, 'http://yago-knowledge.org/') === 0) {
 } else {
     print '<span class="card-title"><a href="' . $resource . '">' . uriToPrefixedName($resource) . '</a></span>';
 }
-print '<p>URI: <a href="' . htmlspecialchars($resource) . '">' . htmlspecialchars($resource) . '</a></p>';
+print '<p>URI: <a href="' . uriToUrl($resource) . '">' . htmlspecialchars($resource) . '</a></p>';
 print '<p>' . $resourceDescription . '</p>';
 if ($shapes) print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
 if ($instancesCount !== null) {
