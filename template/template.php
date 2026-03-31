@@ -1,3 +1,4 @@
+<?php ob_start(); page_content(); $page_body = ob_get_clean(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,7 @@
 
 <div class="wrap">
     <div class="content">
-        <?php page_content(); ?>
+        <?php echo $page_body; ?>
     </div>
 </div>
 

@@ -122,10 +122,30 @@ if (!$propertyValues) {
     return;
 }
 
-$resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#label')
-    ?: uriToPrefixedName($resource);
-
-$resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment') ?: '';
+$lang = Locale::getPrimaryLanguage($GLOBALS['locale']);
+$resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#label');
+$resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment');
+// Targeted query for label/comment when not found in bulk data (common with large multilingual datasets)
+if (!$resourceLabel || !$resourceDescription) {
+    $langFilter = 'LANG(?v) = "' . $lang . '" || STRSTARTS(LANG(?v), "' . $lang . '-") || LANG(?v) = "mul"';
+    $parts = [];
+    if (!$resourceLabel) {
+        $parts[] = '{ SELECT ?label WHERE { <' . $resource . '> rdfs:label ?v BIND(?v AS ?label) FILTER(' . str_replace('?v', '?v', $langFilter) . ') } LIMIT 1 }';
+    }
+    if (!$resourceDescription) {
+        $parts[] = '{ SELECT ?comment WHERE { <' . $resource . '> rdfs:comment ?v BIND(?v AS ?comment) FILTER(' . $langFilter . ') } LIMIT 1 }';
+    }
+    $langQuery = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT ?label ?comment WHERE { '
+        . implode(' ', $parts) . ' } LIMIT 1');
+    if (!empty($langQuery['results']['bindings'])) {
+        $b = $langQuery['results']['bindings'][0];
+        if (!$resourceLabel && isset($b['label'])) $resourceLabel = $b['label']['value'];
+        if (!$resourceDescription && isset($b['comment'])) $resourceDescription = $b['comment']['value'];
+    }
+}
+$resourceLabel = $resourceLabel ?: uriToPrefixedName($resource);
+$resourceDescription = $resourceDescription ?: '';
+$GLOBALS['page_title'] = strip_tags($resourceLabel);
 
 $sameAsLinks = [];
 if (isset($propertyValues['http://www.w3.org/2002/07/owl#sameAs'])) {
@@ -195,9 +215,9 @@ if (strpos($resource, 'http://yago-knowledge.org/') === 0) {
 } else {
     print '<span class="card-title"><a href="' . $resource . '">' . uriToPrefixedName($resource) . '</a></span>';
 }
+print '<p>URI: <a href="' . htmlspecialchars($resource) . '">' . htmlspecialchars($resource) . '</a></p>';
 print '<p>' . $resourceDescription . '</p>';
-print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
-print '<p>URI: <a href=' . htmlspecialchars($resource) . '>' . htmlspecialchars($resource) . '</a></p>';
+if ($shapes) print '<p>Shapes: ' . implode(', ', array_map('uriToLink', $shapes)) . '</p>';
 if ($instancesCount !== null) {
     print '<p>Number of instances: ' . $GLOBALS['numberFormatter']->format($instancesCount) . '</a></p>';
 }
