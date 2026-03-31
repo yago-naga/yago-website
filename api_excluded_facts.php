@@ -4,6 +4,7 @@ require_once 'includes/config.php';
 require_once 'includes/sparql.php';
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 $subject = trim($_GET['subject'] ?? '');
 if (!$subject) {

@@ -51,6 +51,9 @@ function config($key = '')
         // Public-facing endpoint URLs (for YASQE editor and display)
         'sparql_endpoint_public' => 'https://yago-knowledge.org/sparql/qlever',
         'sparql_endpoint_blazegraph_public' => 'https://yago-knowledge.org/sparql/query',
+        // Excluded facts API (use production URL for local dev without the 18GB SQLite DB)
+        'excluded_facts_api' => '/api_excluded_facts.php',
+        // 'excluded_facts_api' => 'https://yago-knowledge.org/api_excluded_facts.php',
     ];
 
     if (isset($_GET['engine']) && $_GET['engine'] === 'blazegraph') {
