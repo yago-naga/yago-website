@@ -25,16 +25,15 @@ if (isset($_GET['search']) && $_GET['search']) {
 	$page = max(1, intval($_GET['p'] ?? 1));
 	$offset = ($page - 1) * $perPage;
 
-	// TODO: When YAGO with reference counts is released, add:
-	//   ORDER BY DESC(?refcount) and select the reference count property
 	$sparql = doSparqlQuery(
 		'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
 		. 'PREFIX schema: <http://schema.org/> '
 		. 'SELECT ?entity ?label ?comment ?image WHERE { '
-		. '{ SELECT DISTINCT ?entity ?label WHERE { '
+		. '{ SELECT DISTINCT ?entity ?label ?siteLinks WHERE { '
 		. '?entity rdfs:label ?label . '
 		. 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $escaped . '")) '
-		. '} LIMIT ' . ($perPage + 1) . ' OFFSET ' . $offset . ' } '
+		. 'OPTIONAL { ?entity <http://yago-knowledge.org/resource/siteLinks> ?siteLinks } '
+		. '} ORDER BY DESC(?siteLinks) LIMIT ' . ($perPage + 1) . ' OFFSET ' . $offset . ' } '
 		. 'OPTIONAL { ?entity rdfs:comment ?comment . FILTER(LANG(?comment) = "' . $lang . '") } '
 		. 'OPTIONAL { ?entity schema:image ?image } '
 		. '}'
