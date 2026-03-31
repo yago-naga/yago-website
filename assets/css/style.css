@@ -307,7 +307,18 @@ Property values modal
  */
 .property-values-modal {
     max-width: 1000px;
+    max-height: 80vh;
     border-radius: 2px;
+}
+
+.property-values-modal .modal-content {
+    max-height: none;
+    overflow-y: visible;
+}
+
+.property-values-modal .modal-content .property-values-list {
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .property-values-modal h5 {
