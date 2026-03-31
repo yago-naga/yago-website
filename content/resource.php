@@ -74,7 +74,7 @@ if (isset($_GET['search']) && $_GET['search']) {
 			$url = uriToUrl($uri);
 			print '<li class="search-result-item">';
 			if ($entity['image']) {
-				print '<div class="search-result-image"><img src="' . htmlspecialchars($entity['image']) . '" alt=""></div>';
+				print '<div class="search-result-image"><img src="' . str_replace('http://', 'https://', htmlspecialchars($entity['image'])) . '" alt=""></div>';
 			}
 			print '<div class="search-result-content">';
 			print '<a href="' . $url . '" class="search-result-label">' . htmlspecialchars($entity['label']) . '</a>';
@@ -127,9 +127,7 @@ $resourceLabel = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2
 
 $resourceDescription = getValueInDisplayLanguage($propertyValues, 'http://www.w3.org/2000/01/rdf-schema#comment') ?: '';
 
-$sameAsLinks = [
-    'Graph visualization' => uriToUrl($resource, 'graph')
-];
+$sameAsLinks = [];
 if (isset($propertyValues['http://www.w3.org/2002/07/owl#sameAs'])) {
     foreach ($propertyValues['http://www.w3.org/2002/07/owl#sameAs'] as $value) {
         foreach ($GLOBALS['SAME_AS_LABELS'] as $prefix => $label) {
@@ -164,8 +162,7 @@ if (isset($propertyValues['http://schema.org/image'])) {
 $shapes = getResourceShapes($resource);
 sort($shapes);
 
-$childrenClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 3, false);
-$parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 4, true);
+$parentClasses = getClassesTree($resource, Locale::getPrimaryLanguage($GLOBALS['locale']), 4, false);
 
 $isClass = in_array('http://www.w3.org/2002/07/owl#Class', $shapes) || in_array('http://www.w3.org/2000/01/rdf-schema#Class', $shapes)
     || isset($propertyValues['http://www.w3.org/2000/01/rdf-schema#subClassOf']);
@@ -217,7 +214,8 @@ if ($sameAsLinks) {
 }
 print '</div>';
 if ($resourceImage !== null) {
-    print '<div class="image"><img src="' . $resourceImage . '" height="200"></div>';
+    $imgSrc = str_replace('http://', 'https://', $resourceImage);
+    print '<div class="image"><img src="' . $imgSrc . '" height="200"></div>';
 }
 print '</div>';
 
@@ -226,7 +224,7 @@ if (!empty($taxonomyData['edges'])):
 <div class="card" id="taxonomy-card">
   <div class="card-content">
     <span class="card-title">Class Hierarchy <i class="material-icons collapse-toggle" id="taxonomy-toggle">expand_less</i></span>
-    <div id="taxonomy-dag"></div>
+    <div id="taxonomy-dag" class="card-body"></div>
   </div>
 </div>
 <script>
@@ -388,11 +386,111 @@ if ($reversePropertyValues) {
 
 printPropertyValuesModal();
 
-$nextChild = $childrenClasses['children'] ? next($childrenClasses['children']) : false;
-if ($nextChild && $nextChild['children']) {
-    print '<div class="card"><div class="card-content"><span class="card-title">Child classes</span><ul class="tree-node">';
-    foreach ($childrenClasses['children'] as $childName => $childValues) {
-        printTreeNode($childName, $childValues);
-    }
-    print '</ul></div></div>';
+// Excluded facts - loaded on demand via AJAX
+print '<div class="card" id="excluded-card" style="display:none"><div class="card-content collapsed">';
+print '<span class="card-title">Excluded facts <i class="material-icons collapse-toggle collapsed" id="excluded-toggle">expand_more</i></span>';
+print '<div class="card-body">';
+print '<p style="color: #999; font-size: 0.9em;">These facts were removed during YAGO construction due to type or consistency checks.</p>';
+print '<div id="excluded-table"></div>';
+print '</div></div></div>';
+print '<script>';
+print '(function() {';
+print '  var loaded = false;';
+print '  var toggle = document.getElementById("excluded-toggle");';
+print '  var cardContent = toggle.closest(".card-content");';
+print '  var card = document.getElementById("excluded-card");';
+print '  var subject = ' . json_encode($resource) . ';';
+print '  fetch("/api_excluded_facts.php?subject=" + encodeURIComponent(subject))';
+print '    .then(function(r) { return r.json(); })';
+print '    .then(function(data) {';
+print '      if (data.facts && data.facts.length > 0) {';
+print '        card.style.display = "";';
+print '        card._facts = data.facts;';
+print '      }';
+print '    });';
+print '  toggle.addEventListener("click", function() {';
+print '    var wasCollapsed = cardContent.classList.contains("collapsed");';
+print '    if (wasCollapsed && !loaded && card._facts) {';
+print '      var html = "<table><thead><tr><th>Predicate</th><th>Object</th><th>Reason</th></tr></thead><tbody>";';
+print '      card._facts.forEach(function(f) {';
+print '        html += "<tr><td>" + f.predicate + "</td><td>" + f.object + "</td><td style=\"color:#999;font-size:0.9em\">" + f.reason + "</td></tr>";';
+print '      });';
+print '      html += "</tbody></table>";';
+print '      document.getElementById("excluded-table").innerHTML = html;';
+print '      loaded = true;';
+print '    }';
+print '    cardContent.classList.toggle("collapsed");';
+print '    toggle.classList.toggle("collapsed");';
+print '    toggle.textContent = cardContent.classList.contains("collapsed") ? "expand_more" : "expand_less";';
+print '  });';
+print '})();';
+print '</script>';
+
+if ($isClass) {
+    print '<div class="card" id="children-card" style="display:none"><div class="card-content collapsed">';
+    print '<span class="card-title">Child classes <i class="material-icons collapse-toggle collapsed" id="children-toggle">expand_more</i></span>';
+    print '<ul class="tree-node card-body" id="children-tree"></ul>';
+    print '</div></div>';
+    print '<script>';
+    print '(function() {';
+    print '  var classUri = ' . json_encode($resource) . ';';
+    print '  var lang = ' . json_encode(Locale::getPrimaryLanguage($GLOBALS['locale'])) . ';';
+    print '  function loadChildren(parentUri, ul, cb) {';
+    print '    var li = document.createElement("li");';
+    print '    li.className = "tree-edge";';
+    print '    li.textContent = "Loading\u2026";';
+    print '    li.style.color = "#999";';
+    print '    ul.appendChild(li);';
+    print '    fetch("/api_class_children.php?class=" + encodeURIComponent(parentUri) + "&lang=" + encodeURIComponent(lang))';
+    print '      .then(function(r) { return r.json(); })';
+    print '      .then(function(data) {';
+    print '        ul.removeChild(li);';
+    print '        var items = data.children || [];';
+    print '        items.forEach(function(c) {';
+    print '          var node = document.createElement("li");';
+    print '          node.className = "tree-edge";';
+    print '          var a = document.createElement("a");';
+    print '          a.href = c.url;';
+    print '          a.textContent = c.prefixed;';
+    print '          if (c.label || c.comment) a.title = (c.label || "") + (c.comment ? ", " + c.comment : "");';
+    print '          node.appendChild(a);';
+    print '          if (c.hasChildren) {';
+    print '            var btn = document.createElement("i");';
+    print '            btn.className = "material-icons tiny";';
+    print '            btn.textContent = "expand_more";';
+    print '            btn.style.cssText = "cursor:pointer;vertical-align:middle;margin-left:4px;color:#999";';
+    print '            var sub = document.createElement("ul");';
+    print '            sub.className = "tree-node";';
+    print '            sub.style.display = "none";';
+    print '            var fetched = {v: false};';
+    print '            btn.addEventListener("click", (function(b, s, u, f) {';
+    print '              return function() {';
+    print '                var open = s.style.display !== "none";';
+    print '                s.style.display = open ? "none" : "block";';
+    print '                b.textContent = open ? "expand_more" : "expand_less";';
+    print '                if (!f.v) { f.v = true; loadChildren(u, s); }';
+    print '              };';
+    print '            })(btn, sub, c.uri, fetched));';
+    print '            node.appendChild(btn);';
+    print '            node.appendChild(sub);';
+    print '          }';
+    print '          ul.appendChild(node);';
+    print '        });';
+    print '        if (cb) cb(items.length);';
+    print '      });';
+    print '  }';
+    print '  var tree = document.getElementById("children-tree");';
+    print '  var card = document.getElementById("children-card");';
+    print '  loadChildren(classUri, tree, function(count) {';
+    print '    if (count > 0) card.style.display = "";';
+    print '  });';
+    print '  var toggle = document.getElementById("children-toggle");';
+    print '  var cardContent = toggle.closest(".card-content");';
+    print '  toggle.addEventListener("click", function() {';
+    print '    cardContent.classList.toggle("collapsed");';
+    print '    toggle.classList.toggle("collapsed");';
+    print '    toggle.textContent = cardContent.classList.contains("collapsed") ? "expand_more" : "expand_less";';
+    print '  });';
+    print '})();';
+    print '</script>';
 }

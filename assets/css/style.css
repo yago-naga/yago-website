@@ -382,11 +382,7 @@ Taxonomy DAG
     text-align: center;
 }
 
-#taxonomy-card .card-content.collapsed #taxonomy-dag {
-    display: none;
-}
-
-#taxonomy-card .collapse-toggle {
+.card .collapse-toggle {
     cursor: pointer;
     float: right;
     font-size: 2rem;
@@ -400,13 +396,17 @@ Taxonomy DAG
     text-align: center;
 }
 
-#taxonomy-card .collapse-toggle:hover {
+.card .collapse-toggle:hover {
     color: #616161;
     background-color: rgba(0, 0, 0, 0.08);
 }
 
-#taxonomy-card .collapse-toggle.collapsed {
+.card .collapse-toggle.collapsed {
     transform: rotate(-90deg);
+}
+
+.card .card-content.collapsed .card-body {
+    display: none;
 }
 
 #taxonomy-dag svg {

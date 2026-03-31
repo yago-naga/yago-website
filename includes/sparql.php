@@ -52,17 +52,35 @@ $SAME_AS_LABELS = [
  */
 function doSparqlQuery($query)
 {
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'header' => [
-                'Accept: application/sparql-results+json',
-                'User-Agent: YagoWebsite/1.0'
-            ],
-        ]
-    ]);
+    $encoded = urlencode($query);
+    $url = config('sparql_endpoint');
 
-    $url = config('sparql_endpoint') . '?query=' . urlencode($query);
+    // Use POST for large queries to avoid URL length limits
+    if (strlen($encoded) > 4000) {
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => [
+                    'Accept: application/sparql-results+json',
+                    'Content-Type: application/x-www-form-urlencoded',
+                    'User-Agent: YagoWebsite/1.0'
+                ],
+                'content' => 'query=' . $encoded,
+            ]
+        ]);
+    } else {
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'GET',
+                'header' => [
+                    'Accept: application/sparql-results+json',
+                    'User-Agent: YagoWebsite/1.0'
+                ],
+            ]
+        ]);
+        $url .= '?query=' . $encoded;
+    }
+
     $response = file_get_contents($url, false, $context);
     if (!$response) {
         throw new Exception("HTTP error for SPARQL query:\n" . $query);
@@ -319,53 +337,62 @@ function getShapeDescription($shape, $language)
 
 function getClassesTree($root, $language, $levels, $superClasses = false, $constraint = null)
 {
-    $relation = $superClasses ? '^rdfs:subClassOf' : 'rdfs:subClassOf';
-    $sparqlQuery = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT DISTINCT';
-    for ($i = 0; $i < $levels; $i++) {
-        $sparqlQuery .= " ?class{$i} ?class{$i}Label ?class{$i}Comment";
-    }
-    $sparqlQuery .= " WHERE { ";
-    for ($i = 0; $i < $levels; $i++) {
-        $clause = "OPTIONAL { ?class{$i} rdfs:label ?class{$i}Label FILTER(LANG(?class{$i}Label) = '{$language}') } OPTIONAL { ?class{$i} rdfs:comment ?class{$i}Comment FILTER(LANG(?class{$i}Label) = '{$language}') }";
-        if ($i === 0) {
-            $sparqlQuery .= " BIND(<{$root}> AS ?class{$i}) . {$clause}";
-        } else {
-            $previous = $i - 1;
-            $sparqlQuery .= " OPTIONAL { ?class{$i} {$relation} ?class{$previous} . {$clause}";
+    $relation = $superClasses ? 'rdfs:subClassOf' : '^rdfs:subClassOf';
+    $tree = ['children' => []];
+
+    // Iterative level-by-level queries instead of one massive nested-OPTIONAL query
+    // Each level: find direct children/parents of nodes at the current frontier
+    $frontier = [$root]; // URIs to expand at this level
+
+    $parentMap = []; // Maps each URI to its parent node reference in the tree
+
+    for ($level = 0; $level < $levels && !empty($frontier); $level++) {
+        if ($level === 0) {
+            // Level 0: just fetch label/comment for the root
+            $sparql = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                SELECT ?label ?comment WHERE {
+                    OPTIONAL { <' . $root . '> rdfs:label ?label FILTER(LANG(?label) = "' . $language . '") }
+                    OPTIONAL { <' . $root . '> rdfs:comment ?comment FILTER(LANG(?comment) = "' . $language . '") }
+                } LIMIT 1');
+            $label = $sparql['results']['bindings'][0]['label']['value'] ?? null;
+            $comment = $sparql['results']['bindings'][0]['comment']['value'] ?? null;
+            $tree['children'][$root] = ['label' => $label, 'comment' => $comment, 'children' => []];
+            $parentMap[$root] = &$tree['children'][$root];
+            continue;
         }
-        if ($constraint !== null) {
-            $sparqlQuery .= "?class{$i} {$constraint}";
-        }
-    }
-    for ($i = 1; $i < $levels; $i++) {
-        $sparqlQuery .= '}';
-    }
-    $sparqlQuery .= "}";
-    $sparql = doSparqlQuery($sparqlQuery);
 
+        // Build VALUES clause for frontier URIs
+        $values = implode(' ', array_map(function($uri) { return '<' . $uri . '>'; }, $frontier));
+        $constraintClause = $constraint !== null ? "?child {$constraint}" : '';
+        $sparql = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            SELECT DISTINCT ?parent ?child ?childLabel ?childComment WHERE {
+                VALUES ?parent { ' . $values . ' }
+                ?child ' . $relation . ' ?parent .
+                ' . $constraintClause . '
+                OPTIONAL { ?child rdfs:label ?childLabel FILTER(LANG(?childLabel) = "' . $language . '") }
+                OPTIONAL { ?child rdfs:comment ?childComment FILTER(LANG(?childComment) = "' . $language . '") }
+            } LIMIT 500');
 
-    $tree = [
-        'children' => []
-    ];
-    foreach ($sparql['results']['bindings'] as $binding) {
-        $root = &$tree;
-        for ($i = 0; $i < $levels; $i++) {
-            if (!isset($binding["class{$i}"])) {
-                break;
-            }
+        $nextFrontier = [];
+        foreach ($sparql['results']['bindings'] as $binding) {
+            $parentUri = $binding['parent']['value'];
+            $childUri = $binding['child']['value'];
+            if (!isset($parentMap[$parentUri])) continue;
 
-            $class = $binding["class{$i}"]['value'];
-            if (!isset($root['children'][$class])) {
-                $root['children'][$class] = [
-                    'label' => $binding["class{$i}Label"]['value'] ?? null,
-                    'comment' => $binding["class{$i}Comment"]['value'] ?? null,
+            if (!isset($parentMap[$parentUri]['children'][$childUri])) {
+                $parentMap[$parentUri]['children'][$childUri] = [
+                    'label' => $binding['childLabel']['value'] ?? null,
+                    'comment' => $binding['childComment']['value'] ?? null,
                     'children' => []
                 ];
+                $parentMap[$childUri] = &$parentMap[$parentUri]['children'][$childUri];
+                $nextFrontier[] = $childUri;
             }
-            $root = &$root['children'][$class];
         }
+        // Cap frontier to avoid massive VALUES clauses for broad nodes like schema:Thing
+        $frontier = array_slice($nextFrontier, 0, 50);
     }
+
     return $tree;
 }
 
@@ -398,43 +425,74 @@ function cleanClassName($name)
 
 function getTaxonomyEdges($resource, $language, $isClass = false)
 {
-    $matchClause = $isClass
-        ? '<' . $resource . '> rdfs:subClassOf* ?s .'
-        : '<' . $resource . '> rdf:type ?c . ?c rdfs:subClassOf* ?s .';
-
-    $sparql = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT DISTINCT ?s ?o ?sLabel ?oLabel WHERE {
-            ' . $matchClause . '
-            ?s rdfs:subClassOf ?o .
-            OPTIONAL { ?s rdfs:label ?sLabel FILTER(LANG(?sLabel) = "' . $language . '") }
-            OPTIONAL { ?o rdfs:label ?oLabel FILTER(LANG(?oLabel) = "' . $language . '") }
-        } LIMIT 200');
-
+    // Iterative upward traversal instead of rdfs:subClassOf* transitive closure
+    // Start from the entity's types (or the class itself), walk up level by level
     $nodes = [];
     $edges = [];
 
-    foreach ($sparql['results']['bindings'] as $binding) {
-        $child = $binding['s']['value'];
-        $parent = $binding['o']['value'];
+    if ($isClass) {
+        $frontier = [$resource];
+    } else {
+        // Get direct types first
+        $sparql = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            SELECT DISTINCT ?c WHERE { <' . $resource . '> rdf:type ?c } LIMIT 50');
+        $frontier = [];
+        foreach ($sparql['results']['bindings'] as $binding) {
+            $frontier[] = $binding['c']['value'];
+        }
+    }
 
-        $edges[] = ['child' => $child, 'parent' => $parent];
+    $visited = [];
+    $maxLevels = 15; // Safety limit to prevent infinite loops
+    $totalEdges = 0;
 
-        foreach ([['uri' => $child, 'labelKey' => 'sLabel'], ['uri' => $parent, 'labelKey' => 'oLabel']] as $item) {
-            $uri = $item['uri'];
-            if (!isset($nodes[$uri])) {
-                // Prefer rdfs:label from SPARQL, fallback to cleaned local name
-                $hasLabel = isset($binding[$item['labelKey']]);
-                $label = $hasLabel
-                    ? $binding[$item['labelKey']]['value']
-                    : cleanClassName(preg_replace('`^.*/|^.*#`', '', $uri));
-                $isSchema = strpos($uri, 'http://schema.org/') === 0 || strpos($uri, 'http://bioschemas.org/') === 0;
-                $nodes[$uri] = ['label' => $label, 'url' => uriToUrl($uri), 'isSchema' => $isSchema, 'hasLabel' => $hasLabel];
-            } elseif (isset($binding[$item['labelKey']]) && empty($nodes[$uri]['hasLabel'])) {
-                $nodes[$uri]['label'] = $binding[$item['labelKey']]['value'];
-                $nodes[$uri]['hasLabel'] = true;
+    for ($level = 0; $level < $maxLevels && !empty($frontier) && $totalEdges < 200; $level++) {
+        $toExpand = [];
+        foreach ($frontier as $uri) {
+            if (!isset($visited[$uri])) {
+                $visited[$uri] = true;
+                $toExpand[] = $uri;
             }
         }
+        if (empty($toExpand)) break;
+
+        $values = implode(' ', array_map(function($uri) { return '<' . $uri . '>'; }, $toExpand));
+        $sparql = doSparqlQuery('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            SELECT DISTINCT ?s ?o ?sLabel ?oLabel WHERE {
+                VALUES ?s { ' . $values . ' }
+                ?s rdfs:subClassOf ?o .
+                OPTIONAL { ?s rdfs:label ?sLabel FILTER(LANG(?sLabel) = "' . $language . '") }
+                OPTIONAL { ?o rdfs:label ?oLabel FILTER(LANG(?oLabel) = "' . $language . '") }
+            } LIMIT 200');
+
+        $nextFrontier = [];
+        foreach ($sparql['results']['bindings'] as $binding) {
+            $child = $binding['s']['value'];
+            $parent = $binding['o']['value'];
+
+            $edges[] = ['child' => $child, 'parent' => $parent];
+            $totalEdges++;
+
+            foreach ([['uri' => $child, 'labelKey' => 'sLabel'], ['uri' => $parent, 'labelKey' => 'oLabel']] as $item) {
+                $uri = $item['uri'];
+                if (!isset($nodes[$uri])) {
+                    $hasLabel = isset($binding[$item['labelKey']]);
+                    $label = $hasLabel
+                        ? $binding[$item['labelKey']]['value']
+                        : cleanClassName(preg_replace('`^.*/|^.*#`', '', $uri));
+                    $isSchema = strpos($uri, 'http://schema.org/') === 0 || strpos($uri, 'http://bioschemas.org/') === 0;
+                    $nodes[$uri] = ['label' => $label, 'url' => uriToUrl($uri), 'isSchema' => $isSchema, 'hasLabel' => $hasLabel];
+                } elseif (isset($binding[$item['labelKey']]) && empty($nodes[$uri]['hasLabel'])) {
+                    $nodes[$uri]['label'] = $binding[$item['labelKey']]['value'];
+                    $nodes[$uri]['hasLabel'] = true;
+                }
+            }
+
+            if (!isset($visited[$parent])) {
+                $nextFrontier[] = $parent;
+            }
+        }
+        $frontier = $nextFrontier;
     }
 
     foreach ($nodes as &$node) {
