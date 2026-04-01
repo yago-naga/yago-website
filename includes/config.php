@@ -46,20 +46,12 @@ function config($key = '')
         'version' => 'v0.1',
         'sparql_endpoint' => 'http://localhost:9004/',
         // 'sparql_endpoint' => 'https://yago-knowledge.org/sparql/qlever',
-        'sparql_endpoint_blazegraph' => 'http://localhost:9999/blazegraph/namespace/kb/sparql',
-        // 'sparql_endpoint_blazegraph' => 'https://yago-knowledge.org/sparql/query',
         // Public-facing endpoint URLs (for YASQE editor and display)
         'sparql_endpoint_public' => 'https://yago-knowledge.org/sparql/qlever',
-        'sparql_endpoint_blazegraph_public' => 'https://yago-knowledge.org/sparql/query',
         // Excluded facts API (use production URL for local dev without the 18GB SQLite DB)
         'excluded_facts_api' => '/api_excluded_facts.php',
         // 'excluded_facts_api' => 'https://yago-knowledge.org/api_excluded_facts.php',
     ];
-
-    if (isset($_GET['engine']) && $_GET['engine'] === 'blazegraph') {
-        if ($key === 'sparql_endpoint') return $config['sparql_endpoint_blazegraph'];
-        if ($key === 'sparql_endpoint_public') return $config['sparql_endpoint_blazegraph_public'];
-    }
 
     return isset($config[$key]) ? $config[$key] : null;
 }
