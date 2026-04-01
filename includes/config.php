@@ -1,6 +1,6 @@
 <?php
 
-define('SEARCH_RESULTS_PER_PAGE', 100);
+define('SEARCH_RESULTS_PER_PAGE', 30);
 
 /**
  * Used to store website configuration information.

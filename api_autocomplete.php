@@ -23,7 +23,7 @@ $sparql = doSparqlQuery(
     'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
     . 'SELECT ?entity ?label ?siteLinks WHERE { '
     . '?entity rdfs:label ?label . '
-    . 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $q . '")) '
+    . 'FILTER((LANG(?label) = "' . $lang . '" || LANG(?label) = "mul") && STRSTARTS(?label, "' . $q . '")) '
     . 'OPTIONAL { ?entity <http://yago-knowledge.org/resource/siteLinks> ?siteLinks } '
     . '} ORDER BY DESC(?siteLinks) LIMIT 10'
 );
