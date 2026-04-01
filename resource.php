@@ -18,29 +18,14 @@ if (!isset($_GET['resource']) || !$_GET['resource']) {
 
 $resource = resolvePrefixedUri($_GET['resource']);
 
-// Content negotiation
-$isQlever = !isset($_GET['engine']) || $_GET['engine'] !== 'blazegraph';
-$typeMap = $isQlever ? [ // QLever only supports text/turtle and application/n-triples for CONSTRUCT
+// Content negotiation (QLever supports text/turtle and application/n-triples for CONSTRUCT)
+$typeMap = [
     '*/*' => 'text/html',
     'text/*' => 'text/html',
     'text/html' => 'text/html',
     'text/turtle' => 'text/turtle',
     'text/n3' => 'text/turtle',
     'application/n-triples' => 'application/n-triples',
-    'application/xhtml+xml' => 'text/html'
-] : [ // Blazegraph-specific MIME types
-    '*/*' => 'text/html',
-    'text/*' => 'text/html',
-    'text/html' => 'text/html',
-    'text/turtle' => 'application/x-turtle',
-    'text/n3' => 'text/rdf+n3',
-    'application/json' => 'application/ld+json',
-    'application/ld+json' => 'application/ld+json',
-    'application/n-quads' => 'text/x-nquads',
-    'application/n-triples' => 'text/plain',
-    'application/rdf+xml' => 'application/rdf+xml',
-    'application/trig' => 'application/x-trig',
-    'application/xml' => 'application/rdf+xml',
     'application/xhtml+xml' => 'text/html'
 ];
 
@@ -55,7 +40,6 @@ foreach (parse_accept_header($accept) as $type) {
         include 'index.php';
         return;
     } else {
-        //We use Blazegraph
         header('Content-Type: ' . $type . '; charset=UTF-8');
         $context = stream_context_create([
             'http' => [
