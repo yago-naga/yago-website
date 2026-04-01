@@ -31,12 +31,12 @@ if (isset($_GET['search']) && $_GET['search']) {
 		. 'SELECT ?entity ?label ?comment ?image WHERE { '
 		. '{ SELECT DISTINCT ?entity ?label ?siteLinks WHERE { '
 		. '?entity rdfs:label ?label . '
-		. 'FILTER(LANG(?label) = "' . $lang . '" && STRSTARTS(?label, "' . $escaped . '")) '
+		. 'FILTER((LANG(?label) = "' . $lang . '" || LANG(?label) = "mul") && STRSTARTS(?label, "' . $escaped . '")) '
 		. 'OPTIONAL { ?entity <http://yago-knowledge.org/resource/siteLinks> ?siteLinks } '
 		. '} ORDER BY DESC(?siteLinks) LIMIT ' . ($perPage + 1) . ' OFFSET ' . $offset . ' } '
 		. 'OPTIONAL { ?entity rdfs:comment ?comment . FILTER(LANG(?comment) = "' . $lang . '") } '
 		. 'OPTIONAL { ?entity schema:image ?image } '
-		. '}'
+		. '} ORDER BY DESC(?siteLinks)'
 	);
 
 	$entities = [];
