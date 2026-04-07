@@ -87,7 +87,7 @@ function renderDag(config) {
             for (var j = 1; j < points.length; j++) {
                 d += ' L ' + points[j].x + ' ' + points[j].y;
             }
-            svg += '<path d="' + d + '" fill="none" stroke="#9e9e9e" stroke-width="1.2" marker-end="url(#' + arrowId + ')"/>';
+            svg += '<g class="dag-edge"><path d="' + d + '" fill="none" stroke="#9e9e9e" stroke-width="1.2" marker-end="url(#' + arrowId + ')"/></g>';
         }
     });
 
@@ -112,7 +112,7 @@ function renderDag(config) {
 
         var hasLink = linkNodes && !!node.url;
 
-        svg += '<g>';
+        svg += '<g class="dag-node">';
         if (hasLink) svg += '<a href="' + node.url + '">';
         svg += '<rect x="' + x + '" y="' + y + '" width="' + node.width + '" height="' + node.height + '" rx="4" ry="4" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
         svg += '<text x="' + node.x + '" y="' + (node.y + 5) + '" text-anchor="middle" dominant-baseline="middle" font-family="Open Sans, sans-serif" font-size="12" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
