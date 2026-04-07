@@ -44,7 +44,7 @@ function config($key = '')
         'template_path' => 'template',
         'content_path' => 'content',
         'version' => 'v0.1',
-        'sparql_endpoint' => 'http://localhost:9004/',
+        'sparql_endpoint' => 'http://localhost/sparql/qlever',
         // 'sparql_endpoint' => 'https://yago-knowledge.org/sparql/qlever',
         // Public-facing endpoint URLs (for YASQE editor and display)
         'sparql_endpoint_public' => 'https://yago-knowledge.org/sparql/qlever',
