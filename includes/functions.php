@@ -1,4 +1,7 @@
 <?php
+/**
+ * Template helpers: navigation rendering, page routing, content loading, and the init() entry point.
+ */
 
 /**
  * Displays site name.
@@ -8,7 +11,7 @@ function site_name() {
 }
 
 /**
- * Displays site url provided in conig.
+ * Displays site url provided in config.
  */
 function site_url() {
     echo config('site_url');
@@ -67,6 +70,9 @@ function nav_menu_mobile() {
 }
 
 
+/**
+ * Return the current page title (set by content pages via $GLOBALS['page_title'], or derived from page ID).
+ */
 function get_page_title() {
     if (!empty($GLOBALS['page_title'])) {
         return htmlspecialchars($GLOBALS['page_title']);
@@ -102,11 +108,10 @@ function page_content() {
     try {
         include($path);
     } catch( Exception $e ) {
-        ob_end_clean(); # try to purge content sent so far
+        ob_end_clean(); // try to purge content sent so far
         header('HTTP/1.1 500 Internal Server Error');
         echo '<h1>Internal error</h1>';
-        echo $e;
-        debug_print_backtrace();
+        error_log('Page error (' . $page . '): ' . $e);
     }
 }
 
@@ -117,16 +122,25 @@ function init() {
     require config('template_path') . '/template.php';
 }
 
+/** Include the header template partial. */
 function get_header() {
     $path = getcwd() . '/' . config('template_path') . '/header.php';
     include($path);
 }
 
+/** Include the footer template partial. */
 function get_footer() {
     $path = getcwd() . '/' . config('template_path') . '/footer.php';
     include($path);
 }
 
+/**
+ * Generate a cryptographically secure random string (used for unique HTML element IDs).
+ *
+ * @param int    $length    Desired string length
+ * @param string $keyspace  Characters to choose from
+ * @return string
+ */
 function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
     $pieces = [];
     $max = mb_strlen($keyspace, '8bit') - 1;
@@ -136,6 +150,12 @@ function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzAB
     return implode('', $pieces);
 }
 
+/**
+ * Parse an HTTP Accept header into a priority-sorted list of MIME types.
+ *
+ * @param string $header  Raw Accept header value
+ * @return array  MIME types sorted by quality factor (highest first)
+ */
 function parse_accept_header($header) {
     $accepts = [];
     foreach (explode(',', $header) as $i) {

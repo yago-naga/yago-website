@@ -43,4 +43,4 @@ python3 scripts/generate-excluded-facts-db.py /path/to/yago-data --output data/e
 
 **Input:** Directory containing log files from build steps 02, 03, and 04.
 
-**Output:** SQLite database with schema matching `api_excluded_facts.php`.
+**Output:** SQLite database with schema matching `api/excluded_facts.php`.

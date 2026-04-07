@@ -1,7 +1,13 @@
 <?php
+/**
+ * JSON API: paginated property values for an entity.
+ * Used by the "more..." modal in js/property-modal.js.
+ *
+ * GET params: resource, property, reverse (0|1), page, limit, lang
+ */
 
-require_once 'includes/config.php';
-require_once 'includes/sparql.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/sparql.php';
 
 header('Content-Type: application/json');
 

@@ -1,3 +1,7 @@
+/**
+ * Paginated modal for browsing all values of a property.
+ * Triggered by "more..." links in property tables. Fetches pages from api/properties.php.
+ */
 $(document).ready(function () {
     var modalEl = document.getElementById('property-values-modal');
     if (!modalEl) return;

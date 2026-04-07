@@ -1,6 +1,12 @@
 Options +FollowSymLinks
 RewriteEngine On
 
+# Redirect old API paths to api/ directory
+RewriteRule ^api_properties\.php$ api/properties.php [QSA,L]
+RewriteRule ^api_autocomplete\.php$ api/autocomplete.php [QSA,L]
+RewriteRule ^api_excluded_facts\.php$ api/excluded_facts.php [QSA,L]
+RewriteRule ^api_class_children\.php$ api/class_children.php [QSA,L]
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
