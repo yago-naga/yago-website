@@ -1,4 +1,9 @@
 <?php
+/**
+ * Content negotiation handler for entity URIs.
+ * Serves HTML (via index.php) for browsers, or Turtle/N-Triples for RDF clients.
+ * Reached when a request hits /resource/EntityName directly (not via index.php rewrite).
+ */
 
 // Comment these lines to hide errors
 error_reporting(E_ALL);

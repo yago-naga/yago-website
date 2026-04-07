@@ -1,7 +1,7 @@
 
     <form id="my-search" class="row">
         <div class="col s5 input-field">
-            <input name="search" id="my-search-text" type="text" autocomplete="off" data-autocomplete-url="<?php echo config('site_url'); ?>/api_autocomplete.php">
+            <input name="search" id="my-search-text" type="text" autocomplete="off" data-autocomplete-url="<?php echo config('site_url'); ?>/api/autocomplete.php">
             <label for="my-search-text">Search for entities by name</label>
         </div>
         <div class="col s3" style="margin-top: 1.5rem;">
@@ -248,108 +248,16 @@ if (!empty($taxonomyData['edges'])):
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof dagre === 'undefined') return;
-
-    var taxonomyNodes = <?php echo json_encode($taxonomyData['nodes']); ?>;
-    var taxonomyEdges = <?php echo json_encode($taxonomyData['edges']); ?>;
-    var entityUri = <?php echo json_encode($resource); ?>;
-    var entityLabel = <?php echo json_encode(strip_tags($resourceLabel)); ?>;
-    var directTypes = <?php echo json_encode($directTypes); ?>;
-    var isClass = <?php echo json_encode($isClass); ?>;
-
-    var g = new dagre.graphlib.Graph();
-    g.setGraph({ rankdir: 'BT', nodesep: 20, ranksep: 40, marginx: 15, marginy: 15 });
-    g.setDefaultEdgeLabel(function() { return {}; });
-
-    // Measure text widths using a temporary SVG
-    var tmpSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    tmpSvg.style.position = 'absolute';
-    tmpSvg.style.visibility = 'hidden';
-    document.body.appendChild(tmpSvg);
-    var tmpText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    tmpText.setAttribute('font-family', 'Open Sans, sans-serif');
-    tmpText.setAttribute('font-size', '12');
-    tmpSvg.appendChild(tmpText);
-
-    function measureText(label) {
-        tmpText.textContent = label;
-        return tmpText.getBBox().width;
-    }
-
-    for (var uri in taxonomyNodes) {
-        var node = taxonomyNodes[uri];
-        var w = measureText(node.label) + 30;
-        g.setNode(uri, { label: node.label, width: Math.max(w, 50), height: 30, url: node.url, isSchema: node.isSchema });
-    }
-
-    if (!isClass) {
-        var ew = measureText(entityLabel) + 30;
-        g.setNode(entityUri, { label: entityLabel, width: Math.max(ew, 50), height: 30, url: null, isEntity: true });
-        for (var i = 0; i < directTypes.length; i++) {
-            if (g.hasNode(directTypes[i])) {
-                g.setEdge(entityUri, directTypes[i]);
-            }
-        }
-    }
-
-    for (var i = 0; i < taxonomyEdges.length; i++) {
-        g.setEdge(taxonomyEdges[i].child, taxonomyEdges[i].parent);
-    }
-
-    document.body.removeChild(tmpSvg);
-
-    dagre.layout(g);
-
-    var graph = g.graph();
-    var svgWidth = graph.width;
-    var svgHeight = graph.height;
-
-    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + svgWidth + '" height="' + svgHeight + '">';
-    svg += '<defs><marker id="dag-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">';
-    svg += '<path d="M 0 0 L 10 5 L 0 10 z" fill="#9e9e9e" opacity="0.5"/></marker></defs>';
-
-    // Render edges
-    g.edges().forEach(function(e) {
-        var edge = g.edge(e);
-        var points = edge.points;
-        if (points && points.length >= 2) {
-            var d = 'M ' + points[0].x + ' ' + points[0].y;
-            for (var j = 1; j < points.length; j++) {
-                d += ' L ' + points[j].x + ' ' + points[j].y;
-            }
-            svg += '<g class="dag-edge"><path d="' + d + '" fill="none" stroke="#9e9e9e" stroke-width="1.2" marker-end="url(#dag-arrow)"/></g>';
-        }
+    renderDag({
+        containerId: 'taxonomy-dag',
+        nodes: <?php echo json_encode($taxonomyData['nodes']); ?>,
+        edges: <?php echo json_encode($taxonomyData['edges']); ?>,
+        entityUri: <?php echo json_encode($resource); ?>,
+        entityLabel: <?php echo json_encode(strip_tags($resourceLabel)); ?>,
+        directTypes: <?php echo json_encode($directTypes); ?>,
+        isClass: <?php echo json_encode($isClass); ?>,
+        linkNodes: true
     });
-
-    // Render nodes
-    g.nodes().forEach(function(v) {
-        var node = g.node(v);
-        var x = node.x - node.width / 2;
-        var y = node.y - node.height / 2;
-        var fill, stroke, textFill;
-
-        if (node.isEntity) {
-            fill = '#02aed7'; stroke = '#0288a7'; textFill = '#ffffff';
-        } else if (directTypes.indexOf(v) !== -1) {
-            fill = '#e8f5e9'; stroke = '#43a047'; textFill = '#2e7d32';
-        } else if (node.isSchema) {
-            fill = '#fff3e0'; stroke = '#ef6c00'; textFill = '#e65100';
-        } else {
-            fill = '#e3f2fd'; stroke = '#1565c0'; textFill = '#0d47a1';
-        }
-
-        var hasLink = !!node.url;
-
-        svg += '<g class="dag-node">';
-        if (hasLink) svg += '<a href="' + node.url + '">';
-        svg += '<rect x="' + x + '" y="' + y + '" width="' + node.width + '" height="' + node.height + '" rx="4" ry="4" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
-        svg += '<text x="' + node.x + '" y="' + (node.y + 5) + '" text-anchor="middle" dominant-baseline="middle" font-family="Open Sans, sans-serif" font-size="12" fill="' + textFill + '">' + node.label.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</text>';
-        if (hasLink) svg += '</a>';
-        svg += '</g>';
-    });
-
-    svg += '</svg>';
-    document.getElementById('taxonomy-dag').innerHTML = svg;
 
     var toggle = document.getElementById('taxonomy-toggle');
     var cardContent = toggle.closest('.card-content');
@@ -412,107 +320,12 @@ print '<div class="card-body">';
 print '<p style="color: #999; font-size: 0.9em;">These facts were removed during YAGO construction due to type or consistency checks.</p>';
 print '<div id="excluded-table"></div>';
 print '</div></div></div>';
-print '<script>';
-print '(function() {';
-print '  var loaded = false;';
-print '  var toggle = document.getElementById("excluded-toggle");';
-print '  var cardContent = toggle.closest(".card-content");';
-print '  var card = document.getElementById("excluded-card");';
-print '  var subject = ' . json_encode($resource) . ';';
-print '  var apiUrl = ' . json_encode(config('excluded_facts_api')) . ';';
-print '  fetch(apiUrl + "?subject=" + encodeURIComponent(subject))';
-print '    .then(function(r) { return r.json(); })';
-print '    .then(function(data) {';
-print '      if (data.facts && data.facts.length > 0) {';
-print '        card.style.display = "";';
-print '        card._facts = data.facts;';
-print '      }';
-print '    });';
-print '  toggle.addEventListener("click", function() {';
-print '    var wasCollapsed = cardContent.classList.contains("collapsed");';
-print '    if (wasCollapsed && !loaded && card._facts) {';
-print '      var html = "<table><thead><tr><th>Predicate</th><th>Object</th><th>Reason</th></tr></thead><tbody>";';
-print '      card._facts.forEach(function(f) {';
-print '        var pred = "<a href=\"" + f.predicate_url + "\">" + f.predicate_display + "</a>";';
-print '        var obj = f.object_url ? "<a href=\"" + f.object_url + "\">" + f.object_display + "</a>" : f.object_display;';
-print '        html += "<tr><td>" + pred + "</td><td>" + obj + "</td><td style=\"color:#999;font-size:0.9em\">" + f.reason + "</td></tr>";';
-print '      });';
-print '      html += "</tbody></table>";';
-print '      document.getElementById("excluded-table").innerHTML = html;';
-print '      loaded = true;';
-print '    }';
-print '    cardContent.classList.toggle("collapsed");';
-print '    toggle.classList.toggle("collapsed");';
-print '    toggle.textContent = cardContent.classList.contains("collapsed") ? "expand_more" : "expand_less";';
-print '  });';
-print '})();';
-print '</script>';
+print '<script>initExcludedFacts(' . json_encode($resource) . ', ' . json_encode(config('excluded_facts_api')) . ');</script>';
 
 if ($isClass) {
     print '<div class="card" id="children-card" style="display:none"><div class="card-content collapsed">';
     print '<span class="card-title">Child classes <i class="material-icons collapse-toggle collapsed" id="children-toggle">expand_more</i></span>';
     print '<ul class="tree-node card-body" id="children-tree"></ul>';
     print '</div></div>';
-    print '<script>';
-    print '(function() {';
-    print '  var classUri = ' . json_encode($resource) . ';';
-    print '  var lang = ' . json_encode(Locale::getPrimaryLanguage($GLOBALS['locale'])) . ';';
-    print '  function loadChildren(parentUri, ul, cb) {';
-    print '    var li = document.createElement("li");';
-    print '    li.className = "tree-edge";';
-    print '    li.textContent = "Loading\u2026";';
-    print '    li.style.color = "#999";';
-    print '    ul.appendChild(li);';
-    print '    fetch("/api_class_children.php?class=" + encodeURIComponent(parentUri) + "&lang=" + encodeURIComponent(lang))';
-    print '      .then(function(r) { return r.json(); })';
-    print '      .then(function(data) {';
-    print '        ul.removeChild(li);';
-    print '        var items = data.children || [];';
-    print '        items.forEach(function(c) {';
-    print '          var node = document.createElement("li");';
-    print '          node.className = "tree-edge";';
-    print '          var a = document.createElement("a");';
-    print '          a.href = c.url;';
-    print '          a.textContent = c.prefixed;';
-    print '          if (c.label || c.comment) a.title = (c.label || "") + (c.comment ? ", " + c.comment : "");';
-    print '          node.appendChild(a);';
-    print '          if (c.hasChildren) {';
-    print '            var btn = document.createElement("i");';
-    print '            btn.className = "material-icons tiny";';
-    print '            btn.textContent = "expand_more";';
-    print '            btn.style.cssText = "cursor:pointer;vertical-align:middle;margin-left:4px;color:#999";';
-    print '            var sub = document.createElement("ul");';
-    print '            sub.className = "tree-node";';
-    print '            sub.style.display = "none";';
-    print '            var fetched = {v: false};';
-    print '            btn.addEventListener("click", (function(b, s, u, f) {';
-    print '              return function() {';
-    print '                var open = s.style.display !== "none";';
-    print '                s.style.display = open ? "none" : "block";';
-    print '                b.textContent = open ? "expand_more" : "expand_less";';
-    print '                if (!f.v) { f.v = true; loadChildren(u, s); }';
-    print '              };';
-    print '            })(btn, sub, c.uri, fetched));';
-    print '            node.appendChild(btn);';
-    print '            node.appendChild(sub);';
-    print '          }';
-    print '          ul.appendChild(node);';
-    print '        });';
-    print '        if (cb) cb(items.length);';
-    print '      });';
-    print '  }';
-    print '  var tree = document.getElementById("children-tree");';
-    print '  var card = document.getElementById("children-card");';
-    print '  loadChildren(classUri, tree, function(count) {';
-    print '    if (count > 0) card.style.display = "";';
-    print '  });';
-    print '  var toggle = document.getElementById("children-toggle");';
-    print '  var cardContent = toggle.closest(".card-content");';
-    print '  toggle.addEventListener("click", function() {';
-    print '    cardContent.classList.toggle("collapsed");';
-    print '    toggle.classList.toggle("collapsed");';
-    print '    toggle.textContent = cardContent.classList.contains("collapsed") ? "expand_more" : "expand_less";';
-    print '  });';
-    print '})();';
-    print '</script>';
+    print '<script>initChildClasses(' . json_encode($resource) . ', ' . json_encode(Locale::getPrimaryLanguage($GLOBALS['locale'])) . ');</script>';
 }

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Entry point for all page requests.
+ * .htaccess rewrites /foo → index.php?page=foo. This file loads config + functions and renders the template.
+ */
 
 // Comment these lines to hide errors
 error_reporting(E_ALL);

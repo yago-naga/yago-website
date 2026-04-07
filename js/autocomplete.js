@@ -1,3 +1,8 @@
+/**
+ * Search autocomplete for the entity search input (#my-search-text).
+ * Fetches suggestions from api/autocomplete.php with 400ms debounce.
+ * Supports keyboard navigation (arrow keys, Enter, Escape).
+ */
 $(document).ready(function () {
     var $input = $('#my-search-text');
     if (!$input.length) return;

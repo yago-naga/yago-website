@@ -8,7 +8,7 @@ were excluded during construction, in RDF-star TSV format:
     <<  subject  predicate  object  >>  ys:excludedFor  "reason"  .
 
 This script parses those logs and produces a SQLite database that the website's
-api_excluded_facts.php endpoint can query.
+api/excluded_facts.php endpoint can query.
 
 Usage:
     python3 generate-excluded-facts-db.py /path/to/yago-data [--output excluded_facts.db]

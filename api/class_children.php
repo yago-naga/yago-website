@@ -1,7 +1,13 @@
 <?php
+/**
+ * JSON API: direct subclasses of a given class.
+ * Used by the lazy-loading child classes tree on resource pages.
+ *
+ * GET params: class (parent class URI), lang (optional)
+ */
 
-require_once 'includes/config.php';
-require_once 'includes/sparql.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/sparql.php';
 
 header('Content-Type: application/json');
 

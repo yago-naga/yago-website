@@ -1,4 +1,7 @@
 <?php
+/**
+ * Site configuration: nav menu, SPARQL endpoint, paths, and site-wide constants.
+ */
 
 define('SEARCH_RESULTS_PER_PAGE', 30);
 
@@ -49,8 +52,8 @@ function config($key = '')
         // Public-facing endpoint URLs (for YASQE editor and display)
         'sparql_endpoint_public' => 'https://yago-knowledge.org/sparql/qlever',
         // Excluded facts API (use production URL for local dev without the 18GB SQLite DB)
-        'excluded_facts_api' => '/api_excluded_facts.php',
-        // 'excluded_facts_api' => 'https://yago-knowledge.org/api_excluded_facts.php',
+        'excluded_facts_api' => '/api/excluded_facts.php',
+        // 'excluded_facts_api' => 'https://yago-knowledge.org/api/excluded_facts.php',
     ];
 
     return isset($config[$key]) ? $config[$key] : null;

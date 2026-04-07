@@ -1,7 +1,13 @@
 <?php
+/**
+ * JSON API: search autocomplete suggestions.
+ * Returns up to 10 entities whose rdfs:label starts with the query string.
+ *
+ * GET params: q (min 3 chars), lang (optional)
+ */
 
-require_once 'includes/config.php';
-require_once 'includes/sparql.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/sparql.php';
 
 header('Content-Type: application/json');
 

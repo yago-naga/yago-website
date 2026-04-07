@@ -1,14 +1,27 @@
 <?php
+/**
+ * SPARQL abstraction layer: query execution, URI/prefix handling, entity description,
+ * taxonomy tree building, and property value rendering.
+ */
 
 global $locale;
 $locale = isset($_GET['lang']) ? $_GET['lang'] : 'en';
 const INLINE_DISPLAY_LIMIT = 4;
 const PAGE_LIMIT = 10;
+
+// SPARQL query limits
+const DESCRIBE_QUERY_LIMIT = 10000;   // Max triples fetched when describing an entity
+const MAX_VALUES_PER_PROPERTY = 100;  // Max values stored per property in describeEntity()
+const TREE_CHILDREN_LIMIT = 500;      // Max children fetched per level in getClassesTree()
+const TREE_FRONTIER_CAP = 50;         // Max nodes to expand per level (prevents fan-out on broad classes)
+const MAX_TAXONOMY_DEPTH = 15;        // Max levels to traverse when building taxonomy graph
+const MAX_TAXONOMY_EDGES = 200;       // Max edges in taxonomy graph before stopping traversal
 $locale = Locale::canonicalize($locale);
 global $numberFormatter;
 $numberFormatter = new NumberFormatter($locale, NumberFormatter::DEFAULT_STYLE);
 //TODO: use Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']) ?
 
+// Known namespace prefixes for URI shortening and expansion
 global $PREFIXES;
 $PREFIXES = [
     'bioschemas' => 'http://bioschemas.org/',
@@ -28,6 +41,7 @@ $PREFIXES = [
     'yago' => 'http://yago-knowledge.org/resource/',
 ];
 
+// Subset of prefixes that get internal site URLs (others link externally)
 global $DISPLAYED_PREFIXES;
 $DISPLAYED_PREFIXES = [
     'schema' => 'http://schema.org/',
@@ -35,12 +49,14 @@ $DISPLAYED_PREFIXES = [
     null => 'http://yago-knowledge.org/resource/',
 ];
 
+// RDF list internals - hidden from entity property tables
 global $PROPERTIES_BLACKLIST;
 $PROPERTIES_BLACKLIST = [
     'http://www.w3.org/1999/02/22-rdf-syntax-ns#first',
     'http://www.w3.org/1999/02/22-rdf-syntax-ns#rest',
 ];
 
+// URI prefixes mapped to human-friendly link labels for owl:sameAs / schema:sameAs values
 global $SAME_AS_LABELS;
 $SAME_AS_LABELS = [
     'http://dbpedia.org/resource/' => 'DBpedia',
@@ -49,7 +65,13 @@ $SAME_AS_LABELS = [
 ];
 
 /**
- * Executes SPARQL query $query and returns its results according to https://www.w3.org/TR/sparql11-results-json/
+ * Execute a SPARQL SELECT query and return parsed JSON results.
+ *
+ * Uses POST for queries whose URL-encoded form exceeds 4000 bytes.
+ *
+ * @param string $query  SPARQL query string
+ * @return array  Decoded JSON per https://www.w3.org/TR/sparql11-results-json/
+ * @throws Exception on HTTP or JSON parse failure
  */
 function doSparqlQuery($query)
 {
@@ -93,6 +115,13 @@ function doSparqlQuery($query)
     return $result;
 }
 
+/**
+ * Convert a full URI to a prefixed name (e.g. "http://schema.org/Person" → "schema:Person").
+ * Unknown namespaces are returned as "&lt;uri&gt;". Output is HTML-escaped.
+ *
+ * @param string $uri  Full URI
+ * @return string  HTML-safe prefixed name
+ */
 function uriToPrefixedName($uri)
 {
     global $PREFIXES;
@@ -113,6 +142,14 @@ function uriToPrefixedName($uri)
     }
 }
 
+/**
+ * Convert a full URI to an internal site URL path for browsing.
+ * Only URIs matching $DISPLAYED_PREFIXES get internal paths; others pass through.
+ *
+ * @param string $uri             Full URI
+ * @param string $visualization   URL prefix: 'resource' (default) or 'graph'
+ * @return string  HTML-escaped URL path
+ */
 function uriToUrl($uri, $visualization = 'resource')
 {
     global $DISPLAYED_PREFIXES;
@@ -129,12 +166,27 @@ function uriToUrl($uri, $visualization = 'resource')
     return htmlspecialchars($uri);
 }
 
+/**
+ * Build an HTML <a> link to an entity's resource page.
+ *
+ * @param string      $uri          Full URI
+ * @param string|null $label        Human-readable label (used in title attr)
+ * @param string|null $description  Short description (appended to title attr)
+ * @return string  HTML anchor element
+ */
 function uriToLink($uri, $label = null, $description = null)
 {
     $title = strip_tags($label ? $label . ($description ? ', ' . $description : '') : ($description ?? ''));
     return '<a href="' . uriToUrl($uri) . '" title="' . htmlspecialchars($title) . '">' . uriToPrefixedName($uri) . '</a>';
 }
 
+/**
+ * Expand a prefixed name to a full URI (e.g. "schema:Person" → "http://schema.org/Person").
+ * If the prefix is unknown, defaults to the yago: namespace.
+ *
+ * @param string $prefixed  Prefixed name (e.g. "schema:Person" or "Elvis_Presley")
+ * @return string  Full URI
+ */
 function resolvePrefixedUri($prefixed)
 {
     global $PREFIXES;
@@ -147,6 +199,13 @@ function resolvePrefixedUri($prefixed)
     }
 }
 
+/**
+ * Pick the best language match for a property value using ICU locale lookup.
+ *
+ * @param array  $propertyValues  Property values grouped by property URI
+ * @param string $propertyUri     The property to look up
+ * @return string|null  Best-matching value string, or null if not found
+ */
 function getValueInDisplayLanguage(array $propertyValues, $propertyUri)
 {
     global $locale;
@@ -160,6 +219,14 @@ function getValueInDisplayLanguage(array $propertyValues, $propertyUri)
     return isset($values[$target]) ? $values[$target] : null;
 }
 
+/**
+ * Fetch all property values for an entity (or all incoming references if $reverse is true).
+ * Properties in $PROPERTIES_BLACKLIST are excluded. Values are capped at MAX_VALUES_PER_PROPERTY each.
+ *
+ * @param string $resource  Full URI of the entity
+ * @param bool   $reverse   If true, fetch triples where this entity is the object
+ * @return array  Map of property URI → array of value bindings
+ */
 function describeEntity($resource, $reverse = false)
 {
     global $PROPERTIES_BLACKLIST, $locale;
@@ -168,13 +235,13 @@ function describeEntity($resource, $reverse = false)
     $filter = $reverse ? '?o ?p <' . $resource . '>' : ' <' . $resource . '> ?p ?o';
 
     $sparql = doSparqlQuery('SELECT ?p ?o ?label WHERE { ' . $filter
-        . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . $lang . '") } } LIMIT 10000');
+        . ' . OPTIONAL { ?o <http://www.w3.org/2000/01/rdf-schema#label> ?label . FILTER(LANG(?label) = "' . $lang . '") } } LIMIT ' . DESCRIBE_QUERY_LIMIT);
 
     $propertyValues = [];
     foreach ($sparql['results']['bindings'] as $binding) {
         $property = $binding['p']['value'];
         if (in_array($property, $PROPERTIES_BLACKLIST)) continue;
-        if (isset($propertyValues[$property]) && count($propertyValues[$property]) >= 100) continue;
+        if (isset($propertyValues[$property]) && count($propertyValues[$property]) >= MAX_VALUES_PER_PROPERTY) continue;
 
         $valueKey = json_encode($binding['o']);
         $propertyValues[$property][$valueKey] = $binding['o'];
@@ -186,6 +253,12 @@ function describeEntity($resource, $reverse = false)
     return $propertyValues;
 }
 
+/**
+ * Get the RDF types (shapes) of a resource, filtered to schema.org, bioschemas, and W3C namespaces.
+ *
+ * @param string $resource  Full URI
+ * @return array  List of type URIs
+ */
 function getResourceShapes($resource)
 {
     $sparql = doSparqlQuery('
@@ -200,6 +273,12 @@ function getResourceShapes($resource)
     return $shapes;
 }
 
+/**
+ * Execute a SPARQL query and return the first binding value, or null if empty.
+ *
+ * @param string $query  SPARQL query expected to return a single value
+ * @return array|null  The first binding's value array (with 'value', 'type', etc.), or null
+ */
 function doSingleResultQuery($query)
 {
     $sparql = doSparqlQuery($query);
@@ -211,6 +290,12 @@ function doSingleResultQuery($query)
     return null;
 }
 
+/**
+ * Render a single SPARQL binding value as HTML (URI link, blank node, or literal with lang/datatype).
+ *
+ * @param array $value  SPARQL binding array with 'type', 'value', and optional 'xml:lang'/'datatype'/'label'
+ * @return string  HTML fragment
+ */
 function renderPropertyValue($value)
 {
     $html = '';
@@ -236,6 +321,16 @@ function renderPropertyValue($value)
     return $html;
 }
 
+/**
+ * Print an HTML table of property→values. Values matching the display language are sorted first.
+ * Properties exceeding INLINE_DISPLAY_LIMIT show a "more..." link that opens a paginated modal.
+ *
+ * @param array  $propertyValues  Map of property URI → value bindings (from describeEntity)
+ * @param string $predicateLabel  Column header for predicates
+ * @param string $objectLabel     Column header for objects
+ * @param string $tableId         'out' for outgoing or 'in' for incoming (controls reverse flag on modal)
+ * @param string $resource        Entity URI (passed to modal for pagination API calls)
+ */
 function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicate', $objectLabel = 'Object', $tableId = 'tbl', $resource = '')
 {
     $reverse = ($tableId === 'in') ? 1 : 0;
@@ -274,9 +369,13 @@ function displayPropertyValuesTable($propertyValues, $predicateLabel = 'Predicat
     print '</tbody></table>';
 }
 
+/**
+ * Print the Materialize modal HTML used for paginated property value browsing.
+ * Works with js/property-modal.js and api/properties.php.
+ */
 function printPropertyValuesModal()
 {
-    $apiUrl = config('site_url') . '/api_properties.php';
+    $apiUrl = config('site_url') . '/api/properties.php';
     print '<div id="property-values-modal" class="modal property-values-modal" data-api-url="' . htmlspecialchars($apiUrl) . '">';
     print '<div class="modal-content">';
     print '<h5 id="modal-property-title"></h5>';
@@ -290,6 +389,14 @@ function printPropertyValuesModal()
 }
 
 
+/**
+ * Fetch the SHACL shape description for a class: its allowed properties, datatypes, and constraints.
+ * Walks up rdfs:subClassOf* to collect inherited properties.
+ *
+ * @param string $shape     Full URI of the class/shape
+ * @param string $language  ISO language code for labels/comments
+ * @return array  Map of property URI → ['datatype' => [...], 'node' => [...], 'pattern', 'maxCount', 'label', 'comment']
+ */
 function getShapeDescription($shape, $language)
 {
     $sparqlQuery = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -345,6 +452,16 @@ function getShapeDescription($shape, $language)
     return $shape;
 }
 
+/**
+ * Build a tree of sub/superclasses by iterative level-by-level SPARQL queries.
+ *
+ * @param string      $root          Full URI of the root class
+ * @param string      $language      ISO language code for labels/comments
+ * @param int         $levels        Max depth to traverse
+ * @param bool        $superClasses  If true, walk up (superclasses); if false, walk down (subclasses)
+ * @param string|null $constraint    Optional extra triple pattern to filter children (e.g. "rdf:type owl:Class")
+ * @return array  Nested tree: ['children' => [uri => ['label', 'comment', 'children' => [...]]]]
+ */
 function getClassesTree($root, $language, $levels, $superClasses = false, $constraint = null)
 {
     $relation = $superClasses ? 'rdfs:subClassOf' : '^rdfs:subClassOf';
@@ -381,7 +498,7 @@ function getClassesTree($root, $language, $levels, $superClasses = false, $const
                 ' . $constraintClause . '
                 OPTIONAL { ?child rdfs:label ?childLabel FILTER(LANG(?childLabel) = "' . $language . '") }
                 OPTIONAL { ?child rdfs:comment ?childComment FILTER(LANG(?childComment) = "' . $language . '") }
-            } LIMIT 500');
+            } LIMIT ' . TREE_CHILDREN_LIMIT);
 
         $nextFrontier = [];
         foreach ($sparql['results']['bindings'] as $binding) {
@@ -400,12 +517,18 @@ function getClassesTree($root, $language, $levels, $superClasses = false, $const
             }
         }
         // Cap frontier to avoid massive VALUES clauses for broad nodes like schema:Thing
-        $frontier = array_slice($nextFrontier, 0, 50);
+        $frontier = array_slice($nextFrontier, 0, TREE_FRONTIER_CAP);
     }
 
     return $tree;
 }
 
+/**
+ * Recursively print a tree node and its children as nested HTML <ul>/<li> elements.
+ *
+ * @param string $name    URI of the node
+ * @param array  $values  Node data: ['label', 'comment', 'children' => [...]]
+ */
 function printTreeNode($name, $values)
 {
     print '<li class="tree-edge">';
@@ -422,6 +545,13 @@ function printTreeNode($name, $values)
     print '</li>';
 }
 
+/**
+ * Clean a class local name for display: decode _UXXXX_ unicode escapes,
+ * strip _Qnnn Wikidata suffixes, replace underscores with spaces.
+ *
+ * @param string $name  Raw class local name
+ * @return string  Human-readable label
+ */
 function cleanClassName($name)
 {
     // Decode _UXXXX_ unicode escapes
@@ -433,6 +563,16 @@ function cleanClassName($name)
     return str_replace('_', ' ', $name);
 }
 
+/**
+ * Build the full class hierarchy graph for an entity by walking rdfs:subClassOf upward.
+ * For non-class entities, starts from their rdf:type values. Traverses iteratively
+ * with safety limits on depth (MAX_TAXONOMY_DEPTH) and edge count (MAX_TAXONOMY_EDGES).
+ *
+ * @param string $resource  Full URI of the entity or class
+ * @param string $language  ISO language code for labels
+ * @param bool   $isClass   If true, start from the resource itself; if false, start from its types
+ * @return array  ['edges' => [['child' => uri, 'parent' => uri], ...], 'nodes' => [uri => ['label', 'url', 'isSchema']]]
+ */
 function getTaxonomyEdges($resource, $language, $isClass = false)
 {
     // Iterative upward traversal instead of rdfs:subClassOf* transitive closure
@@ -453,10 +593,9 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
     }
 
     $visited = [];
-    $maxLevels = 15; // Safety limit to prevent infinite loops
     $totalEdges = 0;
 
-    for ($level = 0; $level < $maxLevels && !empty($frontier) && $totalEdges < 200; $level++) {
+    for ($level = 0; $level < MAX_TAXONOMY_DEPTH && !empty($frontier) && $totalEdges < MAX_TAXONOMY_EDGES; $level++) {
         $toExpand = [];
         foreach ($frontier as $uri) {
             if (!isset($visited[$uri])) {
@@ -473,7 +612,7 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
                 ?s rdfs:subClassOf ?o .
                 OPTIONAL { ?s rdfs:label ?sLabel FILTER(LANG(?sLabel) = "' . $language . '") }
                 OPTIONAL { ?o rdfs:label ?oLabel FILTER(LANG(?oLabel) = "' . $language . '") }
-            } LIMIT 200');
+            } LIMIT ' . MAX_TAXONOMY_EDGES);
 
         $nextFrontier = [];
         foreach ($sparql['results']['bindings'] as $binding) {
@@ -512,6 +651,14 @@ function getTaxonomyEdges($resource, $language, $isClass = false)
     return ['edges' => $edges, 'nodes' => $nodes];
 }
 
+/**
+ * Convert a tree node into all root-to-leaf paths (as arrays of HTML link strings).
+ * Uses PHP generators (yield) for memory efficiency.
+ *
+ * @param string $name    URI of the node
+ * @param array  $values  Node data: ['label', 'comment', 'children' => [...]]
+ * @return Generator  Yields arrays of HTML link strings (leaf-first, root-last)
+ */
 function treeToPaths($name, $values)
 {
     $current = uriToLink($name, $values['label'], $values['comment']);
