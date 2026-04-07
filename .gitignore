@@ -1,5 +1,5 @@
 /.idea
 .php_cs.cache
 config.codekit3
-
-
+data/excluded_facts.db
+__pycache__/
