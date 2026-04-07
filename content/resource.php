@@ -320,12 +320,12 @@ print '<div class="card-body">';
 print '<p style="color: #999; font-size: 0.9em;">These facts were removed during YAGO construction due to type or consistency checks.</p>';
 print '<div id="excluded-table"></div>';
 print '</div></div></div>';
-print '<script>initExcludedFacts(' . json_encode($resource) . ', ' . json_encode(config('excluded_facts_api')) . ');</script>';
+print '<script>document.addEventListener("DOMContentLoaded", function() { initExcludedFacts(' . json_encode($resource) . ', ' . json_encode(config('excluded_facts_api')) . '); });</script>';
 
 if ($isClass) {
     print '<div class="card" id="children-card" style="display:none"><div class="card-content collapsed">';
     print '<span class="card-title">Child classes <i class="material-icons collapse-toggle collapsed" id="children-toggle">expand_more</i></span>';
     print '<ul class="tree-node card-body" id="children-tree"></ul>';
     print '</div></div>';
-    print '<script>initChildClasses(' . json_encode($resource) . ', ' . json_encode(Locale::getPrimaryLanguage($GLOBALS['locale'])) . ');</script>';
+    print '<script>document.addEventListener("DOMContentLoaded", function() { initChildClasses(' . json_encode($resource) . ', ' . json_encode(Locale::getPrimaryLanguage($GLOBALS['locale'])) . '); });</script>';
 }
