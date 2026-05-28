@@ -42,7 +42,7 @@ function config($key = '')
                 ],
             ],
             'publications' => ['title' => 'Publications'],
-            'contributors' => ['title' => 'Contributors'],
+            'contributors' => ['title' => 'Team'],
 			'ecosystem' => ['title' => 'Ecosystem'],
         ],
         'template_path' => 'template',
