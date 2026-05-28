@@ -43,6 +43,7 @@ function config($key = '')
             ],
             'publications' => ['title' => 'Publications'],
             'contributors' => ['title' => 'Contributors'],
+			'ecosystem' => ['title' => 'Ecosystem'],
         ],
         'template_path' => 'template',
         'content_path' => 'content',
