@@ -19,7 +19,7 @@
     </div>
 
     <div class="row">
-        <a href="https://github.com/NDobricic/LELA" class="item left">
+        <a href="https://github.com/dig-team/LELA" class="item left">
             <div>
                 <h2>LELA</h2>
                 <p>A tool to disambiguate mentions of entities to canonical entities in a knowledge graph.</p>
