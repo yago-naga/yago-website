@@ -27,6 +27,12 @@ import sys
 
 BATCH_SIZE = 10000
 
+
+#################################################################
+#             Helper methods
+#################################################################
+
+
 # Matches: << subject predicate object >> ys:excludedFor "reason" .
 # Fields are tab-separated. Subject/predicate/object can contain spaces (literals).
 META_FACT_RE = re.compile(
@@ -70,6 +76,10 @@ def expand_prefixed(name, prefixes):
         return prefixes[prefix] + local
     return name
 
+#################################################################
+#             Preparation methods
+#################################################################
+
 
 def load_id_mapping(data_dir):
     """Load the Wikidata→YAGO ID mapping from 04-yago-ids.tsv.
@@ -78,6 +88,7 @@ def load_id_mapping(data_dir):
         wd:Q42\towl:sameAs\tyago:Douglas_Adams\t. #WIKI
     Returns a dict mapping expanded Wikidata URIs to expanded YAGO URIs.
     """
+    print(f"  Loading YAGO ids...")
     patterns = [
         os.path.join(data_dir, '**', '04-yago-ids.tsv'),
         os.path.join(data_dir, '04-yago-ids.tsv'),
@@ -90,10 +101,11 @@ def load_id_mapping(data_dir):
             break
 
     if not ids_file:
-        print("Warning: 04-yago-ids.tsv not found, subjects will not be mapped to YAGO URIs", file=sys.stderr)
+        print("    Warning: 04-yago-ids.tsv not found, subjects will not be mapped to YAGO URIs", file=sys.stderr)
+        print("  failed")
         return {}
 
-    print(f"Loading ID mapping from {ids_file}...")
+    print(f"    INFO: Loading ID mapping from {ids_file}", end="")
     mapping = {}
     prefixes = {}
 
@@ -111,13 +123,14 @@ def load_id_mapping(data_dir):
                 wd_uri = expand_prefixed(parts[0], prefixes)
                 yago_uri = expand_prefixed(parts[2], prefixes)
                 mapping[wd_uri] = yago_uri
-
-    print(f"  Loaded {len(mapping):,} ID mappings")
+    print(f"    INFO: Loaded {len(mapping):,} ID mappings")
+    print("  done"
     return mapping
 
 
 def find_log_files(data_dir):
     """Find all relevant log files from build steps 02, 03, 04."""
+    print("  Finding log files...")
     patterns = [
         os.path.join(data_dir, '**', '02*.log'),
         os.path.join(data_dir, '**', '03*.log'),
@@ -129,6 +142,10 @@ def find_log_files(data_dir):
     found = set()
     for pattern in patterns:
         found.update(glob.glob(pattern, recursive=True))
+    if found:
+        print(f"    INFO: Found {len(found)} log files\n  done")
+    else:
+        print(f"  failed (no log files)")
     return sorted(found)
 
 
@@ -139,22 +156,17 @@ def derive_stage(filepath):
     return stem
 
 
+#################################################################
+#             Main methods
+#################################################################
+
+
 def parse_log_file(filepath):
     """Parse a single log file, yielding (subject, predicate, object, reason, stage) tuples."""
     stage = derive_stage(filepath)
 
-    # First pass: read only the prefix lines (always at the top of the file)
-    prefixes = {}
-    with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
-        for line in f:
-            if line.startswith('@prefix'):
-                m = PREFIX_RE.match(line.rstrip('\n'))
-                if m:
-                    prefixes[m.group(1)] = m.group(2)
-            elif line.strip():
-                break  # Prefixes are done, data starts
-
-    # Second pass: stream data lines without loading entire file into memory
+    print(f"  Parsing log file {stage}...)
+    prefixes = {}   
     parsed = 0
     skipped = 0
     bytes_read = 0
@@ -162,7 +174,13 @@ def parse_log_file(filepath):
         for raw_line in f:
             bytes_read += len(raw_line)
             line = raw_line.decode('utf-8', errors='replace').rstrip('\n')
-            if not line or line.startswith('@prefix'):
+            if line.startswith('@prefix'):
+                m = PREFIX_RE.match(line.rstrip('\n'))
+                if m:
+                    prefixes[m.group(1)] = m.group(2)
+                continue
+                
+            if not line:
                 continue
 
             m = META_FACT_RE.match(line)
@@ -177,11 +195,17 @@ def parse_log_file(filepath):
                 skipped += 1
 
     if skipped > 0:
-        print(f"  Warning: {skipped} non-matching lines in {filepath}", file=sys.stderr)
-    print(f"  Parsed {parsed} excluded facts from {os.path.basename(filepath)}")
+        print(f"    Warning: {skipped} non-matching lines in {filepath}", file=sys.stderr)
+    print(f"    INFO: Parsed {parsed} excluded facts from {os.path.basename(filepath)}")
+    print("  done")
 
 
 def main():
+
+    ########  Check arguments
+    
+    print("Generating database of excluded YAGO facts...")
+    print("  Checking arguments...", end="")
     parser = argparse.ArgumentParser(
         description='Generate excluded_facts.db from YAGO build pipeline logs.'
     )
@@ -197,28 +221,30 @@ def main():
     args = parser.parse_args()
 
     if not os.path.isdir(args.data_dir):
-        print(f"Error: {args.data_dir} is not a directory", file=sys.stderr)
-        sys.exit(1)
-
+        print(f"\n    Error: {args.data_dir} is not a directory", file=sys.stderr)
+        sys.exit(1)    
+    if os.path.exists(args.output):
+        os.remove(args.output)        
+    print("done")
+    
     log_files = find_log_files(args.data_dir)
     if not log_files:
-        print(f"Error: No log files (02*.log, 03*.log, 04*.log) found in {args.data_dir}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Found {len(log_files)} log file(s):")
-    for f in log_files:
-        print(f"  {f}")
-
+    ########  Load IDs, bootstrap database
+    
     # Load Wikidata→YAGO ID mapping so subjects use YAGO URIs
     id_mapping = load_id_mapping(args.data_dir)
 
-    # Build in /tmp, then sudo mv into place (the data/ dir is owned by www-data)
-    import tempfile
-    tmp_output = os.path.join(tempfile.gettempdir(), 'excluded_facts.db.tmp')
-    if os.path.exists(tmp_output):
-        os.remove(tmp_output)
-
-    db = sqlite3.connect(tmp_output)
+    if os.path.exists(args.output):
+        os.remove(args.output)
+    print("done")
+    
+    print("  Connecting to database...", end='')
+    db = sqlite3.connect(args.output)
+    print("done")
+    
+    print("  Creating database table...", end='')
     db.execute('''CREATE TABLE excluded_facts (
         subject TEXT,
         predicate TEXT,
@@ -226,19 +252,19 @@ def main():
         reason TEXT,
         stage TEXT
     )''')
-
-    total = 0
-    stage_counts = {}
-
-    import time
-
+    print("done")
+    
+    ######### Load facts
+    
+    totalFacts = 0
+    print("  Loading log files...")
     for log_file in log_files:
         stage = derive_stage(log_file)
+        print(f"    Loading {stage}...", end='')
         file_size = os.path.getsize(log_file)
         count = 0
         batch = []
-        start_time = time.time()
-        last_report = 0
+        numDots = 0
 
         for row, bytes_read in parse_log_file(log_file):
             # Map subject from Wikidata URI to YAGO URI if possible
@@ -247,46 +273,26 @@ def main():
             row = (subject, predicate, obj, reason, stage_name)
             batch.append(row)
             count += 1
+            while numDots<bytes_read*40/file_size:
+                print('.', end='')
             if len(batch) >= BATCH_SIZE:
                 db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
                 batch = []
 
-                # Progress every 10 seconds
-                now = time.time()
-                if file_size > 0 and now - last_report >= 10:
-                    pct = bytes_read / file_size * 100
-                    elapsed = now - start_time
-                    if pct > 0:
-                        eta = elapsed / pct * (100 - pct)
-                        eta_min = int(eta // 60)
-                        eta_sec = int(eta % 60)
-                        print(f"  {os.path.basename(log_file)}: {pct:.1f}% ({count:,} facts, ETA {eta_min}m{eta_sec:02d}s)")
-                    last_report = now
-
         if batch:
             db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
         db.commit()
-        total += count
-        stage_counts[stage] = count
-
-    print(f"\nCreating index on subject column...")
+        totalFacts += count
+        print(" done")
+        print(f"    INFO: Loaded {count} facts")
+        print(f"    INFO: Loaded {totalFacts} facts in total")
+    print("  done")
+    
+    print(f"  Creating index on subject column...", end='')
     db.execute('CREATE INDEX idx_subject ON excluded_facts(subject)')
     db.commit()
     db.close()
-
-    # Move into place - use sudo if needed (data/ dir may be owned by www-data)
-    import subprocess
-    try:
-        os.replace(tmp_output, args.output)
-    except PermissionError:
-        subprocess.run(['sudo', 'mv', tmp_output, args.output], check=True)
-        subprocess.run(['sudo', 'chown', 'www-data:www-data', args.output], check=True)
-
-    print(f"\nDone! Generated {args.output}")
-    print(f"Total excluded facts: {total:,}")
-    for stage, count in sorted(stage_counts.items()):
-        print(f"  {stage}: {count:,}")
-
+    print("done")   
 
 if __name__ == '__main__':
     main()
