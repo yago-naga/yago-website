@@ -105,7 +105,7 @@ def load_id_mapping(data_dir):
         print("  failed")
         return {}
 
-    print(f"    INFO: Loading ID mapping from {ids_file}", end="")
+    print(f"    INFO: Loading ID mapping from {ids_file}", end="", flush=True)
     mapping = {}
     prefixes = {}
 
