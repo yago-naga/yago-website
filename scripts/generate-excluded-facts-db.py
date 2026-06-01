@@ -124,7 +124,7 @@ def load_id_mapping(data_dir):
                 yago_uri = expand_prefixed(parts[2], prefixes)
                 mapping[wd_uri] = yago_uri
     print(f"    INFO: Loaded {len(mapping):,} ID mappings")
-    print("  done"
+    print("  done")
     return mapping
 
 
@@ -165,7 +165,7 @@ def parse_log_file(filepath):
     """Parse a single log file, yielding (subject, predicate, object, reason, stage) tuples."""
     stage = derive_stage(filepath)
 
-    print(f"  Parsing log file {stage}...)
+    print(f"  Parsing log file {stage}...")
     prefixes = {}   
     parsed = 0
     skipped = 0
@@ -205,7 +205,7 @@ def main():
     ########  Check arguments
     
     print("Generating database of excluded YAGO facts...")
-    print("  Checking arguments...", end="")
+    print("  Checking arguments...", end="", flush=True)
     parser = argparse.ArgumentParser(
         description='Generate excluded_facts.db from YAGO build pipeline logs.'
     )
