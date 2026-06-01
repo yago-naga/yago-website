@@ -274,6 +274,7 @@ def main():
             count += 1
             while numDots<bytes_read*40/file_size:
                 print('.', end='')
+                numDots+=1
             if len(batch) >= BATCH_SIZE:
                 db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
                 batch = []
