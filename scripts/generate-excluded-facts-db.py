@@ -114,7 +114,7 @@ def load_id_mapping(data_dir):
         for line in f:
             bytes_read += len(line)
             while numDots<bytes_read*40/file_size:
-                print('.', end='')
+                print('.', end='', flush=True)
                 numDots+=1
 
             line = line.rstrip('\n')
@@ -177,11 +177,12 @@ def parse_log_file(filepath):
     skipped = 0
     bytes_read = 0
     file_size = os.path.getsize(filepath)
+    numDots=0
     with open(filepath, 'rb') as f:
         for raw_line in f:
             bytes_read += len(raw_line)
             while numDots<bytes_read*40/file_size:
-                print('.', end='')
+                print('.', end='', flush=True)
                 numDots+=1
             line = raw_line.decode('utf-8', errors='replace').rstrip('\n')
             if line.startswith('@prefix'):
@@ -247,13 +248,12 @@ def main():
 
     if os.path.exists(args.output):
         os.remove(args.output)
-    print("done")
     
-    print("  Connecting to database...", end='')
+    print("  Connecting to database...", end='', flush=True)
     db = sqlite3.connect(args.output)
     print("done")
     
-    print("  Creating database table...", end='')
+    print("  Creating database table...", end='', flush=True)
     db.execute('''CREATE TABLE excluded_facts (
         subject TEXT,
         predicate TEXT,
@@ -293,7 +293,7 @@ def main():
         print(f"    INFO: Loaded {totalFacts} facts in total")
     print("  done")
     
-    print(f"  Creating index on subject column...", end='')
+    print(f"  Creating index on subject column...", end='', flush=True)
     db.execute('CREATE INDEX idx_subject ON excluded_facts(subject)')
     db.commit()
     db.close()
