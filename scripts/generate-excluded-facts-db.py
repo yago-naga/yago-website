@@ -108,6 +108,7 @@ def load_id_mapping(data_dir):
     prefixes = {}
     bytes_read=0
     file_size = os.path.getsize(ids_file)
+    numDots=0
     
     with open(ids_file, 'r', encoding='utf-8', errors='replace') as f:
         for line in f:
