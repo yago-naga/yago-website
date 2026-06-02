@@ -274,7 +274,7 @@ def main():
         batch = []
         numDots = 0
 
-        for row, bytes_read in parse_log_file(log_file):
+        for row in parse_log_file(log_file):
             # Map subject from Wikidata URI to YAGO URI if possible
             subject, predicate, obj, reason, stage_name = row
             subject = id_mapping.get(subject, subject)
