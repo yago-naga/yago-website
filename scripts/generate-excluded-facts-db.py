@@ -88,7 +88,7 @@ def load_id_mapping(data_dir):
         wd:Q42\towl:sameAs\tyago:Douglas_Adams\t. #WIKI
     Returns a dict mapping expanded Wikidata URIs to expanded YAGO URIs.
     """
-    print(f"  Loading YAGO ids...")
+    print(f"  Loading YAGO ids...", end='', flush=True)
     patterns = [
         os.path.join(data_dir, '**', '04-yago-ids.tsv'),
         os.path.join(data_dir, '04-yago-ids.tsv'),
@@ -101,15 +101,21 @@ def load_id_mapping(data_dir):
             break
 
     if not ids_file:
-        print("    Warning: 04-yago-ids.tsv not found, subjects will not be mapped to YAGO URIs", file=sys.stderr)
-        print("  failed")
+        print("failed\n  Warning: 04-yago-ids.tsv not found, subjects will not be mapped to YAGO URIs", file=sys.stderr)
         return {}
 
     mapping = {}
     prefixes = {}
-
+    bytes_read=0
+    file_size = os.path.getsize(ids_file)
+    
     with open(ids_file, 'r', encoding='utf-8', errors='replace') as f:
         for line in f:
+            bytes_read += len(line)
+            while numDots<bytes_read*40/file_size:
+                print('.', end='')
+                numDots+=1
+
             line = line.rstrip('\n')
             if line.startswith('@prefix'):
                 m = PREFIX_RE.match(line)
@@ -122,8 +128,8 @@ def load_id_mapping(data_dir):
                 wd_uri = expand_prefixed(parts[0], prefixes)
                 yago_uri = expand_prefixed(parts[2], prefixes)
                 mapping[wd_uri] = yago_uri
-    print(f"    INFO: Loaded {len(mapping):,} ID mappings")
-    print("  done")
+    print(" done")                
+    print(f"  INFO: Loaded {len(mapping):,} ID mappings")    
     return mapping
 
 
