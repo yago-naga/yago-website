@@ -289,8 +289,7 @@ def main():
             db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
         db.commit()
         totalFacts += count
-        print(f"    INFO: Loaded {count} facts")
-        print(f"    INFO: Loaded {totalFacts} facts in total")
+    print(f"    INFO: Loaded {totalFacts} facts in total")
     print("  done")
     
     print(f"  Creating index on subject column...", end='', flush=True)
