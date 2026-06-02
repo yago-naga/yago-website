@@ -171,7 +171,7 @@ def parse_log_file(filepath):
     """Parse a single log file, yielding (subject, predicate, object, reason, stage) tuples."""
     stage = derive_stage(filepath)
 
-    print(f"    Parsing log file {stage}...")
+    print(f"    Parsing log file {stage}...", flush=True, end='')
     prefixes = {}   
     parsed = 0
     skipped = 0
