@@ -164,14 +164,18 @@ def parse_log_file(filepath):
     """Parse a single log file, yielding (subject, predicate, object, reason, stage) tuples."""
     stage = derive_stage(filepath)
 
-    print(f"  Parsing log file {stage}...")
+    print(f"    Parsing log file {stage}...")
     prefixes = {}   
     parsed = 0
     skipped = 0
     bytes_read = 0
+    file_size = os.path.getsize(filepath)
     with open(filepath, 'rb') as f:
         for raw_line in f:
             bytes_read += len(raw_line)
+            while numDots<bytes_read*40/file_size:
+                print('.', end='')
+                numDots+=1
             line = raw_line.decode('utf-8', errors='replace').rstrip('\n')
             if line.startswith('@prefix'):
                 m = PREFIX_RE.match(line.rstrip('\n'))
@@ -189,14 +193,13 @@ def parse_log_file(filepath):
                 obj = m.group(3)
                 reason = m.group(4)
                 parsed += 1
-                yield (subject, predicate, obj, reason, stage), bytes_read
+                yield (subject, predicate, obj, reason, stage)
             else:
                 skipped += 1
-
+    print(" done")
     if skipped > 0:
         print(f"    Warning: {skipped} non-matching lines in {filepath}", file=sys.stderr)
     print(f"    INFO: Parsed {parsed} excluded facts from {os.path.basename(filepath)}")
-    print("  done")
 
 
 def main():
@@ -259,8 +262,7 @@ def main():
     print("  Loading log files...")
     for log_file in log_files:
         stage = derive_stage(log_file)
-        print(f"    Loading {stage}...", end='')
-        file_size = os.path.getsize(log_file)
+        
         count = 0
         batch = []
         numDots = 0
@@ -271,10 +273,7 @@ def main():
             subject = id_mapping.get(subject, subject)
             row = (subject, predicate, obj, reason, stage_name)
             batch.append(row)
-            count += 1
-            while numDots<bytes_read*40/file_size:
-                print('.', end='')
-                numDots+=1
+            count += 1            
             if len(batch) >= BATCH_SIZE:
                 db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
                 batch = []
@@ -283,7 +282,6 @@ def main():
             db.executemany('INSERT INTO excluded_facts VALUES (?,?,?,?,?)', batch)
         db.commit()
         totalFacts += count
-        print(" done")
         print(f"    INFO: Loaded {count} facts")
         print(f"    INFO: Loaded {totalFacts} facts in total")
     print("  done")
