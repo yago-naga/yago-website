@@ -152,6 +152,40 @@
             INRIA Saclay
         </p>
     </div>
+
+    <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/jeanmougin.jpg' ?>"
+             alt="Marc Jeanmougin">
+        <p class="caption">
+            <a href="https://marc.jeanmougin.fr/" rel="noreferrer noopener" target="_blank">Marc Jeanmougin</a>
+            <br/>
+            Télécom Paris
+        </p>
+    </div>
+	
 </div>
 
+<div class="contributors-row">
+    <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/margherita.jpg' ?>"
+             alt="Margherita Necchi">
+        <p class="caption">
+            <a href="https://it.linkedin.com/in/margherita-necchi-04777a214" rel="noreferrer noopener" target="_blank">Margherita Necchi</a>
+            <br/>
+            Institut Polytechnique de Paris
+        </p>
+    </div>
+	
+ <div class="contributor">
+        <img class="head-shot" src="<?php echo site_url() . '/assets/images/contributors/nikola.png' ?>"
+             alt="Nikola Dobricic">
+        <p class="caption">
+            <a href="https://fr.linkedin.com/in/nikola-dobricic" rel="noreferrer noopener" target="_blank">Nikola Dobricic</a>
+            <br/>
+            Institut Polytechnique de Paris
+        </p>
+    </div>
+
+    
+</div>
 

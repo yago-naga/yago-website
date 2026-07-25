@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2>News</h2>
 
 <div class="news_item">
+    <div class="news_time">July, 2026</div>
+    <div class="news_text">
+        YAGO 4.6 is now out! It comes with a list of statements that have been removed from Wikidata! 
+    </div>
+</div>
+
+
+<div class="news_item">
     <div class="news_time">February, 2026</div>
     <div class="news_text">
         A new version of YAGO is in preparation! (And an overhaul to the Web page as well...)
