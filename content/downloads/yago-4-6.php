@@ -14,7 +14,7 @@
     <blockquote>
 	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://chenlihu.com/">Lihu Chen</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
 			    		<br/>                        			    		
-		    			<b><a href="https://suchanek.name/work/publications/sigir-2024.pdf">YAGO 4.5: A Large and Clean Knowledge Base with a Rich Taxonomy</a></b>
+		    			<b><a href="https://suchanek.name/work/publications/sigir-2024.pdf">YAGO 4.6: A Large and Clean Knowledge Base with a Rich Taxonomy</a></b>
         <br/>
 		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
     </blockquote>
@@ -30,19 +30,21 @@
         The YAGO 4.6 knowledge base consists of the following set of Turtle files:
     </p>
     <ul   class="browser-default">
-    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=/data/yago4.5/samples/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
-    <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=/data/yago4.5/samples/taxonomy.txt>sample</a>)
-    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=/data/yago4.5/samples/facts.txt>sample</a>)
-	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=/data/yago4.5/samples/beyond-wikipedia.txt>sample</a>)
-    <li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*. (<a href=/data/yago4.5/samples/meta.txt>sample</a>)
-    <li><b>Logs:</b>  The log of statements that were excluded, in RDF*. (<a href=/data/yago4.5/samples/logs.txt>sample</a>)
+    <li><b>Schema:</b>  The upper taxonomy, constraints, and property definitions in SHACL (<a href=/data/yago4.6/samples/schema.txt>sample</a>). The schema is explained <a href="/schema">here</a>.
+    <li><b>Taxonomy:</b>  The full taxonomy of classes. (<a href=/data/yago4.6/samples/taxonomy.txt>sample</a>)
+    <li><b>Facts:</b>  All facts about entities that have an English Wikipedia page. (<a href=/data/yago4.6/samples/facts.txt>sample</a>)
+    <li><b>Labels:</b>  All labels about entities that have an English Wikipedia page. (<a href=/data/yago4.6/samples/labels.txt>sample</a>)
+	<li><b>Facts beyond Wikipedia:</b>  All facts about entities that do not have an English Wikipedia page. (<a href=/data/yago4.6/samples/beyond-wikipedia.txt>sample</a>)
+    <li><b>Labels beyond Wikipedia:</b>  All labels about entities that do not have an English Wikipedia page. (<a href=/data/yago4.6/samples/labels-beyond-wikipedia.txt>sample</a>)
+	<li><b>Meta:</b>  The fact annotations (“facts about facts”) in RDF*. (<a href=/data/yago4.6/samples/meta.txt>sample</a>)
+    <li><b>Logs:</b>  The logs of statements that were excluded, in RDF*, in 3 files. (<a href=/data/yago4.6/samples/logs.txt>sample</a>)	
     </ul>
     <div class=fmsbuttaround>
 	<a class=fmsbutt href="/data/yago4.6/">Download</a>
 	</div>
     <p>
-    YAGO can then be loaded into any triple store. On our end, we use <a href="https://github.com/ad-freiburg/qlever/">Qlever</a>.
-    </p>
+    YAGO can then be loaded into any triple store. On our end, we use <a href="https://github.com/ad-freiburg/qlever/">Qlever</a>. 
+    </p>	
 </div>
 
 <div class="code-container">
@@ -53,7 +55,7 @@
     </p>
     <p>
         The source code of YAGO is a Python project that ingests facts from Wikidata, and transforms them into YAGO. If you run the code yourself, you can add other sources or modify the generation of the knowledge base. The YAGO source code is
-        available at <a rel="noreferrer noopener" target="_blank" href=https://github.com/yago-naga/yago-4.5>Github</a>. It
+        available at <a rel="noreferrer noopener" target="_blank" href=https://github.com/yago-naga/yago-4.6>Github</a>. It
         is licensed under the <a href=http://creativecommons.org/licenses/by/4.0/>Creative Commons Attribution License</a>.
     </p>
 </div>
