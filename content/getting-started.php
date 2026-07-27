@@ -6,43 +6,31 @@
 	<li><a href="#yago-cmp">How does YAGO compare to other knowledge bases?</a></li>
 	<li><a href="#constraints">What are the logical constraints of YAGO?</a></li>
     <li><a href="#data-model">What is the data model of YAGO?</a></li>
-    <li><a href="#relations">What are the relations in YAGO?</a></li>
-    <li><a href="#taxonomy">What is the taxonomy of YAGO?</a></li>
     <li><a href="#access">How can I access YAGO?</a></li>
 </ul>
 
 <h2 id="what-is-yago">What is YAGO?</h2>
 <p>
-    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 50 million entities and 90 million facts.
+    YAGO is a knowledge base, i.e., a database with knowledge about the real world. YAGO contains both entities (such as movies, people, cities, countries, etc.) and relations between these entities (who played in which movie, which city is located in which country, etc.). All in all, YAGO contains more than 39 million entities and 167 million facts.
 </p>
 <p>
 YAGO arranges its entities into classes: Elvis Presley belongs to the class of people, Paris belongs to the class of cities, and so on. These classes are arranged in a taxonomy: The class of cities is a subclass of the class of populated places, this class is a subclass of geographical locations, etc.
 </p>
 <p>
-YAGO also defines which relations can hold between which entities: birthPlace, e.g., is a relation that can hold between a person and a place. The definition of these relations, together with the taxonomy is called the ontology.
+YAGO also defines which relations can hold between which entities: birthPlace, e.g., is a relation that can hold between a person and a place. The definition of these relations is called the schema.
 </p>
 
 <h2 id="yago-special">What is so special about YAGO?</h2>
-<p>YAGO combines two great resources:</p>
-<ol>
-    <li>
-        <a href=https://www.wikidata.org>Wikidata</a> is the largest general-purpose knowledge base on the Semantic Web. It is a great repository of entities, but it has a difficult taxonomy and no human-readable entity identifiers.
-    </li>
-    <li>
-        <a href=http://schema.org>schema.org</a> is a standard ontology of classes and relations, which is maintained by Google and others &mdash; but it does not have any entities.
-    </li>
-</ol>
-<p>
-YAGO combines these two resources, thus getting the best from both worlds: a huge repository of facts, together with an ontology that is simple and used as a standard by a large community. In addition, all identifiers in YAGO are human-readable, all entities belong to at least one class, and only classes and properties with enough instances are kept. To this, YAGO adds a system of logical constraints. These do not just keep the data clean, but also allow for reasoning on the data. YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata.
-</p>
+<p>YAGO comes with a manually defined schema, which imposes logical constraints on the data. For example, people can be married only to people, and they can have at most one birth date. These constraints keep the data logically consistent and ensure its quality. YAGO can thus be considered a logically consistent subset of the much larger (but not consistent) Wikidata knowledge base. </p> 
 
 <h2 id="yago-cmp">How does YAGO compare to other knowledge bases?</h2>
 <div>
 YAGO positions itself as a large general knowledge base for facts about instances, with a taxonomy, manually defined properties, and logical constraints. Its key property is that it is a centrally controlled data source, which allows it to establish certain guarantees for the quality of its data.
 <ul> 
-<li>- YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 4 million instances. YAGO contains 50 million.
+<li>- YAGO differs from <a href=https://dbpedia.org/>DBpedia</a>, because YAGO has a predefined schema, predefined and non-redundant relations, and logical constraints. The manually curated part of DBpedia has all of these, too, but contains only 5 million instances. YAGO contains 39 million.
+<li>- YAGO differs from <a href=https://schema.org/>Schema.org</a> by having data about instances, and by being available under a Creative Commons Attribution license, which allows commercial usage (starting from YAGO 4.6).
 <li>- YAGO differs from <a href=https://conceptnet.io/>ConceptNet</a> by being about instances, and not about common sense knowledge.
-<li>- YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by having a taxonomy and a schema.
+<li>- YAGO differs from <a href=https://babelnet.org/>BabelNet</a> by being available (starting from YAGO 4.6) under a liberal Creative Commons Attribution license, which allows commercial usage.
 <li>- YAGO differs from <a href=https://en.wikipedia.org/wiki/Freebase_(database)>Freebase</a> by being an actively maintained project.
 <li>- YAGO differs from <a href=https://wikidata.org>Wikidata</a> by having human-readable identifiers, a clean top-level taxonomy, and enforced logical constraints.
 </ul>
@@ -62,7 +50,7 @@ Logical constraints are conditions that the data must fulfill. For example, a lo
 YAGO currently has the following logical constraints:
 </p>
 <ul  class="browser-default">
-<li>Disjointness: Place, person, and creative works are disjoint classes
+<li>Disjointness: Place, person, and medical entities are disjoint classes
 <li>Functionality: several relations (such as birthPlace) can have at most one object
 <li>Domain and range: for every relation, we define which class the subject and the object belong to
 </ul>
@@ -74,15 +62,6 @@ We use different vocabularies for the components of such a fact. For example, fo
 </p>
 <p>
 For “facts about facts” (such as time stamps for facts or other types of annotations), we use the RDF* format.
-</p>
-
-<h2 id="relations">What are the relations in YAGO?</h2>
-<p>The relations in YAGO come from schema.org. We have mapped the original relations of Wikidata manually to these relations. We discard all Wikidata relations that do not have a schema.org-equivalent. This cuts away a large number of predicates that had very few facts.
-</p>
-
-<h2 id="taxonomy">What is the taxonomy of YAGO?</h2>
-<p>
-The top-level taxonomy of YAGO is taken from schema.org. In this way, we have a simple hierarchy of classes that has proven to work well in practice. However, these classes are not fine-grained enough. For example, they do not know “electric cars”. Therefore, we have carefully integrated selected parts of the Wikidata taxonomy into YAGO. 
 </p>
 
 <h2 id="access">How can I access YAGO?</h2>

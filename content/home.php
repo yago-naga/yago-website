@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="news_item">
     <div class="news_time">July, 2026</div>
     <div class="news_text">
-        YAGO 4.6 is now out! It comes with a list of statements that have been removed from Wikidata! 
+        <a href="">YAGO 4.6</a> is now out! It comes with a list of statements that have been removed from Wikidata! 
     </div>
 </div>
 
