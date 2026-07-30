@@ -37,6 +37,7 @@ case "${1:-}" in
     -h|--help)
         echo "done"
 		echo "Usage: $0 /path/to/ttl/files [--cleanup-ttl]"
+		echo "          (e.g., /data/qlever)"
         echo "       $0 --skip-index"
         exit 0 ;;
     "") die "Usage: $0 /path/to/ttl/files or $0 --skip-index" ;;
@@ -48,6 +49,12 @@ esac
 command -v qlever >/dev/null 2>&1 || die "qlever CLI not found"
 [[ -f "$INDEX_DIR/Qleverfile" ]] || die "No Qleverfile in $INDEX_DIR"
 echo "done"
+
+# Stop Qlever
+docker stop qlever.server.yago
+
+# Delete old index
+rm /data/qlever/yago.* # dont forget the dot, you do not want to delete the TTL files
 
 # Index
 if [[ "$SKIP_INDEX" == false ]]; then
@@ -86,8 +93,9 @@ fi
 # Restart
 echo -n "  Restarting QLever server..."
 cd "$INDEX_DIR"
-qlever stop 2>/dev/null || echo "    No running server to stop"
-qlever start
+#qlever stop 2>/dev/null || echo "    No running server to stop"
+#qlever start
+docker start qlever.server.yago
 echo "done"
 
 # Health check
@@ -112,6 +120,11 @@ echo "  Triple count: $COUNT"
 [[ "$COUNT" -lt "$MIN_TRIPLE_COUNT" ]] && echo "  Warning: triple count is below expected minimum ($MIN_TRIPLE_COUNT)"
 
 # Clear nginx cache
-sudo -n rm -rf "${NGINX_CACHE:?}"/* 2>/dev/null || echo "  Warning: Could not clear nginx cache (may need sudo). Run: sudo rm -rf ${NGINX_CACHE}/*"
+#sudo -n rm -rf "${NGINX_CACHE:?}"/* 2>/dev/null || echo "  Warning: Could not clear nginx cache (may need sudo). Run: sudo rm -rf ${NGINX_CACHE}/*"
 
 echo "done ($(date -Iseconds))"
+
+echo ""
+echo "Run"
+echo "- sudo rm -rf ${NGINX_CACHE}/*"
+echo "- sudo service nginx restart"
