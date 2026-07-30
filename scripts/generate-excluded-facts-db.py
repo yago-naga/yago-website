@@ -299,8 +299,9 @@ def main():
     db.execute('CREATE INDEX idx_subject ON excluded_facts(subject)')
     db.commit()
     db.close()
-    print("done")   
-    print(f"\n*** Move the file {args.output} to /data/excluded_facts.db ***")
+    print("done")  
+    print("done")      
+    print(f"\n*** Stop the server, move the file {args.output} to /data/excluded_facts.db, and restart the server! ***")
 
 if __name__ == '__main__':
     main()
