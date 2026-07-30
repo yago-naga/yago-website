@@ -11,11 +11,13 @@ This script parses those logs and produces a SQLite database that the website's
 api/excluded_facts.php endpoint can query.
 
 Usage:
-    python3 generate-excluded-facts-db.py /path/to/yago-data [--output excluded_facts.db]
+    nohup python3 generate-excluded-facts-db.py [/path/to/yago-data] [--output excluded_facts.db] &
 
 The yago-data directory should contain (or have subdirectories containing):
   - Log files from build steps 02, 03, and 04
   - 04-yago-ids.tsv (Wikidata-to-YAGO ID mapping, used to translate subjects)
+  
+The file excluded_facts.db should then be moved to ../data/excluded_facts.db
 """
 
 import argparse
@@ -221,6 +223,7 @@ def main():
     )
     parser.add_argument(
         'data_dir',
+        default='/data/qlever/',
         help='Path to YAGO build output directory containing log files'
     )
     parser.add_argument(
@@ -297,6 +300,7 @@ def main():
     db.commit()
     db.close()
     print("done")   
+    print(f"\n*** Move the file {args.output} to /data/excluded_facts.db ***")
 
 if __name__ == '__main__':
     main()
