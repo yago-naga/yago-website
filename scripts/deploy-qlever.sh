@@ -54,7 +54,7 @@ echo "done"
 docker stop qlever.server.yago
 
 # Delete old index
-rm /data/qlever/yago.* # dont forget the dot, you do not want to delete the TTL files
+rm -f /data/qlever/yago.* # dont forget the dot, you do not want to delete the TTL files
 
 # Index
 if [[ "$SKIP_INDEX" == false ]]; then
