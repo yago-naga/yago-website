@@ -1,3 +1,4 @@
+... We are currently reloading the database, this might take 1-2 days (2026-07-31)...
 
     <form id="my-search" class="row">
         <div class="col s5 input-field">
