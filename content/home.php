@@ -5,35 +5,7 @@
     YAGO is a large knowledge base with general knowledge about people, cities, countries, movies, and organizations.
 </p>
 
-<?php
-require_once 'includes/sparql.php';
-$demoResource = 'http://yago-knowledge.org/resource/Elvis_Presley';
-$demoLabel = 'Elvis Presley';
-$demoLang = Locale::getPrimaryLanguage($GLOBALS['locale']);
-$demoTaxonomy = getTaxonomyEdges($demoResource, $demoLang, false);
-$demoTypes = [];
-$typeResults = doSparqlQuery('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?t WHERE { <' . $demoResource . '> rdf:type ?t }');
-foreach ($typeResults['results']['bindings'] as $b) {
-    $demoTypes[] = $b['t']['value'];
-}
-if (!empty($demoTaxonomy['edges'])):
-?>
-<a href="<?php site_url(); ?>/resource/Elvis_Presley" id="home-dag" style="display: block; text-align: center;"></a>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    renderDag({
-        containerId: 'home-dag',
-        nodes: <?php echo json_encode($demoTaxonomy['nodes']); ?>,
-        edges: <?php echo json_encode($demoTaxonomy['edges']); ?>,
-        entityUri: <?php echo json_encode($demoResource); ?>,
-        entityLabel: <?php echo json_encode($demoLabel); ?>,
-        directTypes: <?php echo json_encode($demoTypes); ?>,
-        entityUrl: '/resource/Elvis_Presley',
-        arrowId: 'home-dag-arrow'
-    });
-});
-</script>
-<?php endif; ?>
+<a href="http://yago-knowledge.org/resource/Elvis_Presley"><img style="width: 90%" src="assets/images/taxonomy.png"></a>
 
 <h2>News</h2>
 
