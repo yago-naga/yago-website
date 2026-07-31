@@ -302,11 +302,9 @@ def main():
     print("done")  
     print("done")      
     print("\n*** Now run the following commands ***")
-    print(f"   mv {args.output} /data/excluded_facts.db")
-    print("    chown www-data /data/excluded_facts.db")
-    print("Then clear the cache and restart the server:")
-    print("    sudo rm -rf /etc/nginx/cache/*")
-    print("    sudo service nginx restart")
+    print(f"   mv {args.output} /home/yago/website/data/excluded_facts.db")
+    print("    chown www-data /home/yago/website/data/excluded_facts.db")
+    print("Then restart the server")
 
 if __name__ == '__main__':
     main()

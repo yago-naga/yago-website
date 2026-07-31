@@ -28,6 +28,4 @@ echo "  done"
 echo "done"
 
 echo ""
-echo "*** Now restart the server by running the following commands ***"
-echo "sudo rm -rf /etc/nginx/cache/*"
-echo "sudo service nginx restart"
+echo "*** Now restart the server ***"
