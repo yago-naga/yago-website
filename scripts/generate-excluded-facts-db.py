@@ -301,7 +301,12 @@ def main():
     db.close()
     print("done")  
     print("done")      
-    print(f"\n*** Stop the server, move the file {args.output} to /data/excluded_facts.db, and restart the server! ***")
+    print("\n*** Now run the following commands ***")
+    print(f"   mv {args.output} /data/excluded_facts.db")
+    print("    chown www-data /data/excluded_facts.db")
+    print("Then clear the cache and restart the server:")
+    print("    sudo rm -rf /etc/nginx/cache/*")
+    print("    sudo service nginx restart")
 
 if __name__ == '__main__':
     main()
