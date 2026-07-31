@@ -1,7 +1,7 @@
 <footer>
     <div class="affiliation-logos">
         <a href="https://www.mpi-inf.mpg.de/"><img src="<?php site_url(); ?>/assets/images/logo-mpi.png" alt="Max Planck Institute for Informatics"/></a>
-        <a href="https://www.telecom-paris.fr/"><img src="<?php site_url(); ?>/assets/images/logo-telecom-paris.png" alt="Télécom Paris"/></a>
+        <a href="https://www.telecom-paris.fr/"><img src="<?php site_url(); ?>/assets/images/logo-telecom-paris.svg" alt="Télécom Paris"/></a>
     </div>
     <p>
         &copy; <?php echo date('Y'); ?> - <?php site_name(); ?>.
