@@ -1,5 +1,8 @@
 ... We are currently reloading the database, this might take 1-2 days (2026-07-31)...
-
+<?php 
+return
+?>
+<
     <form id="my-search" class="row">
         <div class="col s5 input-field">
             <input name="search" id="my-search-text" type="text" autocomplete="off" data-autocomplete-url="<?php echo config('site_url'); ?>/api/autocomplete.php">
