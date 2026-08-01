@@ -224,7 +224,7 @@ def main():
     parser.add_argument(
         'data_dir',
         default='/data/qlever/',
-        help='Path to YAGO build output directory containing log files'
+        help='Path to YAGO build output directory containing log files (default: /data/qlever/)'
     )
     parser.add_argument(
         '--output', '-o',
@@ -302,9 +302,9 @@ def main():
     print("done")  
     print("done")      
     print("\n*** Now run the following commands ***")
-    print(f"   mv {args.output} /home/yago/website/data/excluded_facts.db")
-    print("    chown www-data /home/yago/website/data/excluded_facts.db")
-    print("Then restart the server")
+    print(f"    mv {args.output} /home/yago/website/data/excluded_facts.db")
+    print( "    chown www-data /home/yago/website/data/excluded_facts.db")
+    print( "Then restart the server")
 
 if __name__ == '__main__':
     main()
