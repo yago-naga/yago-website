@@ -6,7 +6,7 @@
 
 echo "Deploying YAGO on Qlever..."
 echo ""
-echo "  *** Do not run this with nohup, as it will fail! Run in a terminal window! ***"
+echo "  *** Do not run this with nohup, as it will fail! Run inside a screen! ***"
 echo ""
 echo "  Stopping Qlever..."
 docker stop qlever.server.yago
