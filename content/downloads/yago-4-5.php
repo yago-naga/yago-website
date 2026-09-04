@@ -54,19 +54,6 @@
 </div>
 
 <div class="code-container">
-    <h1>Code</h1>
-    <p>
-        If you are just interested in the data of YAGO, there is no need to use the present code repository. You can
-        download data of YAGO above.
-    </p>
-    <p>
-        The source code of YAGO is a Python project that ingests facts from Wikidata, and transforms them into YAGO. If you run the code yourself, you can add other sources or modify the generation of the knowledge base. The YAGO 4.5 source code is
-        available at <a rel="noreferrer noopener" target="_blank" href=https://github.com/yago-naga/yago-4.5>Github</a>. It
-        is licensed under the <a href=http://creativecommons.org/licenses/by/4.0/>Creative Commons Attribution License</a>.
-    </p>
-</div>
-
-<div class="code-container">
 <h1>Acknowledgements</h1>
 
 <p>YAGO can only be so large because it is based on other sources. We would like to thank</p>
