@@ -131,8 +131,6 @@ def load_id_mapping(data_dir):
                 wd_uri = expand_prefixed(parts[0], prefixes)
                 yago_uri = expand_prefixed(parts[2], prefixes)
                 mapping[wd_uri] = yago_uri
-                if wd_uri.endswith("Q676"):
-                    print("Found prose mapping",wd_uri,yago_uri)
     print(" done")                
     print(f"  INFO: Loaded {len(mapping):,} ID mappings")    
     return mapping
@@ -282,8 +280,6 @@ def main():
         for row in parse_log_file(log_file):
             # Map subject from Wikidata URI to YAGO URI if possible
             subject, predicate, obj, reason, stage_name = row
-            if subject.endswith("Q676"):
-                print("Found Prose:", subject, predicate, obj, reason, stage_name, id_mapping.get(subject, subject))
             subject = id_mapping.get(subject, subject)
             row = (subject, predicate, obj, reason, stage_name)
             batch.append(row)
