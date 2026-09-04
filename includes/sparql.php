@@ -191,6 +191,11 @@ function resolvePrefixedUri($prefixed)
 {
     global $PREFIXES;
 
+    // Full URIs are used for tombstones outside known namespaces.
+    if (preg_match('/^https?:\/\/[^\s<>"{}|\\\\^`]+$/u', $prefixed)) {
+        return $prefixed;
+    }
+
     $parts = explode(':', $prefixed, 2);
     if (count($parts) === 2 && isset($PREFIXES[$parts[0]])) {
         return $PREFIXES[$parts[0]] . $parts[1];

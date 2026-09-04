@@ -27,15 +27,14 @@ try {
     }
 
     $rows = getExcludedFacts($db, $subject);
-    $wikidataObjects = [];
+    $objectUris = [];
     foreach ($rows as $row) {
-        $isFullUri = strpos($row['object'], 'http://') === 0 || strpos($row['object'], 'https://') === 0;
-        $resolvedObj = $isFullUri ? $row['object'] : resolvePrefixedUri($row['object']);
-        if (isWikidataEntityUri($resolvedObj)) {
-            $wikidataObjects[] = $resolvedObj;
+        $resolvedObj = resolveExcludedFactObjectUri($row['object']);
+        if ($resolvedObj !== null) {
+            $objectUris[] = $resolvedObj;
         }
     }
-    $excludedEntities = findExcludedWikidataEntities($db, $wikidataObjects);
+    $excludedEntities = findExcludedEntities($db, $objectUris);
 
     $facts = [];
     foreach ($rows as $row) {
@@ -44,8 +43,8 @@ try {
         $row['predicate_display'] = $isFullPredUri ? uriToPrefixedName($row['predicate']) : htmlspecialchars($row['predicate']);
         $row['predicate_url'] = uriToUrl($resolvedPred);
         $isFullUri = strpos($row['object'], 'http://') === 0 || strpos($row['object'], 'https://') === 0;
-        $resolvedObj = $isFullUri ? $row['object'] : resolvePrefixedUri($row['object']);
-        $isPrefixed = !$isFullUri && strpos($row['object'], ':') !== false && $resolvedObj !== $row['object'];
+        $resolvedObj = resolveExcludedFactObjectUri($row['object']);
+        $isPrefixed = !$isFullUri && $resolvedObj !== null;
         if ($isFullUri) {
             $row['object_display'] = uriToPrefixedName($row['object']);
             $row['object_url'] = isset($excludedEntities[$resolvedObj])
