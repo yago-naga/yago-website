@@ -8,6 +8,7 @@
 
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/sparql.php';
+require_once __DIR__ . '/../includes/excluded_facts.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -18,19 +19,26 @@ if (!$subject) {
     exit;
 }
 
-$dbPath = __DIR__ . '/../data/excluded_facts.db';
-if (!file_exists($dbPath)) {
-    echo json_encode(['facts' => []]);
-    exit;
-}
-
 try {
-    $db = new PDO('sqlite:' . $dbPath, null, null, [PDO::SQLITE_ATTR_OPEN_FLAGS => PDO::SQLITE_OPEN_READONLY]);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $db->prepare('SELECT predicate, object, reason, stage FROM excluded_facts WHERE subject = ? LIMIT 100');
-    $stmt->execute([$subject]);
+    $db = openExcludedFactsDatabase();
+    if (!$db) {
+        echo json_encode(['facts' => []]);
+        exit;
+    }
+
+    $rows = getExcludedFacts($db, $subject);
+    $wikidataObjects = [];
+    foreach ($rows as $row) {
+        $isFullUri = strpos($row['object'], 'http://') === 0 || strpos($row['object'], 'https://') === 0;
+        $resolvedObj = $isFullUri ? $row['object'] : resolvePrefixedUri($row['object']);
+        if (isWikidataEntityUri($resolvedObj)) {
+            $wikidataObjects[] = $resolvedObj;
+        }
+    }
+    $excludedEntities = findExcludedWikidataEntities($db, $wikidataObjects);
+
     $facts = [];
-    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+    foreach ($rows as $row) {
         $isFullPredUri = strpos($row['predicate'], 'http://') === 0 || strpos($row['predicate'], 'https://') === 0;
         $resolvedPred = $isFullPredUri ? $row['predicate'] : resolvePrefixedUri($row['predicate']);
         $row['predicate_display'] = $isFullPredUri ? uriToPrefixedName($row['predicate']) : htmlspecialchars($row['predicate']);
@@ -40,10 +48,14 @@ try {
         $isPrefixed = !$isFullUri && strpos($row['object'], ':') !== false && $resolvedObj !== $row['object'];
         if ($isFullUri) {
             $row['object_display'] = uriToPrefixedName($row['object']);
-            $row['object_url'] = uriToUrl($row['object']);
+            $row['object_url'] = isset($excludedEntities[$resolvedObj])
+                ? excludedEntityResourceUrl($resolvedObj)
+                : uriToUrl($row['object']);
         } elseif ($isPrefixed) {
             $row['object_display'] = htmlspecialchars($row['object']);
-            $row['object_url'] = uriToUrl($resolvedObj);
+            $row['object_url'] = isset($excludedEntities[$resolvedObj])
+                ? excludedEntityResourceUrl($resolvedObj)
+                : uriToUrl($resolvedObj);
         } else {
             $row['object_display'] = htmlspecialchars($row['object']);
             $row['object_url'] = null;

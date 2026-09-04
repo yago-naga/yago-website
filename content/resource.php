@@ -1,8 +1,3 @@
-... We are currently reloading the database, this might take 1-2 days (2026-07-31)...
-<?php 
-return
-?>
-<
     <form id="my-search" class="row">
         <div class="col s5 input-field">
             <input name="search" id="my-search-text" type="text" autocomplete="off" data-autocomplete-url="<?php echo config('site_url'); ?>/api/autocomplete.php">
@@ -16,6 +11,7 @@ return
 <?php 
 
 require_once 'includes/sparql.php';
+require_once 'includes/excluded_facts.php';
 
 if (isset($_GET['search']) && $_GET['search']) {
 
@@ -118,6 +114,50 @@ if (!isset($_GET['resource']) || !$_GET['resource']) {
 }
 
 $resource = resolvePrefixedUri($_GET['resource']);
+
+// Wikidata subjects left unchanged in the exclusion database did not receive
+// a surviving YAGO identifier. Show their recorded reason without querying the
+// regular graph, where they intentionally have no facts or taxonomy.
+$excludedEntity = null;
+if (isWikidataEntityUri($resource)) {
+    try {
+        $excludedFactsDb = openExcludedFactsDatabase();
+        if ($excludedFactsDb) {
+            $excludedEntity = getExcludedEntity($excludedFactsDb, $resource);
+        }
+    } catch (PDOException $e) {
+        error_log('Excluded facts database error: ' . $e->getMessage());
+    }
+}
+
+if ($excludedEntity) {
+    $resourceName = uriToPrefixedName($resource);
+    $GLOBALS['page_title'] = strip_tags($resourceName);
+
+    print '<div class="card">';
+    print '<div class="card-content">';
+    print '<span class="card-title">' . $resourceName . '</span>';
+    print '<p>URI: <a href="' . htmlspecialchars($resource) . '">' . htmlspecialchars($resource) . '</a></p>';
+    print '<p>This entity is not included in the current YAGO release.</p>';
+    print '</div>';
+    print '<div class="card-action"><a href="' . htmlspecialchars($resource) . '">Wikidata</a></div>';
+    print '</div>';
+
+    print '<div class="card"><div class="card-content">';
+    print '<span class="card-title">Reason for exclusion</span>';
+    foreach ($excludedEntity['reasons'] as $entry) {
+        print '<p><strong>' . htmlspecialchars($entry['reason']) . '</strong></p>';
+        if ($entry['reason'] === 'No valid type') {
+            print '<p>YAGO could not assign this entity a type from the selected YAGO taxonomy.</p>';
+        }
+        if ($entry['stage']) {
+            print '<p style="color: #999; font-size: 0.9em;">Construction stage: ' . htmlspecialchars($entry['stage']) . '</p>';
+        }
+    }
+    print '</div></div>';
+    return;
+}
+
 $propertyValues = describeEntity($resource);
 
 if (!$propertyValues) {
