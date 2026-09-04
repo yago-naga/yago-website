@@ -280,6 +280,8 @@ def main():
         for row in parse_log_file(log_file):
             # Map subject from Wikidata URI to YAGO URI if possible
             subject, predicate, obj, reason, stage_name = row
+            if subject.endswith("Q676"):
+                print("Found Prose:", subject, predicate, obj, reason, stage_name, id_mapping.get(subject, subject))
             subject = id_mapping.get(subject, subject)
             row = (subject, predicate, obj, reason, stage_name)
             batch.append(row)
