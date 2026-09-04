@@ -131,6 +131,8 @@ def load_id_mapping(data_dir):
                 wd_uri = expand_prefixed(parts[0], prefixes)
                 yago_uri = expand_prefixed(parts[2], prefixes)
                 mapping[wd_uri] = yago_uri
+                if wd_uri.endswith("Q676"):
+                    print("Found prose mapping",wd_uri,yago_uri)
     print(" done")                
     print(f"  INFO: Loaded {len(mapping):,} ID mappings")    
     return mapping
