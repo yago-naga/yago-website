@@ -10,6 +10,14 @@
 <h2>News</h2>
 
 <div class="news_item">
+    <div class="news_time">September, 2026</div>
+    <div class="news_text">
+        Our <a href="https://suchanek.name/work/publications/iswc-2026-demo-yago.pdf">demo paper  about YAGO 4.6</a> got accepted at ISWC 2026!
+    </div>
+</div>
+
+
+<div class="news_item">
     <div class="news_time">July, 2026</div>
     <div class="news_text">
         <a href="https://yago-knowledge.org/downloads/yago-4-6">YAGO 4.6</a> is now out! It comes with a list of statements that have been removed from Wikidata! 

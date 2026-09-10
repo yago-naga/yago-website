@@ -12,11 +12,12 @@
     <p>YAGO is thus a simplified, cleaned, and “reasonable” version of Wikidata. It contains 39 million entities and 167 million facts. See above for <a href="/getting-started">getting started</a>!</p>
     <p>If you use YAGO for scientific purposes, please cite our paper:</p>
     <blockquote>
-	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://sites.google.com/view/mehwish-alam/home">Mehwish Alam</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://chenlihu.com/">Lihu Chen</a>, <a href="https://phparis.net/">Pierre-Henri Paris</a>, <a href="">Jules Soria</a>:
-			    		<br/>                        			    		
-		    			<b><a href="https://suchanek.name/work/publications/sigir-2024.pdf">YAGO 4.5: A Large and Clean Knowledge Base with a Rich Taxonomy</a></b>
-        <br/>
-		Resource paper at the <a href="https://sigir-2024.github.io/">Conference on Research and Development in Information Retrieval</a> (SIGIR), 2024
+	<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://fr.linkedin.com/in/nikola-dobricic">Nikola Dobricic</a>, <a href="https://marc.jeanmougin.fr/">Marc Jeanmougin</a>, <a href="https://www.linkedin.com/in/margherita-necchi-04777a214/">Margherita Necchi</a>:<br>
+
+	<a href="https://suchanek.name/work/publications/iswc-2026-demo-yago.pdf">YAGO 4.6: A Logically Consistent Subset of Wikidata</a>
+			    		<br/>Demo paper at the <a href="https://iswc2026.semanticweb.org/">International Semantic Web Conference</a>
+		    				(ISWC), 2026
+
     </blockquote>
 </div>
 
