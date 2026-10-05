@@ -10,6 +10,13 @@
 <h2>News</h2>
 
 <div class="news_item">
+<div class="news_time">October, 2026</div>
+<div class="news_text">
+YAGO is now available on <a href="https://zenodo.org/records/10949648">Zenodo</a>!
+</div>
+</div>
+
+<div class="news_item">
     <div class="news_time">September, 2026</div>
     <div class="news_text">
         Our <a href="https://suchanek.name/work/publications/iswc-2026-demo-yago.pdf">demo paper  about YAGO 4.6</a> got accepted at ISWC 2026!

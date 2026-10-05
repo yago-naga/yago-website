@@ -1,5 +1,16 @@
 <h1>Publications</h1>
 
+<h2>Yago 4.6</h2>
+
+<div class="publications-list">
+<p>
+<a href="https://suchanek.name">Fabian M. Suchanek</a>, <a href="https://perso.telecom-paristech.fr/bonald/Home_page.html">Thomas Bonald</a>, <a href="https://fr.linkedin.com/in/nikola-dobricic">Nikola Dobričić</a>, <a href="https://marc.jeanmougin.fr/">Marc Jeanmougin</a>, <a href="https://www.linkedin.com/in/margherita-necchi-04777a214/">Margherita Necchi</a>:
+<br/>
+<b><a href="https://suchanek.name/work/publications/iswc-2026-demo-yago.pdf">YAGO 4.6: A Logically Consistent Subset of Wikidata</a>”</b><br>
+Demo paper at the <a href="https://iswc2026.semanticweb.org/">International Semantic Web Conference</a> (ISWC), 2026
+</p>
+</div>
+
 <h2>Yago 4.5</h2>
 <div class="publications-list">
 	<p>
