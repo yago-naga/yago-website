@@ -9,10 +9,10 @@
 
 <div id="yasqe"></div>
 <div id="yasr"></div>
-<link rel="stylesheet" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/yasqe/2.11.22/yasqe.min.css"/>
-<link rel="stylesheet" href="//tools-static.wmflabs.org/cdnjs/ajax/libs/yasr/2.12.19/yasr.min.css"/>
-<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/yasr/2.12.19/yasr.bundled.min.js"></script>
-<script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/yasqe/2.11.22/yasqe.bundled.min.js"></script>
+<link rel="stylesheet" href="/assets/css/yasqe.min.css"/>
+<link rel="stylesheet" href="/assets/css/yasr.min.css"/>
+<script src="/js/yasr.bundled.min.js"></script>
+<script src="/js/yasqe.bundled.min.js"></script>
 <script>
     var yasqe = YASQE(document.getElementById("yasqe"), {
         sparql: {
